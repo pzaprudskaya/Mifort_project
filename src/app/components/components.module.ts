@@ -21,6 +21,8 @@ import {BarChartComponent} from "./bar-chart/bar-chart.component";
 import {RouterModule} from "@angular/router";
 import {MaterialModule} from '../material.module';
 import {CommonModule} from "@angular/common";
+import {NotificationComponent} from './notification/notification.component';
+
 
 
 @NgModule({
@@ -37,6 +39,7 @@ import {CommonModule} from "@angular/common";
     WorkloadComponent,
     CellComponent,
     BarChartComponent,
+    NotificationComponent,
   ],
   imports: [
     RouterModule,
@@ -64,6 +67,7 @@ import {CommonModule} from "@angular/common";
       showZeroOuterStroke: false,
       lazy: false
     }),
+
   ],
   exports: [
     ApproveRejectForgetComponent,
@@ -78,6 +82,7 @@ import {CommonModule} from "@angular/common";
     WorkloadComponent,
     CellComponent,
     BarChartComponent,
+    NotificationComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 

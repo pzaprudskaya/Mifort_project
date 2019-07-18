@@ -1,0 +1,43 @@
+<table>
+  <thead>
+    <tr>
+      <td *ngFor='let headerCell of headers'>{{headerCell}}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let tbodyRow of rows; let i = index'>
+      <div class="tbody__circle" [ngStyle]="{'background': color[i] }"></div>
+      <td>
+        <select class="table__select" [(ngModel)]='value' (change)='add($event)'>
+          <option [value] = "chooseProject" [selected] = "selected">{{tbodyRow[0]}}</option>
+          <option [value]='value' *ngFor='let option of projects; let i = index'>{{option.name}}</option>
+          <input type="text">
+        </select>
+      </td>
+      <td>
+        <input type="text" value={{tbodyRow[1]}}>
+      </td>
+      <td>
+        <input type="text" value={{tbodyRow[2]}} (change)='changeTabel(value)'>
+      </td>
+
+      <i class="material-icons" (click)='remove(tbodyRow)'>
+        clear
+      </i>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr *ngIf='rowSelectAdd'>
+      <div class="tfoot__circle"></div>
+      <td>
+        <select name="" id="" class="table__select" [(ngModel)]='option1' (ngModelChange)='customFunction()'>
+          <option [value]="'chooseProject'" [selected] = "selected">Choose project</option>
+          <option [value]="option.name" *ngFor='let option of projects; let i = index'>{{option.name}}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td >{{total}}</td>
+    </tr>
+  </tfoot>
+</table>

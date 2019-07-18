@@ -1,0 +1,22 @@
+<div class="export-container__head">
+  <h3>Export</h3>
+  <button class="export-container__button">Export in .csv</button>
+</div>
+<div class="export-container__date">
+  <div>
+    <p>From:</p>
+    <mat-form-field class="export-container_date_input">
+      <input matInput [matDatepicker]="picker1" placeholder="Angular" >
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="export-container__date_second">
+    <p>To:</p>
+    <mat-form-field class="export-container_date_input">
+      <input matInput [matDatepicker]="picker2" placeholder="Angular" >
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>

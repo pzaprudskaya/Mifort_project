@@ -1,0 +1,31 @@
+<div class="sign">
+    <div class="sign__image">
+    </div>
+    <div class="sign__form_container">
+      <h1 class="sign__form_name">Sign Up</h1>
+      <button class="sign__button_google" (click)="socialSignIn()" >
+        <img src="assets/image/new-google-favicon-512.png" alt="">
+        <p>Sign Up With Google</p>
+      </button>
+      <form [formGroup]="signForm" novalidate class="sign__form" (ngSubmit)="submit()">
+        <div class="alert-danger"
+          *ngIf="signForm.controls['fullNameControl'].invalid && signForm.controls['fullNameControl'].touched">
+          invalid name
+        </div>
+        <input type="text" placeholder="Full Name" formControlName='fullNameControl' class="sign__form_input">
+        <div class="alert-danger"
+          *ngIf="signForm.controls['emailControl'].invalid && signForm.controls['emailControl'].touched">
+          invalid email
+        </div>
+        <input type="email" placeholder="Email" formControlName='emailControl' class="sign__form_input">
+        <div class="alert-danger"
+          *ngIf="signForm.controls['passwordControl'].invalid && signForm.controls['passwordControl'].touched">
+          invalid password
+        </div>
+        <input type="password" placeholder="Password" formControlName='passwordControl' class="sign__form_input">
+        <button class='sign__form_button' type="submit" routerLink="/sign-in">Sign up</button>
+      </form>
+      <p class="sign__form_sign-in">Already have an account?<a routerLink="/sign-in">Sign In</a></p>
+    </div>
+  </div>
+

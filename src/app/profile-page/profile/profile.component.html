@@ -1,0 +1,36 @@
+<app-block>
+  <app-container>
+    <div class="box">
+      <div mat-card-avatar class = "box__photo"></div>
+      <div class="information">
+        <h1>Sierra Ferguson</h1>
+        <p>Role: Project Manager</p>
+        <p>Workload: 40 h/week</p>
+        <p class="gray">sierra.fergusson@gmail.com</p>
+        <p class="gray">+375298765432</p>
+      </div>
+      <div class="table_projects">
+        <h3>Projects: </h3>
+          <app-table></app-table>
+      </div>
+    </div>
+  </app-container>
+  <div class="box">
+    <app-container class="bar_chart">
+      <app-bar-chart ></app-bar-chart>
+    </app-container>
+  </div>
+  <app-container class="for_approval">
+      <div class="inline">
+        <app-table [tableData]="tableData" (onRemove)="removeItem($event)"></app-table>
+        <div class="donut_chart">
+          <app-donut-chart></app-donut-chart>
+        </div>
+      </div>
+  </app-container>
+  <div class="box">
+    <app-container class="notification_preferences">
+      <app-notification-preferences></app-notification-preferences>
+    </app-container>
+  </div>
+</app-block>

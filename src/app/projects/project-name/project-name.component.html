@@ -1,0 +1,29 @@
+<app-block>
+  <div class="progress__width">
+    <app-container >
+      <app-progress [projectName]="project_name" ></app-progress>
+    </app-container>
+  </div>
+  <div class="inline">
+    <div class="integrations">
+      <app-container >
+        <h3>Team:</h3>
+        <app-table></app-table>
+      </app-container>
+      <app-container>
+        <app-integrations></app-integrations>
+      </app-container>
+    </div>
+
+    <div class="bar-chart__width">
+      <app-container >
+        <app-bar-chart></app-bar-chart>
+      </app-container>
+      <app-container >
+        <app-export></app-export>
+      </app-container>
+    </div>
+
+  </div>
+
+</app-block>

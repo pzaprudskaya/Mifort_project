@@ -1,0 +1,13 @@
+<p *ngIf='totalState' class="progress-bar_currently" [ngStyle]="{'margin-left': expectedWidth+ '%', 'width': width}">Currently spent: {{expectedValue}}</p>
+<div class="progress-bar" [ngStyle]="{'border': '1px solid ' + color, 'height': height + 'px'}">
+  <div
+    class="progress-bar_real-value"
+    [ngStyle]="{'background': color, 'width': realWidth + '%', 'height': height + 'px'}">
+  </div>
+  <div
+    class="progress-bar_expected-value"
+    [ngStyle]="{'background': color, 'width': expectedWidth + '%', 'height': height + 'px', 'margin-top': -height + 'px'}">
+  </div>
+  <p class="total" *ngIf='totalState'>Total: {{total}}</p>
+</div>
+<p *ngIf='totalState' class="progress-bar_expected" [ngStyle]="{'margin-left': realWidth  + '%', 'width': width}">Expected: {{realValue}}</p>

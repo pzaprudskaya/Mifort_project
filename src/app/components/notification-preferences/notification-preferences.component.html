@@ -1,0 +1,11 @@
+<div class="notification">
+  <h3>Notification Preferences: </h3>
+  <button class="notification__button">Save</button>
+</div>
+<div *ngFor="let item of notifications">
+  <mat-checkbox> {{item.name}} </mat-checkbox>
+  <mat-select>
+    <mat-option value="option1">System</mat-option>
+  </mat-select>
+</div>
+

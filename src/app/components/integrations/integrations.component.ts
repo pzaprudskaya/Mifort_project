@@ -1,13 +1,15 @@
-import {AfterViewInit, Component, OnChanges, OnInit} from '@angular/core';
-import { fromEvent } from 'rxjs';
+import {Component,  OnInit, Output, ViewChild} from '@angular/core';
+import {NotificationComponent} from '../notification/notification.component';
 
 @Component({
   selector: 'app-integrations',
   templateUrl: './integrations.component.html',
   styleUrls: ['./integrations.component.sass']
 })
-export class IntegrationsComponent implements OnInit, AfterViewInit{
-  public items__add = [
+export class IntegrationsComponent implements OnInit {
+
+  @ViewChild('notification') notification: NotificationComponent;
+  public itemsAdd = [
     {
       id: 0,
       name: 'AtlassianJira',
@@ -56,43 +58,40 @@ export class IntegrationsComponent implements OnInit, AfterViewInit{
     },
 
   ];
-  toggleFlag: boolean = true;
-  toggleFlag__: boolean = true;
-  public items__connected = [];
+  toggleFlag: boolean;
+  toggleFlagTwo: boolean;
+  public itemsConnected = [];
 
-  public message: string = ''
 
   updown__() {
-    this.toggleFlag__ = !this.toggleFlag__;
+    this.toggleFlagTwo = !this.toggleFlagTwo;
   }
+
   updown() {
     this.toggleFlag = !this.toggleFlag;
   }
 
 
-  add(item){
-    this.items__connected.push(item);
-    this.items__add.forEach((item__add, i) => {
-      if (item__add.id === item.id) {
-        this.items__add.splice(i, 1)
+  add(item) {
+    this.itemsConnected.push(item);
+    this.itemsAdd.forEach((itemAdd, i) => {
+      if (itemAdd.id === item.id) {
+        this.itemsAdd.splice(i, 1);
       }
-    })
+    });
   }
+
   constructor() {
 
   }
 
   ngOnInit() {
-
+    this.toggleFlag = true;
+    this.toggleFlagTwo = true;
   }
-  ngAfterViewInit(): void {
-    let buttons = document.getElementsByClassName('polina');
-    //let text = <HTMLElement> document.querySelector('.notifications');
-    fromEvent(buttons, 'click').subscribe(e => {
-      console.log("Click");
-      //text.innerText = "New integration added.";
-      this.message = "New integration added.";
-    })
+
+  function() {
+    this.notification.showNotification('success', 'New integration added.');
   }
 
 }

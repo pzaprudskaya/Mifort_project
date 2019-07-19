@@ -1,7 +1,7 @@
-<div class="inline" *ngIf="toggleFlag__; else elseBlock__">
+<div class="inline" *ngIf="toggleFlagTwo; else elseBlock__">
 
   <h3>Connected integrations: </h3>
-  <div class="logo settings" *ngFor="let item of items__connected">
+  <div class="logo settings" *ngFor="let item of itemsConnected">
     <div class="icon" [ngStyle]="{'background': item.background}">
       <i class="material-icons">settings</i>
     </div>
@@ -12,7 +12,7 @@
 <ng-template #elseBlock__>
   <div class="inline">
     <h3>Connected integrations: </h3>
-    <div class="logo settings" *ngFor="let item of items__connected">
+    <div class="logo settings" *ngFor="let item of itemsConnected">
       <div class="icon" [ngStyle]="{'background': item.background}" routerLink="/{{item.route}}">
         <i class="material-icons">settings</i>
       </div>
@@ -32,9 +32,9 @@
           <i class="material-icons">keyboard_arrow_up</i>
         </div>
         <div class="integrations__add" >
-          <div class="logo" *ngFor="let item of items__add">
-            <div class="icon" [ngStyle]="{'background': item.background}" (click)="add(item)">
-              <i class="material-icons">add</i>
+          <div class="logo" *ngFor="let item of itemsAdd">
+            <div  class="icon" [ngStyle]="{'background': item.background}" (click)="add(item)">
+              <i (click)="function()" class="material-icons">add</i>
             </div>
           </div>
         </div>
@@ -43,3 +43,5 @@
 
     </ng-template>
 </ng-template>
+
+<app-notification #notification></app-notification>

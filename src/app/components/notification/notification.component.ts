@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NotifierService} from "angular-notifier";
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-notification',
@@ -7,19 +7,20 @@ import {NotifierService} from "angular-notifier";
   styleUrls: ['./notification.component.sass']
 })
 export class NotificationComponent implements OnInit {
-  @ViewChild('customTemplate') customNotificationTmpl;
 
-  ngOnInit(){}
-
-
-  public constructor(private notifier: NotifierService) {
+  public constructor(notifier: NotifierService) {
     this.notifier = notifier;
   }
 
-  public showNotification(type: string, message: string): void {
-    debugger;
-    this.notifier.notify(type, message);
+  @ViewChild('customTemplate') customNotificationTmpl;
 
+  private notifier: NotifierService;
+
+  ngOnInit() {
+  }
+
+  public showNotification(type: string, message: string): void {
+    this.notifier.notify(type, message);
   }
 
   public hideOldestNotification(): void {
@@ -49,15 +50,12 @@ export class NotificationComponent implements OnInit {
 
 
   public showSpecificNotification(type: string, message: string, id: string): void {
-    this.notifier.show({ id, message, type });
+    this.notifier.show({id, message, type});
   }
 
 
   public hideSpecificNotification(id: string): void {
     this.notifier.hide(id);
   }
-
-
-
 
 }

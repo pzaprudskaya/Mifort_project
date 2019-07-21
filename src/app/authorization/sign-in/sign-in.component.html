@@ -9,10 +9,10 @@
       </button>
       <form [formGroup]="signForm" novalidate class="sign__form" (ngSubmit)="submit()">
           <div class="alert-danger"
-            *ngIf="signForm.controls['fullNameControl'].invalid && signForm.controls['fullNameControl'].touched">
-            invalid name
+          *ngIf="signForm.controls['emailControl'].invalid && signForm.controls['emailControl'].touched">
+          invalid email
           </div>
-          <input type="text" placeholder="Full Name" formControlName='fullNameControl' class="sign__form_input">
+         <input type="email" placeholder="Email" formControlName='emailControl' class="sign__form_input">
           <div class="alert-danger"
             *ngIf="signForm.controls['passwordControl'].invalid && signForm.controls['passwordControl'].touched">
             invalid password

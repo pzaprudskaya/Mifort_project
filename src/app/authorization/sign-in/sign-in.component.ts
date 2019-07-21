@@ -10,7 +10,9 @@ export class SignInComponent implements OnInit {
   signForm: FormGroup;
   ngOnInit() {
     this.signForm = new FormGroup({
-      "fullNameControl": new FormControl('', [Validators.required, Validators.minLength(2)]),
+      "emailControl": new FormControl('', [Validators.required, Validators.minLength(5),
+        Validators.pattern('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$')
+      ]),
       "passwordControl": new FormControl('', [Validators.required, Validators.minLength(6)
       ]),
     });

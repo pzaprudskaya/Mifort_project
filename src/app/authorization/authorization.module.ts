@@ -5,6 +5,7 @@ import {AuthorizationRoutingModule} from './authorization-routing.module';
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {SetNewPasswordComponent} from "./set-new-password/set-new-password.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
+import {LinkExpiredComponent} from "./link-expired/link-expired.component";
 import {RestorePasswordComponent} from "./restore-password/restore-password.component";
 import {SocialLoginModule, AuthServiceConfig,} from "angular5-social-login";
 import {getAuthServiceConfigs} from '../socialloginConfig';
@@ -18,6 +19,7 @@ import { ReactiveFormsModule  } from "@angular/forms";
     SetNewPasswordComponent,
     SignInComponent,
     RestorePasswordComponent,
+    LinkExpiredComponent,
 
   ],
   imports: [

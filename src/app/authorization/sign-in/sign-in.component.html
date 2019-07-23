@@ -13,12 +13,15 @@
           invalid email
           </div>
          <input type="email" placeholder="Email" formControlName='emailControl' class="sign__form_input">
+           <a routerLink="/restore-password" class="sign__form_forgot-password">Forgot password?</a>
           <div class="alert-danger"
-            *ngIf="signForm.controls['passwordControl'].invalid && signForm.controls['passwordControl'].touched">
-            invalid password
-          </div>
-          <a routerLink="/restore-password" class="sign__form_forgot-password">Forgot password?</a>
-          <input type="password" placeholder="Password" formControlName='passwordControl' class="sign__form_input">
+          *ngIf="signForm.controls['passwordControl'].invalid && signForm.controls['passwordControl'].touched">
+          invalid password
+        </div>
+        <div class="show-password">
+          <input [type]="type" id="password" placeholder="Password" formControlName='passwordControl' class="sign__form_input">
+           <input type="button" value="" class="button-show" (click) = "showPassword()">
+        </div>
           <button class='sign__form_button' type="submit" routerLink="/">Sign In</button>
         </form>
       <p class="sign__form_sign-in">I don’t have account <a routerLink="/sign-up">Sign Up</a></p>

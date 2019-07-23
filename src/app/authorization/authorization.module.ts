@@ -11,6 +11,8 @@ import {SocialLoginModule, AuthServiceConfig,} from "angular5-social-login";
 import {getAuthServiceConfigs} from '../socialloginConfig';
 import {FormsModule} from "@angular/forms";
 import { ReactiveFormsModule  } from "@angular/forms";
+import {MaterialModule} from "../material.module";
+import {MatInputModule} from '@angular/material';
 
 
 @NgModule({
@@ -29,7 +31,7 @@ import { ReactiveFormsModule  } from "@angular/forms";
     SocialLoginModule,
     FormsModule,
     ReactiveFormsModule,
-
+    MaterialModule,
   ],
   providers: [
     {

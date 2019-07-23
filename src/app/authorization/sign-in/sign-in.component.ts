@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MatTableDataSource} from '@angular/material';
+import {MatInputModule} from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService, GoogleLoginProvider } from 'angular5-social-login';
 @Component({
@@ -8,6 +10,7 @@ import { AuthService, GoogleLoginProvider } from 'angular5-social-login';
 })
 export class SignInComponent implements OnInit {
   signForm: FormGroup;
+  type: string = "password"
   ngOnInit() {
     this.signForm = new FormGroup({
       "emailControl": new FormControl('', [Validators.required, Validators.minLength(5),
@@ -26,5 +29,12 @@ export class SignInComponent implements OnInit {
         console.log(socialPlatform + " sign in data : " , userData);
       }
     );
+  }
+  showPassword(){
+    if(this.type == "password") {
+      this.type = "text";
+    } else {
+      this.type = "password"
+    }
   }
 }

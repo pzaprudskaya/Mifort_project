@@ -24,7 +24,7 @@
         </div>
         <div class="show-password">
           <input [type]="type" id="password" placeholder="Password" formControlName='passwordControl' class="sign__form_input">
-           <input type="button" value="" class="button-show" (click) = "showPassword()">
+           <input type="button" [ngClass]="{'no-visibility':flag}" value="" class="button-show" (click) = "showPassword()" >
         </div>
         <button class='sign__form_button' type="submit" routerLink="/sign-in">Sign up</button>
       </form>

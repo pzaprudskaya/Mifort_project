@@ -32,9 +32,11 @@ export class SignInComponent implements OnInit {
   }
   showPassword(){
     if(this.type == "password") {
-      this.type = "text";
+      this.type = "text"
+      this.flag = true
     } else {
       this.type = "password"
+      this.flag = false
     }
   }
 }

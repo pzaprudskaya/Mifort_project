@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule } from '@angular/router';
-import {SignUpComponent} from "./sign-up/sign-up.component";
-import {SetNewPasswordComponent} from "./set-new-password/set-new-password.component";
-import {SignInComponent} from "./sign-in/sign-in.component";
-import {RestorePasswordComponent} from "./restore-password/restore-password.component";
+import {SignUpComponent} from './sign-up/sign-up.component';
+import {SetNewPasswordComponent} from './set-new-password/set-new-password.component';
+import {SignInComponent} from './sign-in/sign-in.component';
+import {RestorePasswordComponent} from './restore-password/restore-password.component';
 
 
 

@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Chart } from 'chart.js';
 
-
-import { items } from './donutChartDate';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -12,31 +10,34 @@ import {Router} from "@angular/router";
   styleUrls: ['./donut-chart.component.sass']
 })
 export class DonutChartComponent implements OnInit {
-
+  @Input() dataDonutChart: any[];
   DoughnutChart;
   realResult: number;
   expectedResult: number;
-  h: string = '';
+  h = '';
 
-  constructor(public router: Router){}
-  ngOnInit(){
-    let data = {
+  constructor(public router: Router) {}
+  ngOnInit() {
+    const data = {
       labels: [],
       datasets: [{
         data: [],
         backgroundColor: [],
         borderWidth: 0,
-    }]
-      }
-      for(let i = 0; i < items.length; i++){
-        data.labels.push(items[i].name);
-        data.datasets[0].backgroundColor.push(items[i].color);
-        data.datasets[0].data.push(items[i].value);
-      }
+      }]
+    };
+
+    this.dataDonutChart.forEach((item) => {
+      data.labels.push(item.name);
+      data.datasets[0].backgroundColor.push(item.color);
+      data.datasets[0].data.push(item.actual);
+    });
+
+
     Chart.defaults.global.legend.labels.usePointStyle = true;
     this.DoughnutChart = new Chart('doughnutChart', {
       type: 'doughnut',
-      data: data,
+      data,
       options: {
         events: ['click'],
         onClick: this.routingFunction.bind(this),
@@ -51,9 +52,9 @@ export class DonutChartComponent implements OnInit {
 
       }
     });
-    let originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
+  /*  const originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
     Chart.helpers.extend(Chart.controllers.doughnut.prototype, {
-      draw: function() {
+      draw() {
         originalDoughnutDraw.apply(this, arguments);
 
         const chart = this.chart;
@@ -61,27 +62,28 @@ export class DonutChartComponent implements OnInit {
             height = chart.height,
             ctx = chart.ctx;
 
-        var fontSize = (height / 114).toFixed(2);
-        ctx.font = fontSize + "em sans-serif";
+        const fontSize = (height / 114).toFixed(2);
+        ctx.font = fontSize + 'em sans-serif';
         this.realResult = 10;
         this.expectedResult = 20;
         this.h = '';
-        let sum =  this.realResult + '/' + this.expectedResult + this.h;
+        const sum =  this.realResult + '/' + this.expectedResult + this.h;
         let text = sum, textX, textY;
         textX = height / 2;
         textY = height / 2;
         ctx.fillText(text, textX, textY);
       }
     });
+    */
   }
   routingFunction(evt) {
-    var activePoints = this.DoughnutChart.getElementsAtEvent(evt);
+    const activePoints = this.DoughnutChart.getElementsAtEvent(evt);
     if (activePoints[0]) {
-      var chartData = activePoints[0]['_chart'].config.data;
-      var idx = activePoints[0]['_index'];
-      var label = chartData.labels[idx];
+      const chartData = activePoints[0]._chart.config.data;
+      const idx = activePoints[0]._index;
+      const label = chartData.labels[idx];
 
-      this.router.navigate(["/projects/" + label]);
+      this.router.navigate(['/projects/' + label]);
 
     }
   }

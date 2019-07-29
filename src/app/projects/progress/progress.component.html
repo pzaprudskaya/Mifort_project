@@ -1,7 +1,7 @@
 <div class="progress">
   <div class="progress__section progress-section__first">
-    <input placeholder='{{projectName}}' class="progress__input progress__platform_input">
-    <div class="circle circle__main" (click)="changeCondition()" [ngStyle]="{ 'background': activeColor }"></div>
+    <input value='{{name}}' class="progress__input progress__platform_input">
+    <div class="circle circle__main" (click)="changeCondition()" [ngStyle]="{ 'background': color }"></div>
     <ng-template [ngIf]="condition">
       <div class="progress__color-picker">
         <h3>Pick a color:</h3>
@@ -10,44 +10,35 @@
         </div>
       </div>
     </ng-template>
-    <p>Code: #</p>
-    <input class="progress__input progress__code_input">
+    <p>Code:
+    <input value="{{code}}" class="progress__input progress__code_input"> </p>
     <button class="progress-section__button">IN PROGRESS</button>
     <div class="progress-section__first_buttons">
       <button class="progress-section__first_buttons_button">Pause<i class="material-icons material-icons__pause">pause</i></button>
-      <button class="progresgits-section__first_buttons_button">Archive</button>
+      <button class="progress-section__first_buttons_button">Archive<i class="material-icons material-icons__stop">stop</i></button>
       <button class="progress-section__first_buttons_button">Save</button>
     </div>
   </div>
   <div class="progress__section progress-section__second">
-    <p>Project type:</p>
-    <mat-form-field>
-      <mat-label></mat-label>
-      <mat-select [(value)]="selected">
-        <mat-option>None</mat-option>
-        <mat-option value="option1">Option 1</mat-option>
-        <mat-option value="option2">Option 2</mat-option>
-        <mat-option value="option3">Option 3</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <p>Project type:  
+      <input value="{{projectType}}" class="progress__input progress__project_type"></p>
+
     <div class="progress-bar">
-      <app-progress-bar></app-progress-bar>
+      <app-progress-bar [progress]="progressBar"
+      ></app-progress-bar>
     </div>
   </div>
   <div class="progress__section">
     <div class="progress__section_date">
       <p>Start date:</p>
-      <input placeholder="23 Jan, 2018" class="progress__input_type_date">
+      <input value="{{startDate}}" class="progress__input progress__input_type_date">
       <i class="material-icons">
         today
       </i>
     </div>
     <div class="progress__section_date">
-      <p>End date:</p>
-      <input placeholder="23 Jan, 2020" class="progress__input_type_date">
-      <i class="material-icons progress__section_date_start_icon">
-        today
-      </i>
+      <p>Men/hours</p>
+      <input value="{{endDate}}" class="progress__input progress__input_type_date hours">
     </div>
   </div>
 </div>

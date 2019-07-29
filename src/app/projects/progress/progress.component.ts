@@ -7,12 +7,16 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./progress.component.sass']
 })
 export class ProgressComponent implements OnInit {
-
-  @Input() projectName: string = '';
-  selected = 'option2';
-  condition: boolean = false;
-
-  activeColor: string = '#99FCC1';
+  @Input() name: string;
+  @Input() color: string = '#FF0000';
+  @Input() code: string;
+  @Input() status: string;
+  @Input() projectType: string;
+  @Input() startDate: string;
+  @Input() endDate: string;
+  @Input() progressBar: any;
+  @Input() projectName = '';
+  condition = false;
 
   colors: string[] = ['#FF0000', '#FF9900', '#FFD600', '#00C537', '#109CF1', '#0047FF', '#9E00FF',
   '#000000', '#FF007A', '#AD5300', '#FFF500', 'rgba(0, 224, 22, 0.6)', '#2CD9FF', '#5438FF',
@@ -23,10 +27,10 @@ export class ProgressComponent implements OnInit {
   constructor() {}
   ngOnInit() {
   }
-  changeCondition(){
+  changeCondition() {
     this.condition === true ? this.condition = false : this.condition = true;
   }
-  changeColor(item){
-    this.activeColor = item;
+  changeColor(item) {
+    this.color = item;
   }
 }

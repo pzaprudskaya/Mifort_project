@@ -1,36 +1,55 @@
-import {Component, Input} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import {Component, Input, OnInit} from '@angular/core';
 import { EmployeesTableService } from './employees-table.service';
-export interface Employee {
-  photo: string;
-  name: string;
-  role: string;
-  planned_actual: string;
-  pending_approval: string;
-}
+import {Employees} from './items.model';
+import {Subject} from 'rxjs';
+
+
 @Component({
   selector: 'app-employees-page',
   templateUrl: './employees-page.component.html',
   styleUrls: ['./employees-page.component.sass']
 })
-export class  EmployeesPageComponent {
-  @Input() employee_name: string = '';
-  employees = this.employeesTableService.employees;
-  nameChange(name) {
-    this.employee_name = name;
+export class  EmployeesPageComponent implements OnInit {
+  @Input() employeeName: string;
+
+  employees: Employees[];
+  searchTerm$ = new Subject<string>();
+  displayedColumns: string[];
+
+
+  constructor(private employeesTableService: EmployeesTableService) {
+    this.employeesTableService.search(this.searchTerm$)
+      .subscribe((employees: any) => {
+         this.employees = employees;
+
+      });
   }
-  condition: boolean = false;
-  displayedColumns: string[] = ['photo', 'name', 'role', 'planned_actual', 'pending_approval'];
-  dataSource = new MatTableDataSource(this.employees);
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-  constructor(private employeesTableService: EmployeesTableService){}
-  ngOnInit(){
+
+  ngOnInit() {
+    this.displayedColumns = ['photo', 'name', 'role', 'planned_actual', 'pending_approval'];
+    this.employeesTableService.getAll().subscribe(
+      employees => {
+        this.employees = employees;
+      }
+    );
 
   }
-  remove(){
-    console.log('delete');
-    delete this.employees;
+
+  checkValue(max: number, value: number): string {
+    if (value / max * 100 < 60) {
+      return 'red';
+    } else if (value / max * 100 < 85) {
+      return 'orange';
+    } else {
+      return 'green';
+    }
   }
+  filter(value) {
+    this.employeesTableService.filter(value)
+      .subscribe((employees: any) => {
+        this.employees = employees;
+
+      });
+  }
+
 }

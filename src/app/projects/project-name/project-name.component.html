@@ -1,14 +1,29 @@
 <app-block>
   <div class="progress__width">
     <app-container >
-      <app-progress [projectName]="project_name" ></app-progress>
+      <app-progress
+        [name]="project.name"
+        [code] ="project.code"
+        [color] = "project.color"
+        [status]="project.status"
+        [projectType]="project.projectType"
+        [startDate]="project.startDate"
+        [endDate]="project.endDate"
+        [progressBar]="project.progressBar"
+      ></app-progress>
     </app-container>
   </div>
   <div class="inline">
     <div class="integrations">
       <app-container >
         <h3>Team:</h3>
-        <app-table></app-table>
+        <app-table
+          [editTable] = false
+          [headShow] = false
+          [timelogs] = false
+          [data] = 'employeeProjects'
+
+        ></app-table>
       </app-container>
       <app-container>
         <app-integrations></app-integrations>
@@ -17,7 +32,9 @@
 
     <div class="bar-chart__width">
       <app-container >
-        <app-bar-chart></app-bar-chart>
+        <app-bar-chart
+          [bar] = 'project.yearsWorkload'
+        ></app-bar-chart>
       </app-container>
       <app-container >
         <app-export></app-export>

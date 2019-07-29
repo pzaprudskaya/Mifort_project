@@ -6,15 +6,15 @@ import { CreateProjectComponent } from './projects/create-project/create-project
 import { PageComponent } from './core/page/page.component';
 import { EmployeesPageComponent } from './employee/employees-page/employees-page.component';
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
-import {CompanySettingsComponent} from "./company-setting/company-settings/company-settings.component";
-import {ProjectComponent} from "./projects/project/project.component";
-import {ProfileComponent} from "./profile-page/profile/profile.component";
-import {TimelogComponent} from "./timelogs/timelog/timelog.component";
-import {ProjectNameComponent} from "./projects/project-name/project-name.component";
+import {CompanySettingsComponent} from './company-setting/company-settings/company-settings.component';
+import {ProjectComponent} from './projects/project/project.component';
+import {ProfileComponent} from './profile-page/profile/profile.component';
+import {TimelogComponent} from './timelogs/timelog/timelog.component';
+import {ProjectNameComponent} from './projects/project-name/project-name.component';
 
 
 
-import {CompanyIntegrationComponent} from "./company-setting/company-integration/company-integration.component";
+import {CompanyIntegrationComponent} from './company-setting/company-integration/company-integration.component';
 
 
 const itemMenu: Routes = [

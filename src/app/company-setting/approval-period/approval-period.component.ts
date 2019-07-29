@@ -7,14 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApprovalPeriodComponent implements OnInit {
 
-  flag: boolean = false;
+  flag: boolean;
 
   ngOnInit() {
+    this.flag = false;
   }
-  stateFalse(){
+  stateFalse() {
     this.flag = true;
   }
-  stateTrue(){
+  stateTrue() {
     this.flag = false;
   }
 }

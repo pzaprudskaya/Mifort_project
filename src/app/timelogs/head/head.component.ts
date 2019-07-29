@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-head',
@@ -6,17 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./head.component.sass']
 })
 export class HeadComponent implements OnInit {
-  timeNow: string = '';
-  toggleFlag: boolean = true;
-  time(){
-    this.toggleFlag = false;
-    let now = new Date();
-    this.timeNow = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-  }
+  timeNow: string;
+  toggleFlag: boolean;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.timeNow = '';
+    this.toggleFlag = true;
   }
 
+  time() {
+    this.toggleFlag = false;
+    const now = new Date();
+    this.timeNow = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+  }
 }

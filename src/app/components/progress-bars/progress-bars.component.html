@@ -1,0 +1,10 @@
+<div class="planned_actual">
+<p [ngStyle]="{'margin-left': actual/planned * 100 - 7 + '%'}">{{actual}}h</p>
+<p [ngStyle]="{'margin-left': 'auto'}">{{planned}}h</p>
+</div>
+
+<div class="progress-bar" [ngStyle]="{'border': '1px solid ' + color,  'height': 20 + 'px'}">
+  <div [ngStyle]="{'background': color, 'width':  actual/planned * 100 + '%', 'height': 20 + 'px'}"></div>
+</div>
+<br>
+

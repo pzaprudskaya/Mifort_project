@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-add-employee-pop-up',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddEmployeePopUpComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<AddEmployeePopUpComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
   }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }
+
+

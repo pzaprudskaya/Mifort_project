@@ -4,14 +4,12 @@
 </div>
 <mat-card>
   <div class="profile-inf">
-    <div mat-card-avatar class="profile-photo"></div>
+    <div mat-card-avatar class="profile-photo" [ngStyle]="{'background-image': 'url(' + photo + ')'}"></div>
     <div>
-      <mat-card-title>Jon Snow</mat-card-title>
-      <mat-select [(value)]="selected">
-        <mat-option value="option1">Hockage</mat-option>
-        <mat-option value="option2">Jonin</mat-option>
-        <mat-option value="option3">Lalka</mat-option>
-      </mat-select>
+      <mat-card-title >{{name}}</mat-card-title>
+      <p>{{value}}</p>
+
+
     </div>
   </div>
 </mat-card>

@@ -1,20 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import { AuthorizationModule } from "./authorization/authorization.module";
-import { CompanySettingModule} from "./company-setting/company-setting.module";
-import { ComponentsModule} from "./components/components.module";
-import {MaterialModule} from "./material.module";
-import {EmployeeModule} from "./employee/employee.module";
-import {TimelogsModule} from "./timelogs/timelogs.module";
-import {ProjectsModule} from "./projects/projects.module";
+import { AuthorizationModule } from './authorization/authorization.module';
+import { CompanySettingModule} from './company-setting/company-setting.module';
+import { ComponentsModule} from './components/components.module';
+import {MaterialModule} from './material.module';
+import {EmployeeModule} from './employee/employee.module';
+import {TimelogsModule} from './timelogs/timelogs.module';
+import {ProjectsModule} from './projects/projects.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
-import {ProfilePageModule} from "./profile-page/profile-page.module";
-import {NotifierModule} from "angular-notifier";
-
+import {ProfilePageModule} from './profile-page/profile-page.module';
+import {HttpClientModule} from '@angular/common/http';
+import {NotifierModule} from 'angular-notifier';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import {NotifierModule} from "angular-notifier";
     TimelogsModule,
     ProjectsModule,
     ProfilePageModule,
+    HttpClientModule,
 
     BrowserModule,
     AppRoutingModule,

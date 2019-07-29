@@ -9,7 +9,7 @@ export class SetNewPasswordComponent implements OnInit {
   signForm: FormGroup;
   ngOnInit() {
     this.signForm = new FormGroup({
-      "passwordControl": new FormControl('', [Validators.required, Validators.minLength(6)
+      passwordControl: new FormControl('', [Validators.required, Validators.minLength(6)
       ]),
     });
   }

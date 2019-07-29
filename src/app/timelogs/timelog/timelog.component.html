@@ -2,10 +2,14 @@
   <app-head class="table"></app-head>
   <div class="inline">
     <app-container class="table">
-      <app-table></app-table>
+      <app-table
+        [editTable] = false
+        [headShow] = true
+        [timelogs] = true
+        [data] = 'logs'></app-table>
     </app-container>
     <app-container class="chart">
-      <app-donut-chart></app-donut-chart>
+
     </app-container>
   </div>
 </app-block>

@@ -2,14 +2,14 @@
   <div   *ngFor="let element of value" >
     <div class = "inline" (click)="changeCircleActivity(element)">
       <circle-progress
-        [percent]="(element.value * 100) / element.max"
-        [outerStrokeColor]="checkValue(element.max, element.value)">
+        [percent]="(element.actual * 100) / element.planned"
+        [outerStrokeColor]="checkValue(element.planned, element.actual)">
       </circle-progress>
       <div class = "inline">
         <div *ngIf="element.active" class="information_pending_approval">
           <div class="text_period">
-            <p>{{ element.datePeriod }}</p>
-            <p>{{ element.value }} / {{ element.max }}</p>
+            <p>{{ element.from }} - {{element.to}}</p>
+            <p>{{ element.actual }} / {{ element.planned }}</p>
           </div>
         </div>
         <div class = "inline" *ngIf="element.active">

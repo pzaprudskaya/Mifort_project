@@ -1,43 +1,208 @@
-<table>
-  <thead>
+<table *ngIf = "(editTable === true)">
+    <thead *ngIf = "headShow">
     <tr>
-      <td *ngFor='let headerCell of headers'>{{headerCell}}</td>
+      <td  *ngFor='let cell of tableHead'>
+        <p>{{cell}}</p>
+      </td>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor='let tbodyRow of rows; let i = index'>
-      <div class="tbody__circle" [ngStyle]="{'background': color[i] }"></div>
-      <td>
-        <select class="table__select" [(ngModel)]='value' (change)='add($event)'>
-          <option [value] = "chooseProject" [selected] = "selected">{{tbodyRow[0]}}</option>
-          <option [value]='value' *ngFor='let option of projects; let i = index'>{{option.name}}</option>
-          <input type="text">
-        </select>
-      </td>
-      <td>
-        <input type="text" value={{tbodyRow[1]}}>
-      </td>
-      <td>
-        <input type="text" value={{tbodyRow[2]}} (change)='changeTabel(value)'>
-      </td>
 
-      <i class="material-icons" (click)='remove(tbodyRow)'>
-        clear
-      </i>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr *ngIf='rowSelectAdd'>
-      <div class="tfoot__circle"></div>
-      <td>
-        <select name="" id="" class="table__select" [(ngModel)]='option1' (ngModelChange)='customFunction()'>
-          <option [value]="'chooseProject'" [selected] = "selected">Choose project</option>
-          <option [value]="option.name" *ngFor='let option of projects; let i = index'>{{option.name}}</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td >{{total}}</td>
-    </tr>
-  </tfoot>
+    </thead>
+    <tbody *ngIf="(timelogs === true) && (count === 4)">
+      <tr *ngFor='let project of data' >
+        <td *ngFor='let cell of project;  let i=index '>
+          <div *ngIf="(i === 0)" class="tbody__circle" [ngStyle]="{'background': cell }"></div>
+
+          <select *ngIf="(i === 1)" class="table__select" [(ngModel)]='value'>
+            <option [value] = "'chooseProject'" [selected] = "selected">{{cell}}</option>
+            <option [value]='value' *ngFor='let option of projects; let i = index'>{{option[1]}}</option>
+          </select>
+
+          <input *ngIf="(count === 2)" type="text" value='{{cell}}'>
+          <input *ngIf="(count === 3)" type="text" value='{{cell}}'>
+        <td>
+        <i class="material-icons">clear</i>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="(timelogs === true)  && (count === 9)">
+      <tr *ngFor='let project of data'>
+        <td *ngFor='let cell of project;  let i=index '>
+          <select *ngIf="(i === 0)" class="table__select" [(ngModel)]='value'>
+            <option [value] = "'chooseProject'" [selected] = "selected">
+              <div class="tbody__circle" [ngStyle]="{'background': cell }"></div>
+            </option>
+            <option [value]='value' *ngFor='let option of projects; let i = index'>
+              <div class="tbody__circle" [ngStyle]="{'background': option[0] }"></div>
+
+            </option>
+          </select>
+
+          <input *ngIf="(i > 0)" type="text" value='{{cell}}'>
+
+        </td>
+        <td>
+          <i class="material-icons">clear</i>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="(timelogs === false)">
+  <tr *ngFor='let project of data'>
+    <td *ngFor='let cell of project;  let i=index '>
+      <div *ngIf="(i === 0)" class="tbody__circle" [ngStyle]="{'background': cell }"></div>
+      <select *ngIf="(i === 1)" class="table__select" [(ngModel)]='value'>
+        <option [value] = "'chooseProject'" [selected] = "selected">{{cell}}</option>
+        <option [value]='value' *ngFor='let option of projects; let i = index'>{{option[1]}}</option>
+      </select>
+      <select *ngIf="(i === 2)" class="table__select" [(ngModel)]='value'>
+        <option [value] = "'chooseProject'" [selected] = "selected">{{cell}} </option>
+        <option [value]='value' *ngFor='let option of roles; let i = index'>{{option}}</option>
+      </select>
+      <input *ngIf="(i === 3)" type="text" value='{{cell}}'>
+    </td>
+    <td>
+      <i class="material-icons">clear</i>
+    </td>
+
+  </tr>
+</tbody>
+    <tfoot>
+      <tr *ngIf="(timelogs === true) && (count === 4)">
+          <td colspan=""2 >
+
+            <select name="" class="table__select" [(ngModel)]='option1'>
+              <option [value]="'chooseProject'" [selected] = "selected"><div class="tfoot__circle"></div>Choose project</option>
+              <option [value]="option[1]" *ngFor='let option of projects; let i = index'>
+                <div class="tbody__circle" [ngStyle]="{'background': option[0] }">
+                </div>
+                {{option[1]}}
+              </option>
+            </select>
+          </td>
+        <td>
+            <input type="text" value="">
+        </td>
+        <td>
+          <input type="text" value=0>
+        </td>
+      </tr>
+      <tr *ngIf="timelogs && (count === 9)">
+        <td >
+          <select name=""class="table__select" [(ngModel)]='option1'>
+            <option [value]="'chooseProject'" [selected] = "selected"><div class="tfoot__circle"></div></option>
+            <option [value]="option[1]" *ngFor='let option of projects; let i = index'>
+              <div class="tbody__circle" [ngStyle]="{'background': option[0] }">
+              </div>
+              {{option[1]}}
+            </option>
+          </select>
+        </td>
+        <td>
+          <input type="text" value="">
+        </td>
+        <td>
+          <input type="text" value=0>
+        </td>
+        <td>
+          <input type="text" value=0>
+        </td>
+        <td>
+          <input type="text" value=0>
+        </td>
+        <td>
+          <input type="text" value=0>
+        </td>
+        <td>
+          <input type="text" value=0>
+        </td>
+        <td>
+          <input type="text" value=0>
+        </td>
+        <td>
+          <input type="text" value=0>
+        </td>
+      </tr>
+      <tr *ngIf="(timelogs === false)">
+        <td>
+          <div class="tfoot__circle"></div>
+        </td>
+        <td >
+
+    <select name="" class="table__select" [(ngModel)]='option1'>
+      <option [value]="'chooseProject'" [selected] = "selected"> Choose project</option>
+      <option [value]="option.name" *ngFor='let option of projects; let i = index'>
+        {{option[1]}}
+      </option>
+    </select>
+  </td>
+        <td>
+          <select class="table__select" [(ngModel)]='option2'>
+            <option [value] = "'chooseRole'" [selected] = "selected">Choose role</option>
+            <option [value]='value' *ngFor='let option of roles; let i = index'>{{option}}</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" value=0>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <p>Total time in projects: </p></td>
+        <td>
+          <p>{{totalValue}} h/week</p>
+        </td>
+      </tr>
+    </tfoot>
+
 </table>
+<table *ngIf = "(editTable === false)">
+  <thead *ngIf = "(headShow === true)">
+  <tr>
+    <td *ngFor='let cell of tableHead'>
+      <p>{{cell}}</p>
+    </td>
+  </tr>
+
+  </thead>
+
+  <tbody *ngIf="(timelogs === true) && (count === 4)">
+  <tr *ngFor='let project of data'>
+    <td *ngFor='let cell of project; let i=index '>
+      <div *ngIf="(i === 0)" class="tbody__circle" [ngStyle]="{'background': cell }"></div>
+      <p *ngIf="(i === 1)" > {{cell}}</p>
+      <p *ngIf="(i === 2)">{{cell}}</p>
+      <p *ngIf="(i === 3)">{{cell}}</p>
+    </td>
+  </tr>
+  </tbody>
+  <tbody *ngIf="(timelogs === true) && (count === 9)">
+  <tr *ngFor='let project of data'>
+    <td *ngFor='let cell of project; let i=index '>
+      <div *ngIf="(i === 0)" class="tbody__circle" [ngStyle]="{'background': cell }"></div>
+      <p *ngIf=" (i > 0)">{{cell}}</p>
+    </td>
+  </tr>
+  </tbody>
+
+  <tbody *ngIf="(timelogs === false)" >
+  <tr *ngFor='let project of data'>
+    <td *ngFor='let cell of project; let i=index '>
+      <div *ngIf="(i === 0)" class="tbody__circle" [ngStyle]="{'background': cell }"></div>
+      <p *ngIf="(i === 1 || i === 2 )">{{cell}}</p>
+      <p *ngIf="(i === 3)">{{cell}} h/week</p>
+    </td>
+  </tr>
+  </tbody>
+  <tfoot   *ngIf="(timelogs === false)" >
+  <tr>
+    <td colspan="3">
+      <p>Total time in projects: </p></td>
+    <td>
+      <p>{{totalValue}} h/week</p>
+    </td>
+  </tr>
+  </tfoot>
+
+</table>
+
+
+

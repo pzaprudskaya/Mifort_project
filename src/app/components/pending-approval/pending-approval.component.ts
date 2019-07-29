@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-pending-approval',
@@ -6,17 +6,16 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ['./pending-approval.component.sass']
 })
 export class PendingApprovalComponent implements OnInit {
-  @Input() value = [];
+  @Input() value: any[];
   ngOnInit() {
-
   }
   changeCircleActivity(circle) {
     circle.active = !circle.active;
   }
-  checkValue(max: number, value: number): string{
-    if(value / max * 100 < 60){
+  checkValue(max: number, value: number): string {
+    if (value / max * 100 < 60) {
       return 'red';
-    } else if(value / max * 100 < 85){
+    } else if (value / max * 100 < 85) {
       return 'orange';
     } else {
       return 'green';

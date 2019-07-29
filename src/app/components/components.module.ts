@@ -15,15 +15,15 @@ import {PendingApprovalComponent} from './pending-approval/pending-approval.comp
 import {ProgressBarComponent} from './progress-bar/progress-bar.component';
 import {TableComponent} from './table/table.component';
 import {WorkloadComponent} from './workload/workload.component';
-import {CellComponent } from './table/cell/cell.component';
 import {BarChartComponent} from './bar-chart/bar-chart.component';
 
 import {RouterModule} from '@angular/router';
 import {MaterialModule} from '../material.module';
 import {CommonModule} from '@angular/common';
+import { ProgressBarsComponent } from './progress-bars/progress-bars.component';
+import { TeamComponent } from './team/team.component';
 import {NotificationComponent} from './notification/notification.component';
 import {NotifierModule} from 'angular-notifier';
-
 
 
 @NgModule({
@@ -38,9 +38,10 @@ import {NotifierModule} from 'angular-notifier';
     ProgressBarComponent,
     TableComponent,
     WorkloadComponent,
-    CellComponent,
     BarChartComponent,
-    NotificationComponent,
+    ProgressBarsComponent,
+    TeamComponent,
+    NotificationComponent
   ],
   imports: [
     RouterModule,
@@ -69,7 +70,6 @@ import {NotifierModule} from 'angular-notifier';
       lazy: false
     }),
     NotifierModule,
-
   ],
   exports: [
     ApproveRejectForgetComponent,
@@ -82,8 +82,9 @@ import {NotifierModule} from 'angular-notifier';
     ProgressBarComponent,
     TableComponent,
     WorkloadComponent,
-    CellComponent,
     BarChartComponent,
+    ProgressBarsComponent,
+    TeamComponent,
     NotificationComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

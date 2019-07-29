@@ -1,4 +1,4 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import {MatSliderModule} from '@angular/material/slider';
 import {MatCheckboxModule} from '@angular/material/checkbox';

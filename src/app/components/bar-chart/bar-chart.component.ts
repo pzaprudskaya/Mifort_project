@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { Chart } from 'chart.js';
-import { chartDate } from './chartData';
-import { labels } from './chartData';
-import {Router} from "@angular/router";
+import { BarChartModel } from './bar-chart.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-bar-chart',
@@ -10,23 +9,65 @@ import {Router} from "@angular/router";
   styleUrls: ['./bar-chart.component.sass']
 })
 export class BarChartComponent implements OnInit {
-  @Output() barSelect;
-  @Output() barItemSelect;
-  barChart: any = [];
-  constructor(public router: Router){}
+  @Input() bar;
+  barChart: any;
+  monthlyLabels: string[];
+  monthlyData: BarChartModel[];
+  label: string;
+  data: number[];
+  backgroundColor: string;
+  borderWidth: number;
+  countProject: number;
 
-  ngOnInit(){
-    chartDate.forEach((item) => {
-      item
+
+  constructor(public router: Router) {
+
+  }
+
+  ngOnInit() {
+    this.barChart = [];
+    this.monthlyLabels = [];
+    this.monthlyData = [];
+    this.label = '';
+    this.data = [];
+    this.backgroundColor = '';
+    this.borderWidth = 0;
+    this.countProject = 0;
+    this.bar.forEach((item) => {
+      this.monthlyLabels.push(item.month);
+      this.countProject = 0;
+      item.projectsWorkload.forEach(() => {
+        this.countProject += 1;
+      });
     });
+    for (let i = 0; i < this.countProject; i++) {
+      this.bar.forEach((item) => {
+        item.projectsWorkload.forEach((project) => {
+          if (project.name === item.projectsWorkload[i].name) {
+            this.label = project.name;
+            this.backgroundColor = project.color;
+            this.borderWidth = 1;
 
-    let data = {
-      labels: labels,
-      datasets: chartDate,
+            this.data.push(project.workload);
+
+
+          }
+        });
+      });
+      const myBar = new BarChartModel(this.label, this.backgroundColor, this.data, this.borderWidth);
+      this.monthlyData.push(myBar);
+
+
+      this.data = [];
     }
+    console.log(this.monthlyData);
+    const data = {
+      labels: this.monthlyLabels,
+      datasets: this.monthlyData,
+    };
     this.barChart = new Chart('barChart', {
       type: 'bar',
-      data: data,
+      data,
       options: {
         title: {
           display: true,
@@ -54,8 +95,11 @@ export class BarChartComponent implements OnInit {
     });
 
   }
+
+
+
   routingFunction(evt, item) {
-    var activePoint = this.barChart.getElementsAtEvent(evt);
+    const activePoint = this.barChart.getElementsAtEvent(evt);
    /* var elementIndex = active[0]._datasetIndex;
 
     var chartData = item[elementIndex]['_chart'].config.data;
@@ -65,16 +109,16 @@ export class BarChartComponent implements OnInit {
     var value = chartData.datasets[elementIndex].data[idx];
     var series = chartData.datasets[elementIndex].label;
     */
-    var data = activePoint['_chart'].config.data;;
-    var datasetIndex = activePoint._datasetIndex;
-    var label = data.datasets[datasetIndex].label;
-    var value = data.datasets[datasetIndex].data[activePoint._index];
-    var series = data.datasets[datasetIndex].label;
+    const data = activePoint._chart.config.data;
+    const datasetIndex = activePoint._datasetIndex;
+    const label = data.datasets[datasetIndex].label;
+    const value = data.datasets[datasetIndex].data[activePoint._index];
+    const series = data.datasets[datasetIndex].label;
     console.log(datasetIndex);
     console.log(label);
     console.log(value);
     console.log(series);
-    //this.router.navigate(["/projects/" + series]);
+    // this.router.navigate(["/projects/" + series]);
 
   }
 }

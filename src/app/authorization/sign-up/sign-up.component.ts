@@ -8,6 +8,8 @@ import { AuthService, GoogleLoginProvider } from 'angular5-social-login';
 })
 export class SignUpComponent implements OnInit {
   signForm: FormGroup;
+  type: string = "password"
+  flag: boolean = false
   ngOnInit() {
     this.signForm = new FormGroup({
       "fullNameControl": new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -27,5 +29,15 @@ export class SignUpComponent implements OnInit {
         console.log(socialPlatform + " sign in data : " , userData);
       }
     );
+  }
+  showPassword(){
+    if(this.type == "password") {
+      this.type = "text"
+      this.flag = true
+    } else {
+      this.type = "password"
+      this.flag = false
+    }
+    
   }
 }

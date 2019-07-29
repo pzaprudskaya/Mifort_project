@@ -11,6 +11,7 @@ import { AuthService, GoogleLoginProvider } from 'angular5-social-login';
 export class SignInComponent implements OnInit {
   signForm: FormGroup;
   type: string = "password"
+  flag: boolean = false
   ngOnInit() {
     this.signForm = new FormGroup({
       "emailControl": new FormControl('', [Validators.required, Validators.minLength(5),

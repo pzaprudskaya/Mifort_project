@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NotifierService} from 'angular-notifier';
 
+
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',

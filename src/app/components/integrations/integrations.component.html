@@ -23,25 +23,25 @@
     <div (click)=updown() class="add_new">
       <p>Add new </p>
       <i class="material-icons">keyboard_arrow_down</i>
-     </div>
+    </div>
   </div>
   <ng-template #elseBlock>
-      <div>
-        <div (click)= updown() class="add_new">
-          <p>Add new </p>
-          <i class="material-icons">keyboard_arrow_up</i>
-        </div>
-        <div class="integrations__add" >
-          <div class="logo" *ngFor="let item of itemsAdd">
-            <div  class="icon" [ngStyle]="{'background': item.background}" (click)="add(item)">
-              <i (click)="function()" class="material-icons">add</i>
-            </div>
+    <div>
+      <div (click)= updown() class="add_new">
+        <p>Add new </p>
+        <i class="material-icons">keyboard_arrow_up</i>
+      </div>
+      <div class="integrations__add" >
+        <div class="logo" *ngFor="let item of itemsAdd">
+          <div  class="icon" [ngStyle]="{'background': item.background}" (click)="add(item)">
+            <i (click)="function()" class="material-icons">add</i>
           </div>
         </div>
       </div>
+    </div>
 
 
-    </ng-template>
+  </ng-template>
 </ng-template>
 
 <app-notification #notification></app-notification>

@@ -10,17 +10,18 @@
         </div>
       </div>
     </ng-template>
-    <p>Code: </p>
-    <input value="{{code}}" class="progress__input progress__code_input">
+    <p>Code:
+    <input value="{{code}}" class="progress__input progress__code_input"> </p>
     <button class="progress-section__button">IN PROGRESS</button>
     <div class="progress-section__first_buttons">
       <button class="progress-section__first_buttons_button">Pause<i class="material-icons material-icons__pause">pause</i></button>
-      <button class="progresgits-section__first_buttons_button">Archive</button>
+      <button class="progress-section__first_buttons_button">Archive<i class="material-icons material-icons__stop">stop</i></button>
       <button class="progress-section__first_buttons_button">Save</button>
     </div>
   </div>
   <div class="progress__section progress-section__second">
-    <p>Project type: {{projectType}}</p>
+    <p>Project type:  
+      <input value="{{projectType}}" class="progress__input progress__project_type"></p>
 
     <div class="progress-bar">
       <app-progress-bar [progress]="progressBar"
@@ -30,18 +31,14 @@
   <div class="progress__section">
     <div class="progress__section_date">
       <p>Start date:</p>
-      <input value="{{startDate}}" class="progress__input_type_date">
+      <input value="{{startDate}}" class="progress__input progress__input_type_date">
       <i class="material-icons">
         today
       </i>
     </div>
     <div class="progress__section_date">
-      <p>End date:</p>
-      <input value="{{endDate}}" class="progress__input_type_date">
-      <i class="material-icons progress__section_date_start_icon">
-        today
-      </i>
+      <p>Men/hours</p>
+      <input value="{{endDate}}" class="progress__input progress__input_type_date hours">
     </div>
   </div>
 </div>
-

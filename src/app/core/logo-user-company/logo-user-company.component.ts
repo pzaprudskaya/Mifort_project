@@ -20,16 +20,12 @@ export class LogoUserCompanyComponent implements OnInit {
   constructor(private employeesProfileService: EmployeesProfileService,
               private tableService: TableService,
               private userService: UserService) { }
+
   ngOnInit() {
-    this.userService.getUser(this.users[0]).subscribe(
-      user => {
-        this.user = user[0];
-        this.companies = this.user.companies;
-      });
     this.photo = '';
     this.nameOption = this.users[0];
     this.companyOption = this.companies[0];
-    this.employeesProfileService.getName(this.users[0]);
+    this.employeesProfileService.getName(this.nameOption);
     this.tableService.getNameCompany(this.companyOption);
     this.employeesProfileService.getEmployee().subscribe(
       employee => {

@@ -12,5 +12,24 @@
 
     </app-container>
   </div>
+
+  <app-container>
+    <input id="color" type="text" value="">
+    <input id="projectName" type="text" value="">
+    <input id="time" type="number" value="">
+    <input id="comment" type="text" value="">
+    <button (click)="add()">Add</button>
+  </app-container>
+
+  <app-container>
+    <app-table
+      [editTable] = false
+      [headShow] = true
+      [timelogs] = true
+      [data] = 'logs'></app-table>
+  </app-container>
 </app-block>
+
+
+
 

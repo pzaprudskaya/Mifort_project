@@ -10,6 +10,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import {Profile} from '../../profile-page/profile/profile.model';
 import {Employees} from '../employees-page/items.model';
+import {TimelogModel} from "../../timelogs/timelog/timelog.model";
 
 
 @Injectable({
@@ -64,6 +65,8 @@ export class EmployeesService {
       tap(updateEmployee => console.log('update project: ' + JSON.stringify(updateEmployee))),
       catchError(this.handleError));
   }
+
+
 
 
 

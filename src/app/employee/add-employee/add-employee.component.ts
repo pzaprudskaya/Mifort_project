@@ -51,7 +51,8 @@ export class AddEmployeeComponent implements OnInit {
     this.toggleFlag = false;
 
 
-    this.employeeName = this.route.snapshot.params.employeeName;
+    this.employeeName = this.route.snapshot.params.employee_name;
+
     this.employeeService.getName(this.employeeName);
 
     this.employeeService.getEmployee().subscribe(

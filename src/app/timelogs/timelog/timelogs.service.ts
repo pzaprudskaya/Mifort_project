@@ -43,7 +43,22 @@ export class TimelogsService {
     return throwError(errorMessage);
   }
 
-
+  addLog(log: TimelogModel): Observable<TimelogModel> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+    return this.http.post<TimelogModel>(this.API_URL, JSON.stringify(log), httpOptions).pipe(
+      tap(addLog => console.log('add log: ' + JSON.stringify(addLog))),
+      catchError(this.handleError));
+  }
+  deleteLog(log: TimelogModel): Observable<TimelogModel> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+    return this.http.delete<TimelogModel>(`${this.API_URL}/${log.projectName}`, httpOptions).pipe(
+      tap(deleteLog => console.log('delete log: ' + JSON.stringify(deleteLog))),
+      catchError(this.handleError));
+  }
 
 
 }

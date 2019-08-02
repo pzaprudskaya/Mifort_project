@@ -8,24 +8,24 @@ import {TableService} from '../../components/table/table.service';
   styleUrls: ['./logo-user-company.component.sass']
 })
 export class LogoUserCompanyComponent implements OnInit {
-  @Input() name: string;
-  @Input() value: string;
+  name: string;
+  value: string;
+  nameCompany: string;
   photo: string;
-  constructor(private employeesProfileService: EmployeesProfileService, private tableService: TableService) { }
+  constructor(private employeesProfileService: EmployeesProfileService,
+              private tableService: TableService) { }
 
   ngOnInit() {
     this.photo = '';
-
+    this.nameCompany = 'Mifort';
     this.name = 'Polina Zaprudskaya';
     this.employeesProfileService.getName(this.name);
-    this.value = 'Mifort';
-    this.tableService.getNameCompany(this.value);
     this.employeesProfileService.getEmployee().subscribe(
       employee => {
         this.photo = employee[0].photoUrl;
       });
+    this.tableService.getNameCompany(this.value);
   }
-
 
 
 }

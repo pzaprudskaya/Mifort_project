@@ -55,6 +55,7 @@ export class TableComponent implements OnInit {
         }
       });
     });
+    console.log('Count: ' + this.count);
     if (!this.timelogs) {
       if (!this.editTable) {
         this.tableHead = [' ', 'Project', 'Role', 'Time'];

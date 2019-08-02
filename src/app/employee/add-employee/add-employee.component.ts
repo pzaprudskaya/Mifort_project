@@ -52,7 +52,6 @@ export class AddEmployeeComponent implements OnInit {
 
 
     this.employeeName = this.route.snapshot.params.employee_name;
-
     this.employeeService.getName(this.employeeName);
 
     this.employeeService.getEmployee().subscribe(

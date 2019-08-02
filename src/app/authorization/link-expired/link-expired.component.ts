@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './restore-password.component.html',
-  styleUrls: ['./restore-password.component.sass']
+  selector: 'app-link-expired',
+  templateUrl: './link-expired.component.html',
+  styleUrls: ['./link-expired.component.sass']
 })
-export class RestorePasswordComponent implements OnInit {
+export class LinkExpiredComponent implements OnInit {
   signForm: FormGroup;
   ngOnInit() {
     this.signForm = new FormGroup({
@@ -13,5 +13,5 @@ export class RestorePasswordComponent implements OnInit {
         Validators.pattern('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$')
       ]),
     });
-  }
+  } 
 }

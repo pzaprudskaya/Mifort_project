@@ -36,8 +36,8 @@
 
             </option>
           </select>
-
-          <input *ngIf="(i > 0)" type="text" value='{{cell}}'>
+          <input *ngIf="(i === 1)" type="text" value='{{cell}}' class="input_table">
+          <input *ngIf="(i > 1)" type="text" value='{{cell}}'>
 
         </td>
         <td>
@@ -144,14 +144,7 @@
           <input type="text" value=0>
         </td>
       </tr>
-      <tr>
-        <td colspan="3">
-          <p>Total time in projects: </p></td>
-        <td>
-          <p>{{totalValue}} h/week</p>
-        </td>
-      </tr>
-    </tfoot>
+     </tfoot>
 
 </table>
 <table *ngIf = "(editTable === false)">

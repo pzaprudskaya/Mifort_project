@@ -33,7 +33,6 @@ export class DonutChartComponent implements OnInit {
       data.datasets[0].data.push(item.actual);
     });
 
-
     Chart.defaults.global.legend.labels.usePointStyle = true;
     this.DoughnutChart = new Chart('doughnutChart', {
       type: 'doughnut',

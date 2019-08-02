@@ -7,11 +7,11 @@
     <div mat-card-avatar class="profile-photo" [ngStyle]="{'background-image': 'url(' + photo + ')'}"></div>
     <div>
       <mat-card-title>
-        <select name="" id="" class="profile-inf__select" [(ngModel)]='option' (ngModelChange)='changeName()'>
+        <select name="" id="" class="profile-inf__select" [(ngModel)]='nameOption' (ngModelChange)='changeName()'>
           <option [value]='user' *ngFor='let user of users'>{{user}}</option>
         </select>
       </mat-card-title>
-      <select name="" id="" class="profile-inf__select" [(ngModel)]='optionCompany' (ngModelChange)='changeProject()'>
+      <select name="" id="" class="profile-inf__select" [(ngModel)]='companyOption' (ngModelChange)='changeProject()'>
         <option [value]='company' *ngFor='let company of companys'>{{company}}</option>
       </select>
     </div>

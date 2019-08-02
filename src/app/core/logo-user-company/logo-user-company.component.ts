@@ -8,40 +8,39 @@ import {TableService} from '../../components/table/table.service';
   styleUrls: ['./logo-user-company.component.sass']
 })
 export class LogoUserCompanyComponent implements OnInit {
-  @Input() name: string;
-  @Input() value: string;
   photo: string;
-  users = ['Polina Zaprudskaya', 'Egor Drozd', 'Vasiliy Pupanov'];
-  companys: string[] = ['2', '232'];
-  option: string = this.users[0];
-  optionCompany: string = this.companys[0];
-
+  users: string[] = ['Polina Zaprudskaya', 'Egor Drozd', 'Vasiliy Pupanov'];
+  companys: string[];
+  nameOption: string;
+  companyOption: string ;
   user;
-
 
   constructor(private employeesProfileService: EmployeesProfileService, 
     private tableService: TableService,
     private userService: UserService) { }
 
     changeName(){   
-      this.userService.getUser(this.option).subscribe(
+      this.userService.getUser(this.nameOption).subscribe(
         user => {
           this.user = user[0];
           this.companys = this.user.company;
         });
-      
-      console.log(this.user);
     }
     changeProject(){
-      console.log(this.optionCompany)
+      console.log(this.companyOption)
     }
   
   ngOnInit() {
+    this.userService.getUser(this.users[0]).subscribe(
+      user => {
+        this.user = user[0];
+        this.companys = this.user.company;
+      });
     this.photo = '';
-    this.name = 'Polina Zaprudskaya';
-    this.employeesProfileService.getName(this.name);
-    this.value = 'Mifort';
-    this.tableService.getNameCompany(this.value);
+    this.nameOption = this.users[0];
+    this.companyOption = this.companys[0];
+    this.employeesProfileService.getName(this.nameOption);
+    this.tableService.getNameCompany(this.companyOption);
     this.employeesProfileService.getEmployee().subscribe(
       employee => {
         this.photo = employee[0].photoUrl;

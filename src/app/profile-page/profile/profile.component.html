@@ -13,7 +13,7 @@
       <div class="table_projects">
         <h3>Projects: </h3>
           <app-table
-            [editTable] = false
+            [editTable] = true
             [headShow] = false
             [timelogs] = false
             [data] = 'employeeProjects'></app-table>
@@ -30,9 +30,9 @@
         <div>
           <h3>Pending for Approval: {{timesheet.period}} </h3>
           <app-table
-            [editTable] = false
+            [editTable] = edit
             [headShow] = true
-            [timelogs] = true
+            [timelogs] = false
             [data] = 'timesheet.logs'></app-table>
         </div>
         <div class="donut_chart">

@@ -41,12 +41,10 @@ export class ProfileComponent implements OnInit {
         this.employee = employee[0];
         this.barChart = this.employee.yearsWorkload;
         this.employee.employeeProjects.forEach((project) => {
-          this.employeeProjects.push(Object.keys(project).map((key) => {
-            return project[key];
-          }));
+          console.log(project)
+          this.employeeProjects.push(project);
         });
-
-
+        console.log(this.employeeProjects)
 
         this.employee.timesheetsPendingApproval.forEach((item) => {
 
@@ -58,6 +56,7 @@ export class ProfileComponent implements OnInit {
             }));
             this.timesheetWorkload.push(it.timesheetWorkload);
           });
+          console.log(this.timesheetWorkload)
           this.logsOne.forEach((arr) => {
             for (let i = 0; i < arr.length; i++) {
               if (i === 2) {
@@ -78,20 +77,7 @@ export class ProfileComponent implements OnInit {
           this.period = '';
           this.logs = [];
           this.timesheetWorkload = [];
-
-
-
-
         });
-
-
-
-
-
-
-
-
-
       }
     );
   }

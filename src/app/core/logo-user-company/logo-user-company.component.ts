@@ -25,6 +25,11 @@ export class LogoUserCompanyComponent implements OnInit {
     this.photo = '';
     this.nameOption = this.users[0];
     this.companyOption = this.companies[0];
+    this.userService.getUser(this.users[0]).subscribe(
+      user => {
+        this.user = user[0];
+        this.companies = this.user.companies;
+      });
     this.employeesProfileService.getName(this.nameOption);
     this.tableService.getNameCompany(this.companyOption);
     this.employeesProfileService.getEmployee().subscribe(

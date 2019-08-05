@@ -11,8 +11,7 @@ import {ProjectComponent} from './projects/project/project.component';
 import {ProfileComponent} from './profile-page/profile/profile.component';
 import {TimelogComponent} from './timelogs/timelog/timelog.component';
 import {ProjectNameComponent} from './projects/project-name/project-name.component';
-
-
+import { ExportComponent } from './components/export/export.component';
 
 import {CompanyIntegrationComponent} from './company-setting/company-integration/company-integration.component';
 
@@ -26,7 +25,8 @@ const itemMenu: Routes = [
   { path: 'employees', component: EmployeesPageComponent},
   { path: 'company-settings', component: CompanySettingsComponent},
   { path: 'company-integration', component: CompanyIntegrationComponent},
-  { path: 'employees/:employee_name', component: AddEmployeeComponent}
+  { path: 'employees/:employee_name', component: AddEmployeeComponent},
+  { path: 'export', component: ExportComponent},
 ];
 const routes: Routes = [
   { path: '', component: PageComponent, children: itemMenu},

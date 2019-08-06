@@ -26,7 +26,7 @@ export class ExportComponent implements OnInit {
       });
   }
   exportInCsv(){
-    console.log(this.project);
+  
     let data: any = [];
     if(this.profile === true){
       this.employees.yearsWorkload.forEach(

@@ -32,5 +32,6 @@ export class ProgressComponent implements OnInit {
   }
   changeColor(item) {
     this.color = item;
+    this.condition = false;
   }
 }

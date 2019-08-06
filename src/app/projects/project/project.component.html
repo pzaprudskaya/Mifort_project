@@ -3,13 +3,11 @@
     <div class="buttons">
       <button (click)="filter('active')">Active</button>
       <button (click)="filter('archived')">Archived</button>
-
     </div>
     <div>
       <button class="button__create" routerLink="/projects/create_pro">Create</button>
     </div>
   </div>
-
   <app-container>
     <mat-form-field>
       <input matInput (keyup)="searchTerm$.next($event.target.value)" placeholder="Search for a project">
@@ -31,7 +29,6 @@
           <app-team
             [value] = 'element.team'>
           </app-team>
-
         </td>
       </ng-container>
       <ng-container matColumnDef="startDate">

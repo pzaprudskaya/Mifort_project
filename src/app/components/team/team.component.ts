@@ -7,15 +7,23 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class TeamComponent implements OnInit {
   @Input() value: any[];
-  constructor() {
-
-  }
+  constructor() {}
+  previousItem;
   changeCircleActivity(item) {
-    item.active = !item.active;
+    if(this.previousItem !== item && this.previousItem !== undefined){
+      this.previousItem.active = false;
+      item.active = !item.active;
+      this.previousItem = item; 
+    }
+    else{
+      item.active = !item.active;
+      this.previousItem = item;
+    }
+      
+    
   }
   ngOnInit() {
   }
-
 /*
   delete(array, item){
     array.forEach((team, i) => {

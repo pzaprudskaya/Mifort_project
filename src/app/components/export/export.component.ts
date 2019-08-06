@@ -2,25 +2,49 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ExportToCsv } from 'export-to-csv';
 import { ExportService } from './export.service';
 import { ProjectNameModel } from '../../projects/project-name/project-name.model';
-// import { EmployeesService } from
+import { EmployeesService } from '../../employee/add-employee/employee.service';
 @Component({
   selector: 'app-export',
   templateUrl: './export.component.html',
   styleUrls: ['./export.component.sass']
 })
 export class ExportComponent implements OnInit {
-  constructor(private exportService: ExportService){ }
+  constructor(private exportService: ExportService, private employeesService: EmployeesService){ }
   project: ProjectNameModel;
+  employees: any;
   @Input() name;
+  @Input() profile;
   ngOnInit() {
     this.exportService.getName(this.name);
     this.exportService.getProject().subscribe(
       project => {
-        this.project = project[0];
+        this.project = project[0]; 
+      });
+    this.employeesService.getEmployee().subscribe(
+      employees => {
+        this.employees = employees[0]; 
       });
   }
   exportInCsv(){
+    console.log(this.project);
     let data: any = [];
+    if(this.profile === true){
+      this.employees.yearsWorkload.forEach(
+        element =>{
+          element.projectsWorkload.forEach(elem => {
+            data.push(
+              {
+                project: this.employees.name,
+                month: element.month,
+                name: elem.name, 
+                workload: elem.workload,
+              });
+        }
+      );
+        
+      });
+    }
+    else {
     this.project.yearsWorkload.forEach(
       element =>{
         element.projectsWorkload.forEach(elem => {
@@ -35,6 +59,7 @@ export class ExportComponent implements OnInit {
     );
       
     });
+    }
     const options = { 
       fieldSeparator: ',',
       quoteStrings: '"',

@@ -2,21 +2,25 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
-import { Project } from './export.model';
+import { ProjectNameModel } from '../../projects/project-name/project-name.model';
 @Injectable({
   providedIn: 'root'
 })
 export class ExportService {
   
-  private API_URL = 'http://localhost:3000/project/Uber';
+  private API_URL = 'http://localhost:3000/project/';
+  nameProject: string;
 
   constructor(private http: HttpClient) { }
 
-  getProject(nameProject): Observable<Project> {
-    return this.http.get<any>(this.API_URL + nameProject).pipe(
-      tap((data: any) => console.log('Project: ' + JSON.stringify(data))),
+  getProject(): Observable<ProjectNameModel> {
+    return this.http.get<ProjectNameModel>(this.API_URL + this.nameProject).pipe(
+      tap((data: ProjectNameModel) => console.log('Project: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
+  }
+  public getName(name: string): void {
+    this.nameProject = name;
   }
   private handleError(err: HttpErrorResponse) {
 

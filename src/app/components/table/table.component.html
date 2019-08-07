@@ -8,12 +8,34 @@
     <tr *ngFor='let tbodyRow of data; let i = index' id={{i}}>
       <td class="circle"><div class="tbody__circle" [ngStyle]="{'background': tbodyRow.color }"></div></td>
       <td>
-        <input type="text"  value={{tbodyRow.name}} *ngIf="!timelogs" [readonly]="!editTable" class="project">
-        <input type="text"  value={{tbodyRow.comment}} class="comment" *ngIf="timelogs" [readonly]="!editTable">
+        <ng-template [ngIf]="!editTable && !timelogs">
+          <input type="text"  value={{tbodyRow.name}} readonly class="project">
+        </ng-template>
+        <ng-template [ngIf]="editTable && !timelogs">
+          <div class="select" *ngIf="editTable">
+              <select name="" class="statuses__select project">
+                <option selected class="text-option">{{tbodyRow.name}}</option>
+                <option [value]='name' *ngFor='let neme of names'>{{name}}</option>
+              </select>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="timelogs">
+          <input type="text"  value={{tbodyRow.comment}} class="comment" [readonly]="!editTable">
+        </ng-template>
       </td>
       <ng-template [ngIf]="!timelogs">
       <td>
-        <input type="text" value={{tbodyRow.role}} class="role" [readonly]="!editTable">
+        <ng-template [ngIf]="!editTable && !timelogs">
+          <input type="text" value={{tbodyRow.role}} class="role" readonly>
+        </ng-template>
+        <ng-template [ngIf]="editTable && !timelogs">
+          <div class="select">
+              <select name="" class="statuses__select role">
+                <option selected class="text-option">{{tbodyRow.role}}</option>
+                <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
+              </select>
+          </div>
+        </ng-template>
       </td>
       <td>
         <input type="text" value="{{tbodyRow.time}}" [readonly]="!editTable" (change)="changeTotalHourse($event.target)" class="time"><p>h/week</p>
@@ -86,10 +108,20 @@
         <div class="tfoot__circle"></div>
       </td>
       <td>
-        <input type="text" placeholder="Choose Project" class="project">
+        <div class="select">
+            <select name="" class="statuses__select project">
+              <option selected class="text-option">Choose Project</option>
+              <option [value]='name' *ngFor='let neme of names'>{{name}}</option>
+            </select>
+        </div>
       </td>
        <td>
-        <input type="text" placeholder="Choose Role" class="role">
+        <div class="select">
+            <select name="" class="statuses__select role">
+              <option selected class="text-option">Choose Role</option>
+              <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
+            </select>
+        </div>
       </td>
       <td>
         <input type="text" placeholder="0" class="time"><p>h/week</p>

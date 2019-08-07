@@ -48,13 +48,32 @@ tfoot
   input
     width: 75px
   .role
-    width: 170px
+    width: 125px
   .time 
     width: 30px
   .project 
-    width: 130px
+    width: 125px
+  .select
+    position: relative
+    display: block
+    max-width: 120px
+    border: none
+    z-index: 10
+    border-radius: 4px
+    
+  select
+    border: none
+    outline: none
+    background: transparent
+    cursor: pointer
+    &:focus
+      border-bottom: 1px solid black
+      transition: border-width 10s ease
+  .text-option 
+    color: grey
 .circle
   width: 14px
+
 td
   p 
     display: inline-block

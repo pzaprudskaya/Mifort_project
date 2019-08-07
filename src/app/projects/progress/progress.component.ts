@@ -34,4 +34,8 @@ export class ProgressComponent implements OnInit {
     this.color = item;
     this.condition = false;
   }
+  sendToServer(){
+    console.log('send to server');
+    
+  }
 }

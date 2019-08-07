@@ -27,10 +27,9 @@ export class ProjectsTableService {
 
   constructor(private http: HttpClient) {
    // this.dataStore = { todos: any[] };
-    // this._projects = <BehaviorSubject<Project[]>>new BehaviorSubject([]);
+   // this._projects = <BehaviorSubject<Project[]>>new BehaviorSubject([]);
    // this.todos = this._projects.asObservable();
   }
-
   getAll(): Observable<Project[]> {
     return this.http.get<Project[]>(this.API_URL).pipe(
       tap((data: Project[]) => console.log('All: ' + JSON.stringify(data))),

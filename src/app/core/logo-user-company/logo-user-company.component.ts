@@ -24,7 +24,6 @@ export class LogoUserCompanyComponent implements OnInit {
   ngOnInit() {
     this.photo = '';
     this.nameOption = this.users[0];
-    this.companyOption = this.companies[0];
     this.userService.getUser(this.users[0]).subscribe(
       user => {
         this.user = user[0];

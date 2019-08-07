@@ -15,6 +15,7 @@ import {ProjectNameComponent} from './projects/project-name/project-name.compone
 
 
 import {CompanyIntegrationComponent} from './company-setting/company-integration/company-integration.component';
+import {ApprovalsPageComponent} from './approvals/approvals-page/approvals-page.component';
 
 
 const itemMenu: Routes = [
@@ -26,7 +27,8 @@ const itemMenu: Routes = [
   { path: 'employees', component: EmployeesPageComponent},
   { path: 'company-settings', component: CompanySettingsComponent},
   { path: 'company-integration', component: CompanyIntegrationComponent},
-  { path: 'employees/:employee_name', component: AddEmployeeComponent}
+  { path: 'employees/:employee_name', component: AddEmployeeComponent},
+  { path: 'approvals', component: ApprovalsPageComponent},
 ];
 const routes: Routes = [
   { path: '', component: PageComponent, children: itemMenu},

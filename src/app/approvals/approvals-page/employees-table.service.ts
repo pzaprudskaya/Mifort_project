@@ -1,32 +1,29 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
-import {catchError, tap, map} from 'rxjs/operators';
-import {Project} from './items.model';
+import {Observable, throwError} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
+import {Approval} from './items.model';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
 
 
-export class ProjectsTableService {
+export class ApprovalsService {
 
-  private API_URL = 'http://localhost:3000/project-items';
+  private API_URL = 'http://localhost:3000/approvals-items';
   private queryUrl = '?name=';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.API_URL).pipe(
-      tap((data: Project[]) => console.log('All: ' + JSON.stringify(data))),
+  getAll(): Observable<Approval[]> {
+    return this.http.get<Approval[]>(this.API_URL).pipe(
+      tap((data: Approval[]) => console.log('All: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
@@ -57,23 +54,24 @@ export class ProjectsTableService {
       .map(res => res);
   }
 
-
-
-
   filter(term) {
     return this.http
       .get(this.API_URL + '?status=' + term)
       .map(res => res);
   }
 
-
-  update(project: Project) {
+  update(employee: Approval) {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    return this.http.put<void>(`${this.API_URL}/${project.name}`, JSON.stringify(project), httpOptions).pipe(
-      tap(updateProject => console.log('update project: ' + JSON.stringify(updateProject))),
-        catchError(this.handleError));
+    return this.http.put<void>(`${this.API_URL}/${employee.id}`, JSON.stringify(employee), httpOptions).pipe(
+      tap(updateEmployee => console.log('update employee in approval: ' + JSON.stringify(updateEmployee))),
+      catchError(this.handleError));
+  }
+  filterByPeriod(term) {
+    return this.http
+      .get(this.API_URL + '?period=' + term)
+      .map(res => res);
   }
 
 }

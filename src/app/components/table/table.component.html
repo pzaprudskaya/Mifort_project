@@ -8,7 +8,7 @@
     <tr *ngFor='let tbodyRow of data; let i = index' id={{i}}>
       <td class="circle"><div class="tbody__circle" [ngStyle]="{'background': tbodyRow.color }"></div></td>
       <td>
-        <input type="text"  value={{tbodyRow.name}} *ngIf="!timelogs" [readonly]="!editTable">
+        <input type="text"  value={{tbodyRow.name}} *ngIf="!timelogs" [readonly]="!editTable" class="project">
         <input type="text"  value={{tbodyRow.comment}} class="comment" *ngIf="timelogs" [readonly]="!editTable">
       </td>
       <ng-template [ngIf]="!timelogs">
@@ -16,7 +16,7 @@
         <input type="text" value={{tbodyRow.role}} class="role" [readonly]="!editTable">
       </td>
       <td>
-        <input type="text" value="{{tbodyRow.time}}h/week" [readonly]="!editTable" (change)="changeTotalHourse($event.target)">
+        <input type="text" value="{{tbodyRow.time}}" [readonly]="!editTable" (change)="changeTotalHourse($event.target)" class="time"><p>h/week</p>
       </td>
       </ng-template>
       <ng-template [ngIf]="timelogs">
@@ -44,15 +44,15 @@
           <input type="text" value={{tbodyRow.time[7]}} readonly>
         </td>
         <td *ngIf="editTable">
-          <i class="material-icons" (click)='remove(tbodyRow)'>clear</i>
+          <i class="material-icons" (click)='removeRecord(i)'>clear</i>
         </td>
       </ng-template>
     </tr>
   </tbody>
   <tfoot>
-    <tr *ngIf="editTable && timelogs" >
+    <tr *ngIf="editTable && timelogs">
       <td>
-        <div class="tfoot__circle"></div>
+        <div class="tfoot__circle" ></div>
       </td>
       <td>
         <input type="text" placeholder="Add new task" class="comment">
@@ -79,6 +79,20 @@
       </td>
       <td>
         <input type="text" placeholder="0" readonly>
+      </td>
+    </tr>
+    <tr *ngIf="editTable && !timelogs">
+      <td>
+        <div class="tfoot__circle"></div>
+      </td>
+      <td>
+        <input type="text" placeholder="Choose Project" class="project">
+      </td>
+       <td>
+        <input type="text" placeholder="Choose Role" class="role">
+      </td>
+      <td>
+        <input type="text" placeholder="0" class="time"><p>h/week</p>
       </td>
     </tr>
     <tr>

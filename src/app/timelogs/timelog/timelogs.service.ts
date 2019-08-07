@@ -44,6 +44,13 @@ export class TimelogsService {
   }
 
 
-
+   update(timelog: TimelogModel[]) {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+    return this.http.put<void>(`${this.API_URL}`, JSON.stringify(timelog), httpOptions).pipe(
+      tap(updateTimelogs => console.log('update timelogs: ' + JSON.stringify(updateTimelogs))),
+        catchError(this.handleError));
+  }
 
 }

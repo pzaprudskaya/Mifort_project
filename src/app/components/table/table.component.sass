@@ -22,12 +22,12 @@ thead
   cursor: pointer
 input
   border: none
-  border-bottom: 1px solid black
   outline: none
   cursor: pointer
   font-size: 14px
-  &:read-only
-    border: none
+  &:focus
+    border-bottom: 1px solid black
+    transition: border-width 10s ease
 .total
   color: black
   font-weight: bold
@@ -36,6 +36,8 @@ tfoot
    td 
     color: black
     font-size: 14px
+    p 
+      color: #707683
 .table-timelogs
   input 
     width: 50px
@@ -47,5 +49,15 @@ tfoot
     width: 75px
   .role
     width: 170px
+  .time 
+    width: 30px
+  .project 
+    width: 130px
 .circle
   width: 14px
+td
+  p 
+    display: inline-block
+    margin: 0
+    padding: 0
+    color: black

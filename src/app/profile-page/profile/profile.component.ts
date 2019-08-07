@@ -28,7 +28,6 @@ export class ProfileComponent implements OnInit {
     this.logs = [];
     this.timesheetWorkload = [];
     this.employeeProjects = [];
-    this.logsTwo = [];
     this.logsOne = [];
     this.barChart = [];
     this.timesheetsPendingApproval = [];
@@ -41,36 +40,19 @@ export class ProfileComponent implements OnInit {
         this.employee = employee[0];
         this.barChart = this.employee.yearsWorkload;
         this.employee.employeeProjects.forEach((project) => {
-          console.log(project)
           this.employeeProjects.push(project);
         });
-        console.log(this.employeeProjects)
-
         this.employee.timesheetsPendingApproval.forEach((item) => {
 
           this.period = item.period;
 
           item.dataForApproval.forEach((it) => {
-            this.logsOne.push(Object.keys(it.logs).map((i) => {
-              return it.logs[i];
-            }));
+            this.logsOne.push(it.logs);
             this.timesheetWorkload.push(it.timesheetWorkload);
           });
-          console.log(this.timesheetWorkload)
           this.logsOne.forEach((arr) => {
-            for (let i = 0; i < arr.length; i++) {
-              if (i === 2) {
-                arr[i].forEach((element) => {
-                  this.logsTwo.push(element);
-                });
-              } else {
-                this.logsTwo.push(arr[i]);
-              }
-            }
-            this.logs.push(this.logsTwo);
-            this.logsTwo = [];
+            this.logs.push(arr);
             this.logsOne = [];
-
           });
           const timesheetForApproval = new TimeSheetForApproval(this.period, this.logs, this.timesheetWorkload);
           this.timesheetsPendingApproval.push(timesheetForApproval);
@@ -81,5 +63,8 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-
+  updateProfileBD(employee: Profile) {
+    this.employeesProfileService.update(employee)
+          .subscribe(() => console.log('Update!'));
+  }
 }

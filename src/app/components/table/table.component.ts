@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {TableService} from './table.service';
 import {CompanyModel} from './company.model';
 
@@ -16,6 +16,9 @@ export class TableComponent implements OnInit {
   @Input() timelogs : boolean;
   totalText : string;
   totalHourse: number = 0;
+  @Input() profileBD: boolean;
+  @Output() updateTimelogs: EventEmitter<any> = new EventEmitter();
+  @Output() updateProfileBD : EventEmitter<any> = new EventEmitter();
   constructor(private tableService: TableService) {}
 
   findTotalByDay() : void {
@@ -48,7 +51,7 @@ export class TableComponent implements OnInit {
   }
 
   determineViewTable() : string {
-    if(typeof this.data[0].time == "number") {
+    if(!this.timelogs) {
       this.headers = ["", " ", " ", " "];
       this.totalText = "Total time on projects";
       return "profile";
@@ -66,6 +69,7 @@ export class TableComponent implements OnInit {
             this.data[i].time[j] = Number(input.value);
             this.findTotalForProject();
             this.findTotalByDay();
+            this.update();
           }
         }
       }
@@ -77,10 +81,23 @@ export class TableComponent implements OnInit {
       if(input.parentElement.parentElement.getAttribute("id") == i) {
         this.data[i].time = Number(input.value);
         this.findTotalHourse();
+        this.updateProfileBD.emit(this.data);
       }
     }
-  }
+  }  
 
+  removeRecord(value : number) {
+   console.log(this.data[value]);
+   this.data.slice(value,1);
+   this.update();
+  }
+  update() {
+    if(this.profileBD) {
+      this.updateProfileBD.emit(this.data);
+    } else {
+      this.updateTimelogs.emit(this.data);
+    }
+  }
   ngOnInit() {
     if(this.determineViewTable() === "timelogs") {
       this.findTotalForProject();

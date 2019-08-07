@@ -4,12 +4,12 @@
     <app-container class="table">
       <app-table
         [editTable] = true
-        [headShow] = true
+        [profileBD] = false
         [timelogs] = true
-        [data] = 'logs'></app-table>
+        [data] = 'logs'  (updateTimelogs)="updateTimelogs($event)"></app-table>
     </app-container>
     <app-container class="chart">
-
+      
     </app-container>
   </div>
 </app-block>

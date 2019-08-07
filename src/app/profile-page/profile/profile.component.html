@@ -14,9 +14,9 @@
         <h3>Projects: </h3>
           <app-table
             [editTable] = true
-            [headShow] = false
             [timelogs] = false
-            [data] = 'employeeProjects'></app-table>
+            [profileBD] = true
+            [data] = 'employeeProjects' (updateProfileBD)="updateProfileBD($event)"></app-table>
       </div>
     </div>
   </app-container>
@@ -30,10 +30,10 @@
         <div>
           <h3>Pending for Approval: {{timesheet.period}} </h3>
           <app-table
-            [editTable] = edit
-            [headShow] = true
-            [timelogs] = false
-            [data] = 'timesheet.logs'></app-table>
+            [editTable] = true
+            [profileBD] = true
+            [timelogs] = true
+            [data] = 'timesheet.logs' (updateProfileBD)="updateProfileBD($event)"></app-table>
         </div>
         <div class="donut_chart">
           <app-donut-chart

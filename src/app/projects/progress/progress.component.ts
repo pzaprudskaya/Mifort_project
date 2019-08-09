@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
-
+import { ProgressService } from './progress.service';
+import {Project} from '../project/items.model';
 @Component({
   selector: 'app-progress',
   templateUrl: './progress.component.html',
@@ -24,7 +25,7 @@ export class ProgressComponent implements OnInit {
    '#98B5FF', '#E0AEFF', '#E2E1E1', ];
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString());
-  constructor() {}
+  constructor(private progressService: ProgressService) {}
   ngOnInit() {
   }
   changeCondition() {
@@ -34,8 +35,27 @@ export class ProgressComponent implements OnInit {
     this.color = item;
     this.condition = false;
   }
-  sendToServer(){
-    console.log('send to server');
-    
+  sendToServer(name){
+    console.log(name);
+
+    let body: Project = { 
+      color: this.color,
+      name: this.name,
+      team:
+        [
+          {
+            photo:	this.endDate,
+            name:	this.endDate,
+            workload:	3 ,
+          }
+        ],
+      startDate:	this.startDate,
+      endDate:	this.endDate,
+      planned:	12,
+      actual:	22,
+      status: this.status,
+    }
+    this.progressService.update(body).subscribe( log => console.log(log));
+    this.progressService.getAll().subscribe(log => console.log(log));
   }
 }

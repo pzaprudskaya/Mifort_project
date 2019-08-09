@@ -1,10 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import {  MatTableDataSource} from '@angular/material';
 import { ProjectsTableService } from './projects-table.service';
-import {Subject} from 'rxjs';
-import {Project} from './items.model';
-
-
+import { Subject } from 'rxjs';
+import { Project } from './items.model';
 
 @Component({
   selector: 'app-project',

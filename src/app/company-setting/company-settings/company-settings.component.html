@@ -1,26 +1,34 @@
 <app-block>
   <app-container class="width">
     <div class="box">
-      <input type="text">
-      <button>Save</button>
+      <input id="name" type="text" [(ngModel)]="companySettings.name">
+      <button (click)="save()">Save</button>
     </div>
-    <app-company-properties></app-company-properties>
+    <app-company-properties [properties] = 'companySettings'
+    ></app-company-properties>
   </app-container>
 
   <app-container class="width">
     <h3>Approval Period: </h3>
-    <app-approval-period></app-approval-period>
+    <app-approval-period [approval]='companySettings.approval'
+                         [notify]='companySettings.notify'
+                         [submitTimeLogs]='companySettings.submitTimeLogs'
+                         [abilityToForget]='companySettings.abilityToForget'
+    ></app-approval-period>
   </app-container>
 
   <div  class="comment">
     <app-container class="comments">
       <h3>Comments: </h3>
-      <app-comments></app-comments>
+      <app-comments [validation]='companySettings.validation'
+                    [comments]='companySettings.comments'
+      ></app-comments>
     </app-container>
 
     <app-container class="integrations">
-
-      <app-integrations></app-integrations>
+      <app-integrations [connectedIntegration]='companySettings.connectedIntegration'
+                        [integrations]='companySettings.integrations'
+      ></app-integrations>
     </app-container>
   </div>
 </app-block>

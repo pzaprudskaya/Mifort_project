@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 import {User} from './user.model';
@@ -19,6 +19,7 @@ export class UserService {
 
   private API_URL = 'http://localhost:3000/activity/';
 
+
   constructor(private http: HttpClient) { }
 
   getUser(nameUser): Observable<User> {
@@ -26,6 +27,16 @@ export class UserService {
       tap((data: User) => console.log('User: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
+  }
+
+  updateUser(user: User) {
+    debugger;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+    return this.http.put<void>(`${this.API_URL}${user.name}`, JSON.stringify(user), httpOptions).pipe(
+      tap(userUpdate => console.log('update user: ' + JSON.stringify(userUpdate))),
+      catchError(this.handleError));
   }
   private handleError(err: HttpErrorResponse) {
 
@@ -40,4 +51,5 @@ export class UserService {
     console.error(errorMessage);
     return throwError(errorMessage);
   }
+
 }

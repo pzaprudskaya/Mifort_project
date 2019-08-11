@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CompanySettingsModel} from '../company-settings/company-settings.model';
 
 @Component({
   selector: 'app-company-properties',
@@ -6,5 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./company-properties.component.sass']
 })
 export class CompanyPropertiesComponent implements OnInit {
-  ngOnInit() {  }
+  periods: string[];
+  @Input() properties: CompanySettingsModel;
+  ngOnInit() {
+    this.periods = ['week', '2 week', 'month'];
+  }
+
+
 }

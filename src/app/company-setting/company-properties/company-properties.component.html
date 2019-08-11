@@ -1,25 +1,30 @@
 <div class="params">
   <div class="box">
     <p>Company activities: </p>
-    <mat-checkbox>Vacation</mat-checkbox>
-    <mat-checkbox>Sick Leave</mat-checkbox>
-    <mat-checkbox>Business Trip</mat-checkbox>
+    <mat-checkbox [(ngModel)]="properties.activities.vacation">Vacation</mat-checkbox>
+    <mat-checkbox [(ngModel)]="properties.activities.sickLeave">Sick Leave</mat-checkbox>
+    <mat-checkbox [(ngModel)]="properties.activities.business">Business Trip</mat-checkbox>
   </div>
   <div class="box">
     <p>Default Projects: </p>
-    <mat-select >
-      <mat-option value="option1">Choose project</mat-option>
-    </mat-select>
-    <mat-select >
-      <mat-option value="option1">Choose project</mat-option>
-    </mat-select>
+    <select name="" class="statuses__select" [(ngModel)]='properties.defaultProject[0]'>
+      <option [value]='project' *ngFor='let project of properties.defaultProject'>{{project}}</option>
+    </select>
   </div>
   <div class="box">
     <p>Start week from: </p>
-    <mat-radio-button>Sunday</mat-radio-button>
-    <mat-radio-button>Monday</mat-radio-button>
+    <mat-radio-group [(ngModel)]="properties.startWeek">
+      <mat-radio-button [value]="'Sunday'">Sunday</mat-radio-button>
+      <mat-radio-button [value]="'Monday'">Monday</mat-radio-button>
+    </mat-radio-group>
+
   </div>
   <div class="box">
     <p>Default Workload: </p>
+    <p><input type="text" [(ngModel)]='properties.defaultWorkload.hours' > hours per
+      <select name="" class="statuses__select" [(ngModel)]='properties.defaultWorkload.period'>
+        <option [value]='period' *ngFor='let period of periods'>{{period}}</option>
+      </select>
+    </p>
   </div>
 </div>

@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {EmployeesProfileService} from '../../profile-page/profile/employees-profile.service';
 import {TableService} from '../../components/table/table.service';
 import {User} from './user.model';
+import {CompanySettingsService} from '../../company-setting/company-settings/company-settings.service';
 @Component({
   selector: 'app-logo-user-company',
   templateUrl: './logo-user-company.component.html',
@@ -19,7 +20,8 @@ export class LogoUserCompanyComponent implements OnInit {
 
   constructor(private employeesProfileService: EmployeesProfileService,
               private tableService: TableService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private companySettingsService: CompanySettingsService ) { }
 
   ngOnInit() {
     this.photo = '';
@@ -28,8 +30,11 @@ export class LogoUserCompanyComponent implements OnInit {
       user => {
         this.user = user[0];
         this.companies = this.user.companies;
+        this.companyOption = this.companies[0];
+        this.companySettingsService.setCompany(this.companyOption);
       });
     this.employeesProfileService.getName(this.nameOption);
+    this.companySettingsService.getName(this.nameOption);
     this.tableService.getNameCompany(this.companyOption);
     this.employeesProfileService.getEmployee().subscribe(
       employee => {
@@ -41,8 +46,10 @@ export class LogoUserCompanyComponent implements OnInit {
       user => {
         this.user = user[0];
         this.companies = this.user.companies;
+        this.companyOption = this.companies[0];
       });
     console.log(this.nameOption);
+    this.companySettingsService.setCompany(this.companyOption);
     this.employeesProfileService.getName(this.nameOption);
     this.employeesProfileService.getEmployee().subscribe(
       employee => {
@@ -51,6 +58,7 @@ export class LogoUserCompanyComponent implements OnInit {
   }
   changeProject() {
     console.log(this.companyOption);
+    this.companySettingsService.setCompany(this.companyOption);
   }
 
 }

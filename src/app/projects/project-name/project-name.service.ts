@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
+import {CompanySettingsModel} from "../../company-setting/company-settings/company-settings.model";
 
 
 @Injectable({
@@ -26,6 +27,7 @@ export class ProjectNameService {
   constructor(private http: HttpClient) { }
 
   getProject(): Observable<ProjectNameModel> {
+    debugger;
     return this.http.get<ProjectNameModel>(this.API_URL + this.nameProject, this.httpOptions).pipe(
       tap((data: ProjectNameModel) => console.log('Project: ' + JSON.stringify(data))),
       catchError(this.handleError)
@@ -46,6 +48,17 @@ export class ProjectNameService {
   }
   public getName(name: string): void {
     this.nameProject = name;
+  }
+  update(project: ProjectNameModel) {
+
+    return this.http.put<void>(`${this.API_URL}${project.name}`, JSON.stringify(project), this.httpOptions).pipe(
+      tap(updateProject => console.log('update project: ' + JSON.stringify(updateProject))),
+      catchError(this.handleError));
+  }
+  addNewProject(project: ProjectNameModel) {
+    return this.http.post<ProjectNameModel>(this.API_URL, JSON.stringify(project), this.httpOptions).pipe(
+      tap(addProject => console.log('add project: ' + JSON.stringify(addProject))),
+      catchError(this.handleError));
   }
 
 

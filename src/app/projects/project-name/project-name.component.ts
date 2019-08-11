@@ -11,16 +11,39 @@ import {ProjectNameModel} from './project-name.model';
 export class ProjectNameComponent implements OnInit {
   projectName: string;
   project: ProjectNameModel;
+  stateCreate: boolean;
 
   constructor(private route: ActivatedRoute, private projectNameService: ProjectNameService) {}
   ngOnInit() {
     this.projectName = '';
     this.projectName = this.route.snapshot.params.project_name;
-    this.projectNameService.getName(this.projectName);
+    if (this.projectName === 'create') {
+      this.projectNameService.getName('Name');
+      this.stateCreate = true;
+    } else {
+      this.projectNameService.getName(this.projectName);
+      this.stateCreate = false;
+    }
     this.projectNameService.getProject().subscribe(
       project => {
 
         this.project = project[0];
       });
+  }
+  changeStatus(status) {
+    this.project.status = status;
+    this.projectNameService.update(this.project)
+      .subscribe(() => console.log('Update!'));
+
+  }
+  save() {
+    debugger;
+    if (this.projectName === 'create') {
+      this.projectNameService.addNewProject(this.project)
+        .subscribe(() => console.log('Add!'));
+    } else {
+      this.projectNameService.update(this.project)
+        .subscribe(() => console.log('Update!'));
+    }
   }
 }

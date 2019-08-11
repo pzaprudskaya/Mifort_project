@@ -47,8 +47,6 @@ export class ProjectsTableService {
     return throwError(errorMessage);
   }
 
-
-
   search(terms: Observable<string>) {
     return terms.debounceTime(400)
       .distinctUntilChanged()
@@ -60,15 +58,11 @@ export class ProjectsTableService {
       .map(res => res);
   }
 
-
-
-
   filter(term) {
     return this.http
       .get(this.API_URL + '?status=' + term, this.httpOptions)
       .map(res => res);
   }
-
 
   update(project: Project) {
 

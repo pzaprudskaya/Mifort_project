@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ApprovalsService} from '../approvals-page/employees-table.service';
 
 
 @Component({

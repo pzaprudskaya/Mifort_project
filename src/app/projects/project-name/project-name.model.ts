@@ -19,11 +19,18 @@ export interface ProjectNameModel {
           workload: number,
         }
       ];
+      connectedIntegration:	[
+        {
+          id: string,
+          name: string,
+          background: string,
+        }
+        ];
       integrations:	[
         {
-          type: string,
-          login: string,
-          password: string,
+          id: string,
+          name: string,
+          background: string,
         }
       ];
   'yearsWorkload': [

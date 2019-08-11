@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CreateProjectComponent } from './projects/create-project/create-project.component';
-
 
 import { PageComponent } from './core/page/page.component';
 import { EmployeesPageComponent } from './employee/employees-page/employees-page.component';
@@ -21,7 +19,6 @@ import {ApprovalsPageComponent} from './approvals/approvals-page/approvals-page.
 const itemMenu: Routes = [
   { path: 'timelog-day', component: TimelogComponent},
   { path: 'profile', component: ProfileComponent},
-  { path: 'projects/create_pro', component: CreateProjectComponent},
   { path: 'projects/:project_name', component: ProjectNameComponent},
   { path: 'projects', component: ProjectComponent},
   { path: 'employees', component: EmployeesPageComponent},

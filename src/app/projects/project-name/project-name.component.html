@@ -1,19 +1,24 @@
 <app-block>
   <div class="progress__width">
     <app-container >
-      <app-progress
+      <div class="buttons">
+        <button (click)="changeStatus('pause')">Pause<i class="material-icons">pause</i></button>
+        <button (click)="changeStatus('archived')">Archive<i class="material-icons">stop</i></button>
+        <button (click)="save()">Save</button>
+      </div>
+      <app-progress class="properties"
         [name]="project.name"
         [code] ="project.code"
         [color] = "project.color"
         [status]="project.status"
         [projectType]="project.projectType"
         [startDate]="project.startDate"
-        [endDate]="project.endDate"
+        [endDateOrMen]="project.endDate"
         [progressBar]="project.progressBar"
       ></app-progress>
     </app-container>
   </div>
-  <div class="inline">
+  <div class="inline" *ngIf="(stateCreate === false)">
     <div class="integrations">
       <app-container >
         <h3>Team:</h3>
@@ -26,7 +31,8 @@
         ></app-table>
       </app-container>
       <app-container>
-        <app-integrations></app-integrations>
+        <app-integrations [connectedIntegration]="project.connectedIntegration"
+                          [integrations]="project.integrations"></app-integrations>
       </app-container>
     </div>
 
@@ -42,5 +48,20 @@
     </div>
 
   </div>
+  <div class="inline" *ngIf="(stateCreate === true)">
+  <app-container class="integrations">
+    <h3>Team:</h3>
+    <app-table
+      [editTable] = false
+      [headShow] = false
+      [timelogs] = false
+      [data] = 'employeeProjects'
 
+    ></app-table>
+  </app-container>
+  <app-container class="bar-chart__width">
+    <app-integrations [connectedIntegration]="project.connectedIntegration"
+                      [integrations]="project.integrations"></app-integrations>
+  </app-container>
+  </div>
 </app-block>

@@ -18,16 +18,20 @@ import 'rxjs/add/operator/switchMap';
 export class CompanySettingsService {
   private API_URL = 'http://localhost:3000/settings/';
   companyName: string;
-  nameUser: string;
+  nameUser: string;;
+  httpOptions = {
+    mode: 'no-cors',
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
   constructor(private http: HttpClient) { }
   getCompany(): Observable<CompanySettingsModel> {
     if (this.companyName === 'createCompany') {
-      return this.http.get<CompanySettingsModel>(this.API_URL + 'Name').pipe(
+      return this.http.get<CompanySettingsModel>(this.API_URL + 'Name', this.httpOptions).pipe(
         tap((data: CompanySettingsModel) => console.log('Company: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
     } else {
-      return this.http.get<CompanySettingsModel>(this.API_URL + this.companyName).pipe(
+      return this.http.get<CompanySettingsModel>(this.API_URL + this.companyName, this.httpOptions).pipe(
         tap((data: CompanySettingsModel) => console.log('Company: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
@@ -51,18 +55,12 @@ export class CompanySettingsService {
   }
   update(company: CompanySettingsModel) {
     debugger;
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-    return this.http.put<void>(`${this.API_URL}/${company.id}`, JSON.stringify(company), httpOptions).pipe(
+    return this.http.put<void>(`${this.API_URL}/${company.id}`, JSON.stringify(company), this.httpOptions).pipe(
         tap(companyUpdate => console.log('update company: ' + JSON.stringify(companyUpdate))),
         catchError(this.handleError));
   }
   addCompany(company: CompanySettingsModel) {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-    return this.http.post<CompanySettingsModel>(this.API_URL, JSON.stringify(company), httpOptions).pipe(
+    return this.http.post<CompanySettingsModel>(this.API_URL, JSON.stringify(company), this.httpOptions).pipe(
       tap(addCompany => console.log('add company: ' + JSON.stringify(addCompany))),
       catchError(this.handleError));
   }

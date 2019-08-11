@@ -4,7 +4,10 @@
       <input id="name" type="text" [(ngModel)]="companySettings.name">
       <button (click)="save()">Save</button>
     </div>
-    <app-company-properties [properties] = 'companySettings'
+    <app-company-properties [activities] = 'companySettings.activities'
+                            [startWeek]="companySettings.startWeek"
+                            [defaultWorkload]="companySettings.defaultWorkload"
+                            [defaultProject]="companySettings.defaultProject"
     ></app-company-properties>
   </app-container>
 

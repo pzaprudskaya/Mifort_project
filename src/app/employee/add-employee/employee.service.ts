@@ -22,13 +22,16 @@ export class EmployeesService {
 
   private API_URL = 'http://localhost:3000/employee-profile/';
   private API_URL_TWO = 'http://localhost:3000/employee-items/';
-
+  httpOptions = {
+    mode: 'no-cors',
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
   nameEmployee: string;
 
   constructor(private http: HttpClient) { }
 
   getEmployee(): Observable<Profile> {
-    return this.http.get<Profile>(this.API_URL + this.nameEmployee).pipe(
+    return this.http.get<Profile>(this.API_URL + this.nameEmployee, this.httpOptions).pipe(
       tap((data: Profile) => console.log('Employee: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
@@ -50,18 +53,13 @@ export class EmployeesService {
     this.nameEmployee = name;
   }
   update(employee: Profile) {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-    return this.http.put<void>(`${this.API_URL}${employee.name}`, JSON.stringify(employee), httpOptions).pipe(
+
+    return this.http.put<void>(`${this.API_URL}${employee.name}`, JSON.stringify(employee), this.httpOptions).pipe(
       tap(updateEmployee => console.log('update project: ' + JSON.stringify(updateEmployee))),
       catchError(this.handleError));
   }
   updateTwo(employee: Employees) {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-    return this.http.put<void>(`${this.API_URL_TWO}${employee.name}`, JSON.stringify(employee), httpOptions).pipe(
+    return this.http.put<void>(`${this.API_URL_TWO}${employee.name}`, JSON.stringify(employee), this.httpOptions).pipe(
       tap(updateEmployee => console.log('update project: ' + JSON.stringify(updateEmployee))),
       catchError(this.handleError));
   }

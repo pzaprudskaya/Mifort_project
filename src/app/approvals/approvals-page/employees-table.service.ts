@@ -18,11 +18,15 @@ export class ApprovalsService {
 
   private API_URL = 'http://localhost:3000/approvals-items';
   private queryUrl = '?name=';
+   httpOptions = {
+    mode: 'no-cors',
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
 
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Approval[]> {
-    return this.http.get<Approval[]>(this.API_URL).pipe(
+    return this.http.get<Approval[]>(this.API_URL, this.httpOptions).pipe(
       tap((data: Approval[]) => console.log('All: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
@@ -41,8 +45,6 @@ export class ApprovalsService {
     return throwError(errorMessage);
   }
 
-
-
   search(terms: Observable<string>) {
     return terms.debounceTime(400)
       .distinctUntilChanged()
@@ -50,18 +52,19 @@ export class ApprovalsService {
   }
   searchEntries(term) {
     return this.http
-      .get(this.API_URL + this.queryUrl + term)
+      .get(this.API_URL + this.queryUrl + term, this.httpOptions)
       .map(res => res);
   }
 
   filter(term) {
     return this.http
-      .get(this.API_URL + '?status=' + term)
+      .get(this.API_URL + '?status=' + term, this.httpOptions)
       .map(res => res);
   }
 
   update(employee: Approval) {
     const httpOptions = {
+      mode: 'no-cors',
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
     return this.http.put<void>(`${this.API_URL}/${employee.id}`, JSON.stringify(employee), httpOptions).pipe(
@@ -70,7 +73,7 @@ export class ApprovalsService {
   }
   filterByPeriod(term) {
     return this.http
-      .get(this.API_URL + '?period=' + term)
+      .get(this.API_URL + '?period=' + term, this.httpOptions)
       .map(res => res);
   }
 

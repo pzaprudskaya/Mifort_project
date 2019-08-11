@@ -8,10 +8,10 @@ export interface CompanySettingsModel {
       business: boolean;
     };
   defaultProject: string[];
-  startWeek: string,
+  startWeek: string;
   defaultWorkload: {
     hours: number;
-    period: string
+    period: string;
   };
   approval: string;
   notify: any[];
@@ -35,4 +35,6 @@ export interface CompanySettingsModel {
     }
   ];
 }
+
+
 

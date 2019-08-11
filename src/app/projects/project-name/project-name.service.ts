@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 import {ProjectNameModel} from './project-name.model';
@@ -19,11 +19,14 @@ export class ProjectNameService {
 
   private API_URL = 'http://localhost:3000/project/';
   nameProject: string;
-
+  httpOptions = {
+    mode: 'no-cors',
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
   constructor(private http: HttpClient) { }
 
   getProject(): Observable<ProjectNameModel> {
-    return this.http.get<ProjectNameModel>(this.API_URL + this.nameProject).pipe(
+    return this.http.get<ProjectNameModel>(this.API_URL + this.nameProject, this.httpOptions).pipe(
       tap((data: ProjectNameModel) => console.log('Project: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );

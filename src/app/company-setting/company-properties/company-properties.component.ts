@@ -8,7 +8,10 @@ import {CompanySettingsModel} from '../company-settings/company-settings.model';
 })
 export class CompanyPropertiesComponent implements OnInit {
   periods: string[];
-  @Input() properties: CompanySettingsModel;
+  @Input() activities: any;
+  @Input() startWeek: string;
+  @Input() defaultWorkload: any;
+  @Input() defaultProject: string[];
   ngOnInit() {
     this.periods = ['week', '2 week', 'month'];
   }

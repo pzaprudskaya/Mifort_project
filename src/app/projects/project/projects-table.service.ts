@@ -20,12 +20,15 @@ export class ProjectsTableService {
 
   private API_URL = 'http://localhost:3000/project-items';
   private queryUrl = '?name=';
-
+  httpOptions = {
+    mode: 'no-cors',
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
   constructor(private http: HttpClient) {
   }
 
   getAll(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.API_URL).pipe(
+    return this.http.get<Project[]>(this.API_URL, this.httpOptions).pipe(
       tap((data: Project[]) => console.log('All: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
@@ -53,7 +56,7 @@ export class ProjectsTableService {
   }
   searchEntries(term) {
     return this.http
-      .get(this.API_URL + this.queryUrl + term)
+      .get(this.API_URL + this.queryUrl + term, this.httpOptions)
       .map(res => res);
   }
 
@@ -62,16 +65,14 @@ export class ProjectsTableService {
 
   filter(term) {
     return this.http
-      .get(this.API_URL + '?status=' + term)
+      .get(this.API_URL + '?status=' + term, this.httpOptions)
       .map(res => res);
   }
 
 
   update(project: Project) {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-    return this.http.put<void>(`${this.API_URL}/${project.name}`, JSON.stringify(project), httpOptions).pipe(
+
+    return this.http.put<void>(`${this.API_URL}/${project.name}`, JSON.stringify(project), this.httpOptions).pipe(
       tap(updateProject => console.log('update project: ' + JSON.stringify(updateProject))),
         catchError(this.handleError));
   }

@@ -36,32 +36,32 @@
         </ng-template>
       </td>
       <td>
-        <input type="text" [(ngModel)]="tbodyRow.time" [readonly]="!editTable" (change)="changeTotalHourse($event.target)" class="time"><p>h/week</p>
+        <input type="number" [(ngModel)]="tbodyRow.time" [readonly]="!editTable" (change)="changeTotalHourse($event.target)" class="time"><p>h/week</p>
       </td>
       </ng-template>
       <ng-template [ngIf]="timelogs">
         <td>
-          <input type="text" [(ngModel)]="tbodyRow.time[0]" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
+          <input type="number" [(ngModel)]="tbodyRow.time[0]" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
         </td>
         <td>
-          <input type="text" [(ngModel)]="tbodyRow.time[1]" [readonly]="!editTable" (change)="changeTotal($event.target,1)">
+          <input type="number" [(ngModel)]="tbodyRow.time[1]" [readonly]="!editTable" (change)="changeTotal($event.target,1)">
         </td>
         <td>
-          <input type="text" [(ngModel)]="tbodyRow.time[2]" [readonly]="!editTable" (change)="changeTotal($event.target,2)">
+          <input type="number" [(ngModel)]="tbodyRow.time[2]" [readonly]="!editTable" (change)="changeTotal($event.target,2)">
         </td><td>
-          <input type="text" [(ngModel)]="tbodyRow.time[3]" [readonly]="!editTable" (change)="changeTotal($event.target,3)">
+          <input type="number" [(ngModel)]="tbodyRow.time[3]" [readonly]="!editTable" (change)="changeTotal($event.target,3)">
         </td>
         <td>
-          <input type="text" [(ngModel)]="tbodyRow.time[4]" [readonly]="!editTable" (change)="changeTotal($event.target,4)">
+          <input type="number" [(ngModel)]="tbodyRow.time[4]" [readonly]="!editTable" (change)="changeTotal($event.target,4)">
         </td>
         <td>
-          <input type="text" [(ngModel)]="tbodyRow.time[5]" [readonly]="!editTable" (change)="changeTotal($event.target,5)">
+          <input type="number" [(ngModel)]="tbodyRow.time[5]" [readonly]="!editTable" (change)="changeTotal($event.target,5)">
         </td>
         <td>
-          <input type="text" [(ngModel)]="tbodyRow.time[6]" [readonly]="!editTable" (change)="changeTotal($event.target,6)">
+          <input type="number" [(ngModel)]="tbodyRow.time[6]" [readonly]="!editTable" (change)="changeTotal($event.target,6)">
         </td>
         <td>
-          <input type="text" [(ngModel)]="tbodyRow.time[7]" readonly>
+          <input type="number" [(ngModel)]="tbodyRow.time[7]" readonly>
         </td>
         <td *ngIf="editTable">
           <i class="material-icons" (click)='removeRecord(i)'>clear</i>
@@ -78,27 +78,27 @@
         <input type="text" placeholder="Add new task" class="comment">
       </td>
       <td>
-        <input type="text" placeholder="0">
+        <input type="number" placeholder="0">
       </td>
       <td>
-        <input type="text" placeholder="0">
+        <input type="number" placeholder="0">
       </td>
       <td>
-        <input type="text" placeholder="0">
+        <input type="number" placeholder="0">
       </td><td>
-        <input type="text" placeholder="0">
+        <input type="number" placeholder="0">
       </td>
       <td>
-        <input type="text" placeholder="0">
+        <input type="number" placeholder="0">
       </td>
       <td>
-        <input type="text" placeholder="0">
+        <input type="number" placeholder="0">
       </td>
       <td>
-        <input type="text" placeholder="0">
+        <input type="number" placeholder="0">
       </td>
       <td>
-        <input type="text" placeholder="0" readonly>
+        <input type="number" placeholder="0" readonly>
       </td>
     </tr>
     <tr *ngIf="editTable && !timelogs">
@@ -121,7 +121,7 @@
         </div>
       </td>
       <td>
-        <input type="text" placeholder="0" class="time"><p>h/week</p>
+        <input type="number" placeholder="0" class="time"><p>h/week</p>
       </td>
     </tr>
     <tr>

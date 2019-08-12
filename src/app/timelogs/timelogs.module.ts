@@ -9,6 +9,7 @@ import {CoreModule} from '../core/core.module';
 import {MaterialModule} from '../material.module';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -22,6 +23,7 @@ import {RouterModule} from '@angular/router';
     HeadComponent,
   ],
   imports: [
+    FormsModule,
     RouterModule,
     MaterialModule,
     CoreModule,

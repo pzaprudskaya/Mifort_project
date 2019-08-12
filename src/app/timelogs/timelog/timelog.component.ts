@@ -9,11 +9,11 @@ import {Timelog} from './timelog.model';
 })
 export class TimelogComponent implements OnInit {
   @Input() logs: any[] = [];
-  @Input() timelogs: Timelog;
+  @Input() timelogs: Timelog[];
+  save: string;
 
   constructor(private timelogsService: TimelogsService) { }
-  ngOnChanges() {
-  }
+
   ngOnInit() {
     this.timelogsService.getLogs().subscribe(
       timelogs => {
@@ -25,8 +25,9 @@ export class TimelogComponent implements OnInit {
       }
     );
   }
-  updateTimelogs(timelog: Timelog) {
-    this.timelogsService.update(timelog)
+  updateTimelogs() {
+    debugger;
+    this.timelogsService.update(this.logs)
           .subscribe(() => console.log('Update!'));
   }
 }

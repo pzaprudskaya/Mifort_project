@@ -15,7 +15,7 @@
           <div class="select" *ngIf="editTable">
               <select name="" class="statuses__select project">
                 <option selected class="text-option">{{tbodyRow.name}}</option>
-                <option [value]='name' *ngFor='let neme of names'>{{name}}</option>
+                <option [value]='name' *ngFor='let name of names'>{{name}}</option>
               </select>
           </div>
         </ng-template>
@@ -43,27 +43,27 @@
       </ng-template>
       <ng-template [ngIf]="timelogs">
         <td>
-          <input type="text" value={{tbodyRow.time[0]}} [readonly]="!editTable" (change)="changeTotal($event.target,0)">
+          <input type="text" [(ngModel)]="tbodyRow.time[0]" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
         </td>
         <td>
-          <input type="text" value={{tbodyRow.time[1]}} [readonly]="!editTable" (change)="changeTotal($event.target,1)">
+          <input type="text" [(ngModel)]="tbodyRow.time[1]" [readonly]="!editTable" (change)="changeTotal($event.target,1)">
         </td>
         <td>
-          <input type="text" value={{tbodyRow.time[2]}} [readonly]="!editTable" (change)="changeTotal($event.target,2)">
+          <input type="text" [(ngModel)]="tbodyRow.time[2]" [readonly]="!editTable" (change)="changeTotal($event.target,2)">
         </td><td>
-          <input type="text" value={{tbodyRow.time[3]}} [readonly]="!editTable" (change)="changeTotal($event.target,3)">
+          <input type="text" [(ngModel)]="tbodyRow.time[3]" [readonly]="!editTable" (change)="changeTotal($event.target,3)">
         </td>
         <td>
-          <input type="text" value={{tbodyRow.time[4]}} [readonly]="!editTable" (change)="changeTotal($event.target,4)">
+          <input type="text" [(ngModel)]="tbodyRow.time[4]" [readonly]="!editTable" (change)="changeTotal($event.target,4)">
         </td>
         <td>
-          <input type="text" value={{tbodyRow.time[5]}} [readonly]="!editTable" (change)="changeTotal($event.target,5)">
+          <input type="text" [(ngModel)]="tbodyRow.time[5]" [readonly]="!editTable" (change)="changeTotal($event.target,5)">
         </td>
         <td>
-          <input type="text" value={{tbodyRow.time[6]}} [readonly]="!editTable" (change)="changeTotal($event.target,6)">
+          <input type="text" [(ngModel)]="tbodyRow.time[6]" [readonly]="!editTable" (change)="changeTotal($event.target,6)">
         </td>
         <td>
-          <input type="text" value={{tbodyRow.time[7]}} readonly>
+          <input type="text" [(ngModel)]="tbodyRow.time[7]" readonly>
         </td>
         <td *ngIf="editTable">
           <i class="material-icons" (click)='removeRecord(i)'>clear</i>
@@ -111,14 +111,13 @@
         <div class="select">
             <select name="" class="statuses__select project">
               <option selected class="text-option">Choose Project</option>
-              <option [value]='name' *ngFor='let neme of names'>{{name}}</option>
+              <option [value]='project' *ngFor='let project of projects'>{{project}}</option>
             </select>
         </div>
       </td>
        <td>
         <div class="select">
-            <select name="" class="statuses__select role">
-              <option selected class="text-option">Choose Role</option>
+            <select name="" [(ngModel)]="roles[0]" class="statuses__select role">
               <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
             </select>
         </div>

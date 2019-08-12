@@ -63,8 +63,10 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-  updateProfileBD(employee: Profile) {
-    this.employeesProfileService.update(employee)
+  save() {
+    debugger;
+    this.employeesProfileService.update(this.employee)
           .subscribe(() => console.log('Update!'));
   }
+
 }

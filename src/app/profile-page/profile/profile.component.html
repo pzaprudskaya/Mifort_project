@@ -1,5 +1,6 @@
 <app-block let="employee">
     <app-container >
+      <button (click)="save()"> Save </button>
     <div class="box">
       <div mat-card-avatar class = "box__photo" [ngStyle]="{'background-image': 'url(' + employee.photoUrl + ')'}">
       </div>

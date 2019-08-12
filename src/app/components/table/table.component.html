@@ -5,40 +5,38 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor='let tbodyRow of data; let i = index' id={{i}}>
+    <tr *ngFor='let tbodyRow of data; let i = index' id="{{i}}">
       <td class="circle"><div class="tbody__circle" [ngStyle]="{'background': tbodyRow.color }"></div></td>
       <td>
         <ng-template [ngIf]="!editTable && !timelogs">
-          <input type="text"  value={{tbodyRow.name}} readonly class="project">
+          <input type="text" [(ngModel)]="tbodyRow.name" readonly class="project">
         </ng-template>
         <ng-template [ngIf]="editTable && !timelogs">
           <div class="select" *ngIf="editTable">
-              <select name="" class="statuses__select project">
-                <option selected class="text-option">{{tbodyRow.name}}</option>
-                <option [value]='name' *ngFor='let name of names'>{{name}}</option>
+              <select name="" [(ngModel)]="tbodyRow.name" class="statuses__select project">
+                <option [value]='project' *ngFor='let project of projects'>{{project}}</option>
               </select>
           </div>
         </ng-template>
         <ng-template [ngIf]="timelogs">
-          <input type="text"  value={{tbodyRow.comment}} class="comment" [readonly]="!editTable">
+          <input type="text"  [(ngModel)]="tbodyRow.comment" class="comment" [readonly]="!editTable">
         </ng-template>
       </td>
       <ng-template [ngIf]="!timelogs">
       <td>
         <ng-template [ngIf]="!editTable && !timelogs">
-          <input type="text" value={{tbodyRow.role}} class="role" readonly>
+          <input type="text" [(ngModel)]="tbodyRow.role" class="role" readonly>
         </ng-template>
         <ng-template [ngIf]="editTable && !timelogs">
           <div class="select">
-              <select name="" class="statuses__select role">
-                <option selected class="text-option">{{tbodyRow.role}}</option>
+              <select name="" [(ngModel)]="tbodyRow.role" class="statuses__select role">
                 <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
               </select>
           </div>
         </ng-template>
       </td>
       <td>
-        <input type="text" value="{{tbodyRow.time}}" [readonly]="!editTable" (change)="changeTotalHourse($event.target)" class="time"><p>h/week</p>
+        <input type="text" [(ngModel)]="tbodyRow.time" [readonly]="!editTable" (change)="changeTotalHourse($event.target)" class="time"><p>h/week</p>
       </td>
       </ng-template>
       <ng-template [ngIf]="timelogs">

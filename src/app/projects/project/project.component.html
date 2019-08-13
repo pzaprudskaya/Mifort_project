@@ -1,12 +1,12 @@
 <app-block>
   <div class="inline">
     <div class="buttons">
-      <button (click)="filter('active')">Active</button>
+      <button (click)="filter('in progress')">Active</button>
       <button (click)="filter('archived')">Archived</button>
 
     </div>
     <div>
-      <button class="button__create" routerLink="/projects/create_pro">Create</button>
+      <button class="button__create" routerLink="/projects/create">Create</button>
     </div>
   </div>
 
@@ -45,6 +45,7 @@
             [color] = 'checkValue(element.planned, element.actual)'
             [planned] = 'element.planned'
             [actual] = 'element.actual'
+            [showNumber] = true
           ></app-progress-bars>
         </td>
       </ng-container>
@@ -55,14 +56,14 @@
       <ng-container matColumnDef="play_pause">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element" >
-          <i class="material-icons">pause</i>
-          <i class="material-icons">play_arrow</i>
+          <i *ngIf="(element.status==='in progress')" class="material-icons" (click)="changeStatus(element, 'paused')">pause</i>
+          <i *ngIf="(element.status==='paused')"class="material-icons" (click)="changeStatus(element,'in progress')">play_arrow</i>
         </td>
       </ng-container>
       <ng-container matColumnDef="stop">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element" >
-          <i (click)="archiveProject(element)" class="material-icons">stop</i>
+          <i (click)="changeStatus(element, 'archived')" class="material-icons">stop</i>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

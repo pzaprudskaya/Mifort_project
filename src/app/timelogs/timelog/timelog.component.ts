@@ -1,6 +1,8 @@
+
 import { Component, OnInit, Input } from '@angular/core';
 import {TimelogsService} from './timelogs.service';
 import {Timelog} from './timelog.model';
+import {TimeSheetForApproval} from "../../profile-page/profile/profile.model";
 
 @Component({
   selector: 'app-timelog',
@@ -21,12 +23,16 @@ export class TimelogComponent implements OnInit {
         this.timelogs = timelogs;
         this.timelogs.forEach((log) => {
           this.logs.push(log);
+
+   
         });
       }
     );
+      console.log('Logs: ' + this.logs);
   }
   updateTimelogs(timelog: Timelog) {
     this.timelogsService.update(timelog)
           .subscribe(() => console.log('Update!'));
   }
+
 }

@@ -8,7 +8,7 @@ import { Chart } from 'chart.js';
 })
 export class WorkloadComponent implements OnInit {
 
-  ngOnInit(){
-    
+  ngOnInit() {
+
   }
 }

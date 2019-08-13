@@ -1,85 +1,52 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {catchError, tap, map} from 'rxjs/operators';
+import {CompanyModel} from './company.model';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class TableService {
-  constructor() { }
-  chooseProject: boolean = true;
-  tableBody = [
-      {
-        color: 'red',
-        name: "Windows",
-        value: 2.25,
-        comment: '435: added localization on landing page',
-      },
-      {
-        color: 'green',
-        name: "Skype",
-        value: 0.25,
-        comment: 'Standup meeting',
 
-},
-{
-  color: 'yellow',
-    name: "Skype",
-  value: 0.25,
-  comment: 'Standup meeting',
-},
-{
-  color: 'gray',
-    name: "Skype",
-  value: 0.25,
-  comment: 'Standup meeting',
+  private API_URL = 'http://localhost:3000/company-projects/';
+  nameCompany: string;
 
-}
-  ]
-  projects = [
-    {
-      color: 'red',
-      name: 'Mifort',
-    },
-    {
-      color: 'blue',
-      name: 'Google',
+  constructor(private http: HttpClient) { }
 
-    },
-  ]
-  tableHeader: Array<string> = [
-    'Projects', 'Time (hours)', 'Comment'
-  ];
-  total = [
-    'Total', this.getTotal()
-  ];
-  getTotal(){
-    let total = 0;
-    this.tableBody.forEach(element => {
-      total += element.value;
-    });
-    return total;
+  getCompany(): Observable<CompanyModel> {
+    return this.http.get<CompanyModel>(this.API_URL + this.nameCompany).pipe(
+      tap((data: CompanyModel) => console.log('Company: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
   }
-  getHeaderOfTable(){
-    return this.tableHeader;
+  private handleError(err: HttpErrorResponse) {
+
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
   }
-  getRowsOfTable(){
-    return this.tableBody.map(element => {
-     return[element.name, element.value, element.comment];
-    });
+  public getNameCompany(name: string): void {
+    this.nameCompany = name;
   }
-  getTotalOfTable(){
-    return this.total;
-  }
-  getChooseProjectOfTable(){
-    return this.chooseProject;
-  }
-  getProject(){
-    return this.projects;
-  }
-  getColor(){
-    let arrOfColors = [];
-    this.tableBody.forEach(element => {
-      arrOfColors.push(element.color);
-    });
-    return arrOfColors;
-  }
+
+
+
+
+
 }

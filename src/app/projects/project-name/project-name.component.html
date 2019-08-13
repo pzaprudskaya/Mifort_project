@@ -1,23 +1,38 @@
 <app-block>
   <div class="progress__width">
     <app-container >
-      <app-progress [projectName]="project_name" ></app-progress>
+      <div class="buttons">
+        <button (click)="changeStatus('pause')">Pause<i class="material-icons">pause</i></button>
+        <button (click)="changeStatus('archived')">Archive<i class="material-icons">stop</i></button>
+        <button (click)="save()">Save</button>
+      </div>
+      <app-progress class="properties"
+        [project]="project"
+      ></app-progress>
     </app-container>
   </div>
-  <div class="inline">
+  <div class="inline" *ngIf="(stateCreate === false)">
     <div class="integrations">
       <app-container >
         <h3>Team:</h3>
-        <app-table></app-table>
+        <app-table
+          [editTable] = false
+          [headShow] = false
+          [timelogs] = false
+          [data] = 'employeeProjects'
+
+        ></app-table>
       </app-container>
       <app-container>
-        <app-integrations></app-integrations>
+        <app-integrations [object]="project"></app-integrations>
       </app-container>
     </div>
 
     <div class="bar-chart__width">
       <app-container >
-        <app-bar-chart></app-bar-chart>
+        <app-bar-chart
+          [bar] = 'project.yearsWorkload'
+        ></app-bar-chart>
       </app-container>
       <app-container >
         <app-export></app-export>
@@ -25,5 +40,19 @@
     </div>
 
   </div>
+  <div class="inline" *ngIf="(stateCreate === true)">
+  <app-container class="integrations">
+    <h3>Team:</h3>
+    <app-table
+      [editTable] = false
+      [headShow] = false
+      [timelogs] = false
+      [data] = 'employeeProjects'
 
+    ></app-table>
+  </app-container>
+  <app-container class="bar-chart__width">
+    <app-integrations [object]="project"></app-integrations>
+  </app-container>
+  </div>
 </app-block>

@@ -1,0 +1,18 @@
+<div class="sign">
+    <div class="sign__image">
+    </div>
+    <div class="sign__form_container">
+      <h1 class="sign__form_name">Link expired</h1>
+      <form [formGroup]="signForm" novalidate class="sign__form">
+          <div class="alert-danger"
+          *ngIf="signForm.controls['emailControl'].invalid && signForm.controls['emailControl'].touched">
+          invalid email
+          </div>
+         <input type="email" placeholder="Email to restore password" formControlName='emailControl' class="sign__form_input">
+        <div>
+          <button class='sign__form_button' type="submit">Restore password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+

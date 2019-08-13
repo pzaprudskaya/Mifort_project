@@ -1,32 +1,29 @@
 <div class="params">
   <div class="approval" >
     <p>Approval Period: </p>
-    <mat-select class="period">
-      <mat-option (click)="stateTrue()" value="option1">1 week</mat-option>
-      <mat-option (click)="stateTrue()" value="option2">2 week</mat-option>
-      <mat-option (click)="stateTrue()" value="option3">1 month</mat-option>
-      <mat-option (click)="stateFalse()" value="option4">I don’t need approvals</mat-option>
-    </mat-select>
-    <mat-slide-toggle [ngClass]="{approvalfalse: flag}">Submit Time Logs automatically in the end of period</mat-slide-toggle>
+    <select class="period" [(ngModel)]="company.approval" (ngModelChange)="changePeriod()">
+      <option [value]='period' *ngFor='let period of periods'>{{period}}</option>
+    </select>
+    <div [ngClass]="{approvalfalse: flag}">
+      <mat-slide-toggle [(ngModel)]='company.submitTimeLogs'>Submit Time Logs automatically in the end of period</mat-slide-toggle>
+    </div>
   </div>
   <div class="approval" [ngClass]="{approvalfalse: flag}">
     <p>Notify about difference between expected and actual time: </p>
-    <mat-checkbox> ≤ <input type="text"> %
-      <mat-select class="select">
-        <mat-option value="option1">error</mat-option>
-        <mat-option value="option2">warn</mat-option>
-      </mat-select>
+    <mat-checkbox [(ngModel)]="company.notify[0][0]"> ≤ <input type="number" [(ngModel)]="company.notify[0][1]"> %
+      <select class="select" [(ngModel)]='company.notify[0][2]'>
+        <option [value]='status' *ngFor='let status of statuses'>{{status}}</option>
+      </select>
     </mat-checkbox>
-    <mat-checkbox> ≥ <input type="text"> %
-      <mat-select  class="select">
-        <mat-option value="opt1">error</mat-option>
-        <mat-option value="opt2">warn</mat-option>
-      </mat-select>
+    <mat-checkbox [(ngModel)]="company.notify[1][0]"> ≥ <input type="number" [(ngModel)]="company.notify[1][1]"> %
+      <select class="select" [(ngModel)]='company.notify[1][2]'>
+        <option [value]='status' *ngFor='let status of statuses'>{{status}}</option>
+      </select>
     </mat-checkbox>
   </div>
 
   <div class="approval" [ngClass]="{approvalfalse: flag}">
-    <mat-slide-toggle> Ability to forget timesheets</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="company.abilityToForget"> Ability to forget timesheets</mat-slide-toggle>
   </div>
 
 </div>

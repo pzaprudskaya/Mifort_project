@@ -22,7 +22,8 @@
           <input [type]="type" id="password" placeholder="Password" formControlName='passwordControl' class="sign__form_input">
            <input type="button" [ngClass]="{'no-visibility':flag}" value="" class="button-show" (click) = "showPassword()" >
         </div>
-          <button class='sign__form_button' type="submit" routerLink="/">Sign In</button>
+        <h3 *ngIf='authPrompt' class="authPrompt">wrong username or password</h3>
+        <button class='sign__form_button' (click)='authentification()' type="submit">Sign In</button>
         </form>
       <p class="sign__form_sign-in">I don’t have account <a routerLink="/sign-up">Sign Up</a></p>
     </div>

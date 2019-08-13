@@ -31,6 +31,14 @@ export class EmployeesProfileService {
       catchError(this.handleError)
     );
   }
+  update(emploee: Profile) {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+    return this.http.put<void>(`${this.API_URL}/${emploee.name}`, JSON.stringify(emploee), httpOptions).pipe(
+      tap(updateProject => console.log('update emploee: ' + JSON.stringify(updateEmploee))),
+        catchError(this.handleError));
+  }
   private handleError(err: HttpErrorResponse) {
 
     let errorMessage = '';

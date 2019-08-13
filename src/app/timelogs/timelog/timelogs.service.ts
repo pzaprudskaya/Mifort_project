@@ -53,10 +53,13 @@ export class TimelogsService {
   }
   deleteLog(log: TimelogModel): Observable<TimelogModel> {
 
-    return this.http.delete<TimelogModel>(`${this.API_URL}/${log.projectName}`, this.httpOptions).pipe(
-      tap(deleteLog => console.log('delete log: ' + JSON.stringify(deleteLog))),
-      catchError(this.handleError));
+   update(timelog: TimelogModel[]) {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+    return this.http.put<void>(`${this.API_URL}`, JSON.stringify(timelog), httpOptions).pipe(
+      tap(updateTimelogs => console.log('update timelogs: ' + JSON.stringify(updateTimelogs))),
+        catchError(this.handleError));
   }
-
 
 }

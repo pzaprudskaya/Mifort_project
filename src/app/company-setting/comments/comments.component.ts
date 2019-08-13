@@ -6,8 +6,7 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./comments.component.sass']
 })
 export class CommentsComponent implements OnInit {
-  @Input() validation: string;
-  @Input() comments: boolean;
+  @Input() company;
   ngOnInit() {
   }
 }

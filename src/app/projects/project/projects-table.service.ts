@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
+import { Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 import {Project} from './items.model';
 
@@ -9,15 +9,12 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
 
 
 export class ProjectsTableService {
-
   private API_URL = 'http://localhost:3000/project-items';
   private queryUrl = '?name=';
   httpOptions = {
@@ -34,13 +31,10 @@ export class ProjectsTableService {
     );
   }
   private handleError(err: HttpErrorResponse) {
-
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
-
       errorMessage = `An error occurred: ${err.error.message}`;
     } else {
-
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
@@ -65,10 +59,14 @@ export class ProjectsTableService {
   }
 
   update(project: Project) {
-
     return this.http.put<void>(`${this.API_URL}/${project.name}`, JSON.stringify(project), this.httpOptions).pipe(
       tap(updateProject => console.log('update project: ' + JSON.stringify(updateProject))),
         catchError(this.handleError));
+  }
+  addNewProject(project: Project) {
+    return this.http.post<Project>(this.API_URL, JSON.stringify(project), this.httpOptions).pipe(
+      tap(addProject => console.log('add project: ' + JSON.stringify(addProject))),
+      catchError(this.handleError));
   }
 
 }

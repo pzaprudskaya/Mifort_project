@@ -3,6 +3,7 @@ import {CompanySettingsService} from './company-settings.service';
 import {CompanySettingsModel} from './company-settings.model';
 import {UserService} from '../../core/logo-user-company/user.service';
 import {User} from '../../core/logo-user-company/user.model';
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-company-settings',
@@ -16,14 +17,18 @@ export class CompanySettingsComponent implements OnInit {
               private  userService: UserService ) {
   }
   ngOnInit() {
-    this.companySettingsService.getCompany().
-      subscribe( (company) => {
-      this.companySettings = company[0];
-    });
+
     this.userService.getUser(this.companySettingsService.nameUser)
       .subscribe((user: User) => {
         this.user = user[0];
       });
+
+    this.userService.userSubject$.subscribe((name) => {
+      this.companySettingsService.getCompany(name).
+      subscribe( (company) => {
+        this.companySettings = company[0];
+      });
+    });
   }
   save() {
     debugger;

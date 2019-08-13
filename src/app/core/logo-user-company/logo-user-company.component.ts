@@ -31,6 +31,7 @@ export class LogoUserCompanyComponent implements OnInit {
         this.user = user[0];
         this.companies = this.user.companies;
         this.companyOption = this.companies[0];
+        this.userService.updateCompany(this.companyOption);
         this.companySettingsService.setCompany(this.companyOption);
       });
     this.employeesProfileService.getName(this.nameOption);
@@ -59,6 +60,7 @@ export class LogoUserCompanyComponent implements OnInit {
   changeProject() {
     console.log(this.companyOption);
     this.companySettingsService.setCompany(this.companyOption);
+    this.userService.updateCompany(this.companyOption);
   }
 
 }

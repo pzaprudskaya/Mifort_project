@@ -1,7 +1,7 @@
 <div class="inline" *ngIf="toggleFlagTwo; else elseBlock__">
 
   <h3>Connected integrations: </h3>
-  <div class="logo settings" *ngFor="let item of connectedIntegration">
+  <div class="logo settings" *ngFor="let item of object.connectedIntegration">
     <div class="icon" [ngStyle]="{'background': item.background}">
       <i class="material-icons">settings</i>
     </div>
@@ -12,7 +12,7 @@
 <ng-template #elseBlock__>
   <div class="inline">
     <h3>Connected integrations: </h3>
-    <div class="logo settings" *ngFor="let item of connectedIntegration">
+    <div class="logo settings" *ngFor="let item of object.connectedIntegration">
       <div class="icon" [ngStyle]="{'background': item.background}" routerLink="/{{item.route}}">
         <i class="material-icons">settings</i>
       </div>
@@ -21,18 +21,18 @@
   </div>
   <div *ngIf="toggleFlag; else elseBlock">
     <div (click)=updown() class="add_new">
-      <p>Add new </p>
+      <p>Connect new </p>
       <i class="material-icons">keyboard_arrow_down</i>
     </div>
   </div>
   <ng-template #elseBlock>
     <div>
       <div (click)= updown() class="add_new">
-        <p>Add new </p>
+        <p>Connect new </p>
         <i class="material-icons">keyboard_arrow_up</i>
       </div>
       <div class="integrations__add" >
-        <div class="logo" *ngFor="let item of integrations">
+        <div class="logo" *ngFor="let item of object.integrations">
           <div  class="icon" [ngStyle]="{'background': item.background}" (click)="add(item)">
             <i (click)="function()" class="material-icons">add</i>
           </div>

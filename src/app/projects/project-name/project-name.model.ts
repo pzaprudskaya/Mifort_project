@@ -6,7 +6,7 @@ export interface ProjectNameModel {
       status: string;
       projectType: string;
       startDate: string;
-      endDate: string;
+      endDateOrMen: string;
       progressBar: {
         total: number,
         currentlySpent: number,

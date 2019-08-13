@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 import {User} from './user.model';
 
@@ -14,7 +14,8 @@ import 'rxjs/add/operator/switchMap';
 })
 
 export class UserService {
-
+  public userSubject = new BehaviorSubject(null);
+  userSubject$ = this.userSubject.asObservable();
   private API_URL = 'http://localhost:3000/activity/';
   httpOptions = {
     mode: 'no-cors',
@@ -37,6 +38,10 @@ export class UserService {
     return this.http.put<void>(`${this.API_URL}${user.name}`, JSON.stringify(user), this.httpOptions).pipe(
       tap(userUpdate => console.log('update user: ' + JSON.stringify(userUpdate))),
       catchError(this.handleError));
+  }
+
+  updateCompany(name: string) {
+    this.userSubject.next(name);
   }
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';

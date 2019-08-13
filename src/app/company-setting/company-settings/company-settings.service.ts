@@ -18,20 +18,20 @@ import 'rxjs/add/operator/switchMap';
 export class CompanySettingsService {
   private API_URL = 'http://localhost:3000/settings/';
   companyName: string;
-  nameUser: string;;
+  nameUser: string;
   httpOptions = {
     mode: 'no-cors',
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
   constructor(private http: HttpClient) { }
-  getCompany(): Observable<CompanySettingsModel> {
+  getCompany(name): Observable<CompanySettingsModel> {
     if (this.companyName === 'createCompany') {
       return this.http.get<CompanySettingsModel>(this.API_URL + 'Name', this.httpOptions).pipe(
         tap((data: CompanySettingsModel) => console.log('Company: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
     } else {
-      return this.http.get<CompanySettingsModel>(this.API_URL + this.companyName, this.httpOptions).pipe(
+      return this.http.get<CompanySettingsModel>(this.API_URL + name, this.httpOptions).pipe(
         tap((data: CompanySettingsModel) => console.log('Company: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );

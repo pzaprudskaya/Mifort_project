@@ -7,8 +7,7 @@ import {NotificationComponent} from '../notification/notification.component';
   styleUrls: ['./integrations.component.sass']
 })
 export class IntegrationsComponent implements OnInit {
-  @Input() connectedIntegration: any[];
-  @Input() integrations: any[];
+  @Input() object;
   @ViewChild('notification') notification: NotificationComponent;
   toggleFlag: boolean;
   toggleFlagTwo: boolean;
@@ -23,10 +22,10 @@ export class IntegrationsComponent implements OnInit {
 
 
   add(item) {
-    this.connectedIntegration.push(item);
-    this.integrations.forEach((integration, i) => {
+    this.object.connectedIntegration.push(item);
+    this.object.integrations.forEach((integration, i) => {
       if (integration.id === item.id) {
-        this.integrations.splice(i, 1);
+        this.object.integrations.splice(i, 1);
       }
     });
   }

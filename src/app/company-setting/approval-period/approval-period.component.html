@@ -1,29 +1,29 @@
 <div class="params">
   <div class="approval" >
     <p>Approval Period: </p>
-    <select class="period" [(ngModel)]="approval" (ngModelChange)="changePeriod()">
+    <select class="period" [(ngModel)]="company.approval" (ngModelChange)="changePeriod()">
       <option [value]='period' *ngFor='let period of periods'>{{period}}</option>
     </select>
     <div [ngClass]="{approvalfalse: flag}">
-      <mat-slide-toggle [(ngModel)]='submitTimeLogs'>Submit Time Logs automatically in the end of period</mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]='company.submitTimeLogs'>Submit Time Logs automatically in the end of period</mat-slide-toggle>
     </div>
   </div>
   <div class="approval" [ngClass]="{approvalfalse: flag}">
     <p>Notify about difference between expected and actual time: </p>
-    <mat-checkbox [(ngModel)]="notify[0][0]"> ≤ <input type="text" [(ngModel)]="notify[0][1]"> %
-      <select class="select" [(ngModel)]='notify[0][2]'>
+    <mat-checkbox [(ngModel)]="company.notify[0][0]"> ≤ <input type="number" [(ngModel)]="company.notify[0][1]"> %
+      <select class="select" [(ngModel)]='company.notify[0][2]'>
         <option [value]='status' *ngFor='let status of statuses'>{{status}}</option>
       </select>
     </mat-checkbox>
-    <mat-checkbox [(ngModel)]="notify[1][0]"> ≥ <input type="text" [(ngModel)]="notify[1][1]"> %
-      <select class="select" [(ngModel)]='notify[1][2]'>
+    <mat-checkbox [(ngModel)]="company.notify[1][0]"> ≥ <input type="number" [(ngModel)]="company.notify[1][1]"> %
+      <select class="select" [(ngModel)]='company.notify[1][2]'>
         <option [value]='status' *ngFor='let status of statuses'>{{status}}</option>
       </select>
     </mat-checkbox>
   </div>
 
   <div class="approval" [ngClass]="{approvalfalse: flag}">
-    <mat-slide-toggle [(ngModel)]="abilityToForget"> Ability to forget timesheets</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="company.abilityToForget"> Ability to forget timesheets</mat-slide-toggle>
   </div>
 
 </div>

@@ -8,9 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ApprovalPeriodComponent implements OnInit {
   periods: string[];
   statuses: string[];
-  @Input() approval: string;
-  @Input() notify: any[];
-  @Input() abilityToForget: boolean;
+  @Input() company;
   @Input() submitTimeLogs: boolean;
   flag: boolean;
   ngOnInit() {
@@ -19,12 +17,11 @@ export class ApprovalPeriodComponent implements OnInit {
     this.flag = false;
   }
   changePeriod() {
-    debugger;
-    if (this.approval === 'I don\'t need to approvals') {
+    if (this.company.approval === 'I don\'t need to approvals') {
       this.flag = true;
-      this.abilityToForget = false;
-      this.submitTimeLogs = false;
-      this.notify = [[false, 10, 'error'], [false, 15, 'warn']];
+      this.company.abilityToForget = false;
+      this.company.submitTimeLogs = false;
+      this.company.notify = [[false, 10, 'error'], [false, 15, 'warn']];
     } else {  this.flag = false; }
   }
 

@@ -7,14 +7,7 @@
         <button (click)="save()">Save</button>
       </div>
       <app-progress class="properties"
-        [name]="project.name"
-        [code] ="project.code"
-        [color] = "project.color"
-        [status]="project.status"
-        [projectType]="project.projectType"
-        [startDate]="project.startDate"
-        [endDateOrMen]="project.endDate"
-        [progressBar]="project.progressBar"
+        [project]="project"
       ></app-progress>
     </app-container>
   </div>
@@ -31,8 +24,7 @@
         ></app-table>
       </app-container>
       <app-container>
-        <app-integrations [connectedIntegration]="project.connectedIntegration"
-                          [integrations]="project.integrations"></app-integrations>
+        <app-integrations [object]="project"></app-integrations>
       </app-container>
     </div>
 
@@ -60,8 +52,7 @@
     ></app-table>
   </app-container>
   <app-container class="bar-chart__width">
-    <app-integrations [connectedIntegration]="project.connectedIntegration"
-                      [integrations]="project.integrations"></app-integrations>
+    <app-integrations [object]="project"></app-integrations>
   </app-container>
   </div>
 </app-block>

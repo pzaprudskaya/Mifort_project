@@ -1,7 +1,7 @@
 <div class="progress">
   <div class="progress__section progress-section__first">
-    <input [(ngModel)]="name" type="text" class="progress__input progress__platform_input">
-    <div class="circle circle__main" (click)="changeCondition()" [ngStyle]="{ 'background': color }"></div>
+    <input [(ngModel)]="project.name" type="text" class="progress__input progress__platform_input">
+    <div class="circle circle__main" (click)="changeCondition()" [ngStyle]="{ 'background': project.color }"></div>
     <ng-template [ngIf]="condition">
       <div class="progress__color-picker">
         <h3>Pick a color:</h3>
@@ -11,18 +11,18 @@
       </div>
     </ng-template>
     <p>Code:
-    <input [(ngModel)]="code" class="progress__input progress__code_input" type="text"> </p>
-    <button class="progress-section__button">{{status.toUpperCase()}}</button>
+    <input [(ngModel)]="project.code" class="progress__input progress__code_input" type="text"> </p>
+    <button class="progress-section__button">{{project.status.toUpperCase()}}</button>
 
   </div>
   <div class="progress__section progress-section__second">
     <p>Project type:
-      <select [(ngModel)]="projectType" (ngModelChange)="changeType()">
+      <select [(ngModel)]="project.projectType" (ngModelChange)="changeType()">
         <option [value]="type" *ngFor="let type of typeProject">{{type}}</option>
       </select>
 
     <div class="progress-bar">
-      <app-progress-bar [progress]="progressBar"
+      <app-progress-bar [progress]="project.progressBar"
       ></app-progress-bar>
     </div>
   </div>
@@ -31,7 +31,7 @@
     <div class="progress__section_date">
       <p>Start date:</p>
       <div class="inline">
-        <p [(ngModel)]="startDate">{{startDate}}</p>
+        <p [(ngModel)]="project.startDate">{{project.startDate}}</p>
         <mat-form-field class="matDatepicker">
           <input matInput [matDatepicker]="picker" (dateInput)="inputStartDate($event)" (dateChange)="inputStartDate($event)" placeholder="" >
           <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
@@ -39,10 +39,10 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="progress__section_date" *ngIf="(projectType === 'Fixed resources')">
+    <div class="progress__section_date" *ngIf="(project.projectType === 'Fixed resources')">
       <p>End date:</p>
       <div class="inline">
-        <p [(ngModel)]="endDateOrMen">{{endDateOrMen}}</p>
+        <p [(ngModel)]="project.endDateOrMen">{{project.endDateOrMen}}</p>
         <mat-form-field class="matDatepicker">
           <input matInput [matDatepicker]="pickerTwo" (dateInput)="inputEndDate($event)" (dateChange)="inputEndDate($event)" placeholder="" >
           <mat-datepicker-toggle matSuffix [for]="pickerTwo" ></mat-datepicker-toggle>
@@ -50,10 +50,10 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="progress__section_date" *ngIf="(projectType !== 'Fixed resources')">
+    <div class="progress__section_date" *ngIf="(project.projectType !== 'Fixed resources')">
       <p>Men/hours:</p>
       <div class="inline">
-        <input type="text" [(ngModel)]="endDateOrMen">
+        <input type="text" [(ngModel)]="project.endDateOrMen">
       </div>
     </div>
   </div>

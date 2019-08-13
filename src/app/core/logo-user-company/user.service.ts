@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
+
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
+
 import {catchError, tap, map} from 'rxjs/operators';
 import {User} from './user.model';
 
@@ -29,10 +31,12 @@ export class UserService {
 
   getUser(nameUser): Observable<User> {
     return this.http.get<User>(this.API_URL + nameUser, this.httpOptions).pipe(
+
       tap((data: User) => console.log('User: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
+
   updateUser(user: User) {
     debugger;
     return this.http.put<void>(`${this.API_URL}${user.name}`, JSON.stringify(user), this.httpOptions).pipe(

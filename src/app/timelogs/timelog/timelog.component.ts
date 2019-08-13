@@ -10,12 +10,14 @@ import {TimeSheetForApproval} from "../../profile-page/profile/profile.model";
   styleUrls: ['./timelog.component.sass']
 })
 export class TimelogComponent implements OnInit {
-  @Input() logs: any[] = [];
-  @Input() timelogs: Timelog;
 
-  constructor(private timelogsService: TimelogsService) { }
-  ngOnChanges() {
-  }
+  @Input() logs: any[] = [];
+  @Input() timelogs: Timelog[];
+  save: string;
+
+
+    constructor(private timelogsService: TimelogsService) { }
+
   ngOnInit() {
     this.timelogsService.getLogs().subscribe(
       timelogs => {
@@ -30,8 +32,9 @@ export class TimelogComponent implements OnInit {
     );
       console.log('Logs: ' + this.logs);
   }
-  updateTimelogs(timelog: Timelog) {
-    this.timelogsService.update(timelog)
+  updateTimelogs() {
+    debugger;
+    this.timelogsService.update(this.logs)
           .subscribe(() => console.log('Update!'));
   }
 

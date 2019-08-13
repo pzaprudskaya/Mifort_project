@@ -24,7 +24,6 @@ import { ProgressBarsComponent } from './progress-bars/progress-bars.component';
 import { TeamComponent } from './team/team.component';
 import {NotificationComponent} from './notification/notification.component';
 import {NotifierModule} from 'angular-notifier';
-import {TdComponent} from './td/td.component';
 
 
 @NgModule({
@@ -42,8 +41,7 @@ import {TdComponent} from './td/td.component';
     BarChartComponent,
     ProgressBarsComponent,
     TeamComponent,
-    NotificationComponent,
-    TdComponent
+    NotificationComponent
   ],
   imports: [
     RouterModule,

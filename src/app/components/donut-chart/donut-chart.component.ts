@@ -50,6 +50,7 @@ export class DonutChartComponent implements OnInit {
 
       }
     });
+    debugger;
   /*  const originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
     Chart.helpers.extend(Chart.controllers.doughnut.prototype, {
       draw() {

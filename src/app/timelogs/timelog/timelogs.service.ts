@@ -46,6 +46,7 @@ export class TimelogsService {
     return throwError(errorMessage);
   }
 
+
   addLog(log: TimelogModel): Observable<TimelogModel> {
     return this.http.post<TimelogModel>(this.API_URL, JSON.stringify(log), this.httpOptions).pipe(
       tap(addLog => console.log('add log: ' + JSON.stringify(addLog))),
@@ -57,9 +58,9 @@ export class TimelogsService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
+    debugger;
     return this.http.put<void>(`${this.API_URL}`, JSON.stringify(timelog), httpOptions).pipe(
       tap(updateTimelogs => console.log('update timelogs: ' + JSON.stringify(updateTimelogs))),
         catchError(this.handleError));
   }
-
 }

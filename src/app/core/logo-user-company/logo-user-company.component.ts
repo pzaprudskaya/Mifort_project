@@ -4,6 +4,7 @@ import {EmployeesProfileService} from '../../profile-page/profile/employees-prof
 import {TableService} from '../../components/table/table.service';
 import {User} from './user.model';
 import {CompanySettingsService} from '../../company-setting/company-settings/company-settings.service';
+
 @Component({
   selector: 'app-logo-user-company',
   templateUrl: './logo-user-company.component.html',
@@ -26,6 +27,7 @@ export class LogoUserCompanyComponent implements OnInit {
   ngOnInit() {
     this.photo = '';
     this.nameOption = this.users[0];
+
     this.userService.getUser(this.users[0]).subscribe(
       user => {
         this.user = user[0];
@@ -36,6 +38,7 @@ export class LogoUserCompanyComponent implements OnInit {
       });
     this.employeesProfileService.getName(this.nameOption);
     this.companySettingsService.getName(this.nameOption);
+
     this.tableService.getNameCompany(this.companyOption);
     this.employeesProfileService.getEmployee().subscribe(
       employee => {

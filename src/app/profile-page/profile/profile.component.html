@@ -1,5 +1,6 @@
 <app-block let="employee">
     <app-container >
+      <button (click)="save()"> Save </button>
     <div class="box">
       <div mat-card-avatar class = "box__photo" [ngStyle]="{'background-image': 'url(' + employee.photoUrl + ')'}">
       </div>
@@ -13,7 +14,7 @@
       <div class="table_projects">
         <h3>Projects: </h3>
           <app-table
-            [editTable] = false
+            [editTable] = true
             [timelogs] = false
             [profileBD] = true
             [data] = 'employeeProjects' (updateProfileBD)="updateProfileBD($event)"></app-table>

@@ -1,8 +1,9 @@
 import { Component, OnInit} from '@angular/core';
-import {  MatTableDataSource} from '@angular/material';
 import { ProjectsTableService } from './projects-table.service';
 import {Subject} from 'rxjs';
 import {Project} from './items.model';
+import {ProjectNameService} from '../project-name/project-name.service';
+import {ProjectNameModel} from '../project-name/project-name.model';
 
 
 
@@ -15,13 +16,12 @@ export class ProjectComponent implements OnInit {
 
   displayedColumns: string[] = ['color', 'name', 'team', 'startDate', 'progress', 'endDate', 'play_pause', 'stop' ];
 
-
   projects: Project[];
+  projectPage: ProjectNameModel;
   searchTerm$ = new Subject<string>();
 
-  dataSource = new MatTableDataSource(this.projects);
-
-  constructor( private projectsTableService: ProjectsTableService) {
+  constructor( private projectsTableService: ProjectsTableService,
+               private projectNameService: ProjectNameService) {
     this.projectsTableService.search(this.searchTerm$)
       .subscribe((projects: any) => {
       this.projects = projects;
@@ -32,9 +32,7 @@ export class ProjectComponent implements OnInit {
 
   totalState: boolean;
   ngOnInit() {
-
     this.totalState = false;
-
     this.projectsTableService.getAll().subscribe(
       projects => {
         this.projects = projects;
@@ -51,13 +49,6 @@ export class ProjectComponent implements OnInit {
       return 'green';
     }
   }
-  archiveProject(project) {
-
-    project.status = 'archived';
-    this.projectsTableService.update(project)
-      .subscribe(() => console.log('Update!'));
-
-  }
   filter(value) {
     console.log(value);
     this.projectsTableService.filter(value)
@@ -66,6 +57,19 @@ export class ProjectComponent implements OnInit {
         this.projects = projects;
 
       });
+  }
+  changeStatus(project, status) {
+    project.status = status;
+    this.projectsTableService.update(project)
+      .subscribe(() => console.log('Update!'));
+    debugger;
+    this.projectNameService.getProject(project.name).subscribe(
+      projectPage => {
+      this.projectPage = projectPage[0];
+    });
+    this.projectPage.status = status;
+    this.projectNameService.update(this.projectPage)
+      .subscribe(() => console.log('Update!'));
   }
 
 }

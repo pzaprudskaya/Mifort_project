@@ -60,6 +60,7 @@ export class ProfileComponent implements OnInit {
           this.logs = [];
           this.timesheetWorkload = [];
         });
+
       }
     );
   }

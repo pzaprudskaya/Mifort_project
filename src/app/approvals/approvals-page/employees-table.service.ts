@@ -2,33 +2,32 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-import {Employees} from './items.model';
+import {Approval} from './items.model';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
-
 @Injectable({
   providedIn: 'root'
 })
 
 
-export class EmployeesTableService {
+export class ApprovalsService {
 
-  private API_URL = 'http://localhost:3000/employee-items';
+  private API_URL = 'http://localhost:3000/approvals-items';
   private queryUrl = '?name=';
-  httpOptions = {
+   httpOptions = {
     mode: 'no-cors',
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Employees[]> {
-    return this.http.get<Employees[]>(this.API_URL, this.httpOptions).pipe(
-      tap((data: Employees[]) => console.log('All: ' + JSON.stringify(data))),
+  getAll(): Observable<Approval[]> {
+    return this.http.get<Approval[]>(this.API_URL, this.httpOptions).pipe(
+      tap((data: Approval[]) => console.log('All: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
@@ -45,8 +44,6 @@ export class EmployeesTableService {
     console.error(errorMessage);
     return throwError(errorMessage);
   }
-
-
 
   search(terms: Observable<string>) {
     return terms.debounceTime(400)
@@ -65,7 +62,19 @@ export class EmployeesTableService {
       .map(res => res);
   }
 
-
-
+  update(employee: Approval) {
+    const httpOptions = {
+      mode: 'no-cors',
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+    return this.http.put<void>(`${this.API_URL}/${employee.id}`, JSON.stringify(employee), httpOptions).pipe(
+      tap(updateEmployee => console.log('update employee in approval: ' + JSON.stringify(updateEmployee))),
+      catchError(this.handleError));
+  }
+  filterByPeriod(term) {
+    return this.http
+      .get(this.API_URL + '?period=' + term, this.httpOptions)
+      .map(res => res);
+  }
 
 }

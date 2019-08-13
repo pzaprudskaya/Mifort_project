@@ -1,0 +1,13 @@
+<div class="inline">
+
+    <mat-form-field class="matDatepicker">
+      <input matInput [matDatepicker]="picker" (dateInput)="inputEvent($event)" (dateChange)="inputEvent($event)" placeholder="Select period" >
+      <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+      <mat-datepicker #picker ></mat-datepicker>
+    </mat-form-field>
+
+    <p><u>{{period}}</u></p>
+
+</div>
+
+

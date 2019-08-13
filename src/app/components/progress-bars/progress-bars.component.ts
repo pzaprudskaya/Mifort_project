@@ -10,6 +10,7 @@ export class ProgressBarsComponent implements OnInit {
   @Input() color: string;
   @Input() actual: number;
   @Input() planned: number;
+  @Input() showNumber: boolean;
 
   constructor() { }
   ngOnInit() {

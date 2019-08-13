@@ -1,201 +1,146 @@
-<table *ngIf = "(editTable === true)">
-    <thead *ngIf = "headShow">
+<table [ngClass]="timelogs?'table-timelogs':'table-projects'">
+  <thead *ngIf="timelogs">
     <tr>
-      <td  *ngFor='let cell of tableHead'>
-        <p>{{cell}}</p>
+      <td *ngFor='let headerCell of headers'>{{headerCell}}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let tbodyRow of data; let i = index' id="{{i}}">
+      <td class="circle"><div class="tbody__circle" [ngStyle]="{'background': tbodyRow.color }"></div></td>
+      <td>
+        <ng-template [ngIf]="!editTable && !timelogs">
+          <input type="text" [(ngModel)]="tbodyRow.name" readonly class="project">
+        </ng-template>
+        <ng-template [ngIf]="editTable && !timelogs">
+          <div class="select" *ngIf="editTable">
+              <select name="" [(ngModel)]="tbodyRow.name" class="statuses__select project">
+                <option [value]='project' *ngFor='let project of projects'>{{project}}</option>
+              </select>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="timelogs">
+          <input type="text"  [(ngModel)]="tbodyRow.comment" class="comment" [readonly]="!editTable">
+        </ng-template>
+      </td>
+      <ng-template [ngIf]="!timelogs">
+      <td>
+        <ng-template [ngIf]="!editTable && !timelogs">
+          <input type="text" [(ngModel)]="tbodyRow.role" class="role" readonly>
+        </ng-template>
+        <ng-template [ngIf]="editTable && !timelogs">
+          <div class="select">
+              <select name="" [(ngModel)]="tbodyRow.role" class="statuses__select role">
+                <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
+              </select>
+          </div>
+        </ng-template>
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time" [readonly]="!editTable" (change)="changeTotalHourse($event.target)" class="time"><p>h/week</p>
+      </td>
+      </ng-template>
+      <ng-template [ngIf]="timelogs">
+        <td>
+          <input type="number" [(ngModel)]="tbodyRow.time[0]" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="tbodyRow.time[1]" [readonly]="!editTable" (change)="changeTotal($event.target,1)">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="tbodyRow.time[2]" [readonly]="!editTable" (change)="changeTotal($event.target,2)">
+        </td><td>
+          <input type="number" [(ngModel)]="tbodyRow.time[3]" [readonly]="!editTable" (change)="changeTotal($event.target,3)">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="tbodyRow.time[4]" [readonly]="!editTable" (change)="changeTotal($event.target,4)">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="tbodyRow.time[5]" [readonly]="!editTable" (change)="changeTotal($event.target,5)">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="tbodyRow.time[6]" [readonly]="!editTable" (change)="changeTotal($event.target,6)">
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="tbodyRow.time[7]" readonly>
+        </td>
+        <td *ngIf="editTable">
+          <i class="material-icons" (click)='removeRecord(i)'>clear</i>
+        </td>
+      </ng-template>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr *ngIf="editTable && timelogs">
+      <td>
+        <div class="tfoot__circle" ></div>
+      </td>
+      <td>
+        <input type="text" placeholder="Add new task" class="comment">
+      </td>
+      <td>
+        <input type="number" placeholder="0">
+      </td>
+      <td>
+        <input type="number" placeholder="0">
+      </td>
+      <td>
+        <input type="number" placeholder="0">
+      </td><td>
+        <input type="number" placeholder="0">
+      </td>
+      <td>
+        <input type="number" placeholder="0">
+      </td>
+      <td>
+        <input type="number" placeholder="0">
+      </td>
+      <td>
+        <input type="number" placeholder="0">
+      </td>
+      <td>
+        <input type="number" placeholder="0" readonly>
       </td>
     </tr>
-
-    </thead>
-    <tbody *ngIf="(timelogs === true) && (count === 4)">
-      <tr *ngFor='let project of data' >
-        <td *ngFor='let cell of project;  let i=index '>
-          <div *ngIf="(i === 0)" class="tbody__circle" [ngStyle]="{'background': cell }"></div>
-
-          <select *ngIf="(i === 1)" class="table__select" [(ngModel)]='value'>
-            <option [value] = "'chooseProject'" [selected] = "selected">{{cell}}</option>
-            <option [value]='value' *ngFor='let option of projects; let i = index'>{{option[1]}}</option>
-          </select>
-
-          <input *ngIf="(count === 2)" type="text" value='{{cell}}'>
-          <input *ngIf="(count === 3)" type="text" value='{{cell}}'>
-        <td>
-        <i class="material-icons">clear</i>
-        </td>
-      </tr>
-    </tbody>
-    <tbody *ngIf="(timelogs === true)  && (count === 9)">
-      <tr *ngFor='let project of data'>
-        <td *ngFor='let cell of project;  let i=index '>
-          <select *ngIf="(i === 0)" class="table__select" [(ngModel)]='value'>
-            <option [value] = "'chooseProject'" [selected] = "selected">
-              <div class="tbody__circle" [ngStyle]="{'background': cell }"></div>
-            </option>
-            <option [value]='value' *ngFor='let option of projects; let i = index'>
-              <div class="tbody__circle" [ngStyle]="{'background': option[0] }"></div>
-
-            </option>
-          </select>
-          <input *ngIf="(i === 1)" type="text" value='{{cell}}' class="input_table">
-          <input *ngIf="(i > 1)" type="text" value='{{cell}}'>
-
-        </td>
-        <td>
-          <i class="material-icons">clear</i>
-        </td>
-      </tr>
-    </tbody>
-    <tbody *ngIf="(timelogs === false)">
-  <tr *ngFor='let project of data'>
-    <td *ngFor='let cell of project;  let i=index '>
-      <div *ngIf="(i === 0)" class="tbody__circle" [ngStyle]="{'background': cell }"></div>
-      <select *ngIf="(i === 1)" class="table__select" [(ngModel)]='value'>
-        <option [value] = "'chooseProject'" [selected] = "selected">{{cell}}</option>
-        <option [value]='value' *ngFor='let option of projects; let i = index'>{{option[1]}}</option>
-      </select>
-      <select *ngIf="(i === 2)" class="table__select" [(ngModel)]='value'>
-        <option [value] = "'chooseProject'" [selected] = "selected">{{cell}} </option>
-        <option [value]='value' *ngFor='let option of roles; let i = index'>{{option}}</option>
-      </select>
-      <input *ngIf="(i === 3)" type="text" value='{{cell}}'>
-    </td>
-    <td>
-      <i class="material-icons">clear</i>
-    </td>
-
-  </tr>
-</tbody>
-    <tfoot>
-      <tr *ngIf="(timelogs === true) && (count === 4)">
-          <td colspan=""2 >
-
-            <select name="" class="table__select" [(ngModel)]='option1'>
-              <option [value]="'chooseProject'" [selected] = "selected"><div class="tfoot__circle"></div>Choose project</option>
-              <option [value]="option[1]" *ngFor='let option of projects; let i = index'>
-                <div class="tbody__circle" [ngStyle]="{'background': option[0] }">
-                </div>
-                {{option[1]}}
-              </option>
+    <tr *ngIf="editTable && !timelogs">
+      <td>
+        <div class="tfoot__circle"></div>
+      </td>
+      <td>
+        <div class="select">
+            <select name="" class="statuses__select project">
+              <option selected class="text-option">Choose Project</option>
+              <option [value]='project' *ngFor='let project of projects'>{{project}}</option>
             </select>
-          </td>
-        <td>
-            <input type="text" value="">
-        </td>
-        <td>
-          <input type="text" value=0>
-        </td>
-      </tr>
-      <tr *ngIf="timelogs && (count === 9)">
-        <td >
-          <select name=""class="table__select" [(ngModel)]='option1'>
-            <option [value]="'chooseProject'" [selected] = "selected"><div class="tfoot__circle"></div></option>
-            <option [value]="option[1]" *ngFor='let option of projects; let i = index'>
-              <div class="tbody__circle" [ngStyle]="{'background': option[0] }">
-              </div>
-              {{option[1]}}
-            </option>
-          </select>
-        </td>
-        <td>
-          <input type="text" value="">
-        </td>
-        <td>
-          <input type="text" value=0>
-        </td>
-        <td>
-          <input type="text" value=0>
-        </td>
-        <td>
-          <input type="text" value=0>
-        </td>
-        <td>
-          <input type="text" value=0>
-        </td>
-        <td>
-          <input type="text" value=0>
-        </td>
-        <td>
-          <input type="text" value=0>
-        </td>
-        <td>
-          <input type="text" value=0>
-        </td>
-      </tr>
-      <tr *ngIf="(timelogs === false)">
-        <td>
-          <div class="tfoot__circle"></div>
-        </td>
-        <td >
-
-    <select name="" class="table__select" [(ngModel)]='option1'>
-      <option [value]="'chooseProject'" [selected] = "selected"> Choose project</option>
-      <option [value]="option.name" *ngFor='let option of projects; let i = index'>
-        {{option[1]}}
-      </option>
-    </select>
-  </td>
-        <td>
-          <select class="table__select" [(ngModel)]='option2'>
-            <option [value] = "'chooseRole'" [selected] = "selected">Choose role</option>
-            <option [value]='value' *ngFor='let option of roles; let i = index'>{{option}}</option>
-          </select>
-        </td>
-        <td>
-          <input type="text" value=0>
-        </td>
-      </tr>
-     </tfoot>
-
-</table>
-<table *ngIf = "(editTable === false)">
-  <thead *ngIf = "(headShow === true)">
-  <tr>
-    <td *ngFor='let cell of tableHead'>
-      <p>{{cell}}</p>
-    </td>
-  </tr>
-
-  </thead>
-
-  <tbody *ngIf="(timelogs === true) && (count === 4)">
-  <tr *ngFor='let project of data'>
-    <td *ngFor='let cell of project; let i=index '>
-      <div *ngIf="(i === 0)" class="tbody__circle" [ngStyle]="{'background': cell }"></div>
-      <p *ngIf="(i === 1)" > {{cell}}</p>
-      <p *ngIf="(i === 2)">{{cell}}</p>
-      <p *ngIf="(i === 3)">{{cell}}</p>
-    </td>
-  </tr>
-  </tbody>
-  <tbody *ngIf="(timelogs === true) && (count === 9)">
-  <tr *ngFor='let project of data'>
-    <td *ngFor='let cell of project; let i=index '>
-      <div *ngIf="(i === 0)" class="tbody__circle" [ngStyle]="{'background': cell }"></div>
-      <p *ngIf=" (i > 0)">{{cell}}</p>
-    </td>
-  </tr>
-  </tbody>
-
-  <tbody *ngIf="(timelogs === false)" >
-  <tr *ngFor='let project of data'>
-    <td *ngFor='let cell of project; let i=index '>
-      <div *ngIf="(i === 0)" class="tbody__circle" [ngStyle]="{'background': cell }"></div>
-      <p *ngIf="(i === 1 || i === 2 )">{{cell}}</p>
-      <p *ngIf="(i === 3)">{{cell}} h/week</p>
-    </td>
-  </tr>
-  </tbody>
-  <tfoot   *ngIf="(timelogs === false)" >
-  <tr>
-    <td colspan="3">
-      <p>Total time in projects: </p></td>
-    <td>
-      <p>{{totalValue}} h/week</p>
-    </td>
-  </tr>
+        </div>
+      </td>
+       <td>
+        <div class="select">
+            <select name="" [(ngModel)]="roles[0]" class="statuses__select role">
+              <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
+            </select>
+        </div>
+      </td>
+      <td>
+        <input type="number" placeholder="0" class="time"><p>h/week</p>
+      </td>
+    </tr>
+    <tr>
+      <ng-template [ngIf]="timelogs">
+        <td></td>
+        <td class="total">{{totalText}}</td>
+        <td>{{total[0]}}</td>
+        <td>{{total[1]}}</td>
+        <td>{{total[2]}}</td>
+        <td>{{total[3]}}</td>
+        <td>{{total[4]}}</td>
+        <td>{{total[5]}}</td>
+        <td>{{total[6]}}</td>
+        <td>{{total[7]}}</td>
+      </ng-template>
+      <ng-template [ngIf]="!timelogs">
+        <td class="total" colspan="3">{{totalText}}</td>
+        <td>{{totalHourse}}h/week</td>
+      </ng-template>
+    </tr>
   </tfoot>
-
 </table>
-
-
-

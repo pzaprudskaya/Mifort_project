@@ -32,7 +32,6 @@ export class DonutChartComponent implements OnInit {
       data.datasets[0].backgroundColor.push(item.color);
       data.datasets[0].data.push(item.actual);
     });
-
     Chart.defaults.global.legend.labels.usePointStyle = true;
     this.DoughnutChart = new Chart('doughnutChart', {
       type: 'doughnut',
@@ -51,6 +50,7 @@ export class DonutChartComponent implements OnInit {
 
       }
     });
+    debugger;
   /*  const originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
     Chart.helpers.extend(Chart.controllers.doughnut.prototype, {
       draw() {

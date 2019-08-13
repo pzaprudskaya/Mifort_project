@@ -9,8 +9,7 @@ import {ProjectComponent} from './projects/project/project.component';
 import {ProfileComponent} from './profile-page/profile/profile.component';
 import {TimelogComponent} from './timelogs/timelog/timelog.component';
 import {ProjectNameComponent} from './projects/project-name/project-name.component';
-
-
+import { ExportComponent } from './components/export/export.component';
 
 import {CompanyIntegrationComponent} from './company-setting/company-integration/company-integration.component';
 import {ApprovalsPageComponent} from './approvals/approvals-page/approvals-page.component';
@@ -25,6 +24,7 @@ const itemMenu: Routes = [
   { path: 'company-settings', component: CompanySettingsComponent},
   { path: 'company-integration', component: CompanyIntegrationComponent},
   { path: 'employees/:employee_name', component: AddEmployeeComponent},
+  { path: 'export', component: ExportComponent},
   { path: 'approvals', component: ApprovalsPageComponent},
 ];
 const routes: Routes = [

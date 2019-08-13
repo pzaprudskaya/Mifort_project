@@ -14,8 +14,6 @@
         </div>
         <div class="inline">
           <div class="information">
-
-
             <div>
               <input value="{{employee.role}}">
               <i (click)="open_information()" class="material-icons">help_outline</i>
@@ -48,8 +46,6 @@
           </div>
         </div>
       </div>
-
-
     </div>
   </app-container>
 
@@ -78,7 +74,7 @@
 
   <div class="box">
     <app-container class="notification_preferences">
-      <app-notification-preferences></app-notification-preferences>
+      <app-export [name]='employee.name' [profile]=true></app-export>
     </app-container>
   </div>
 </app-block>

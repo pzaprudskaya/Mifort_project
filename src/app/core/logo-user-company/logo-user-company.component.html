@@ -6,10 +6,14 @@
   <div class="profile-inf">
     <div mat-card-avatar class="profile-photo" [ngStyle]="{'background-image': 'url(' + photo + ')'}"></div>
     <div>
-      <mat-card-title >{{name}}</mat-card-title>
-      <p>{{value}}</p>
-
-
+      <mat-card-title>
+        <select name="" class="profile-inf__select" [(ngModel)]='nameOption' (ngModelChange)='changeName()'>
+          <option [value]='user' *ngFor='let user of users'>{{user}}</option>
+        </select>
+      </mat-card-title>
+      <select name="" class="profile-inf__select" [(ngModel)]='companyOption' (ngModelChange)='changeProject()'>
+        <option [value]='company' *ngFor='let company of companies'>{{company}}</option>
+      </select>
     </div>
   </div>
 </mat-card>

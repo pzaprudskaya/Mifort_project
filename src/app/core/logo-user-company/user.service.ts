@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
-
+import {User} from './user.model';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
-import {TimelogModel} from './timelog.model';
 
 
 @Injectable({
@@ -16,16 +15,15 @@ import {TimelogModel} from './timelog.model';
 })
 
 
-export class TimelogsService {
+export class UserService {
 
-  private API_URL = 'http://localhost:3000/logs';
-
+  private API_URL = 'http://localhost:3000/activity/';
 
   constructor(private http: HttpClient) { }
 
-  getLogs(): Observable<TimelogModel[]> {
-    return this.http.get<TimelogModel[]>(this.API_URL).pipe(
-      tap((data: TimelogModel[]) => console.log('logs: ' + JSON.stringify(data))),
+  getUser(nameUser): Observable<User> {
+    return this.http.get<User>(this.API_URL + nameUser).pipe(
+      tap((data: User) => console.log('User: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
@@ -41,15 +39,5 @@ export class TimelogsService {
     }
     console.error(errorMessage);
     return throwError(errorMessage);
-  }
-
-   update(timelog: TimelogModel[]) {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-    debugger;
-    return this.http.put<void>(`${this.API_URL}`, JSON.stringify(timelog), httpOptions).pipe(
-      tap(updateTimelogs => console.log('update timelogs: ' + JSON.stringify(updateTimelogs))),
-        catchError(this.handleError));
   }
 }

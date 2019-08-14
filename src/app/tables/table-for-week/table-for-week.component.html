@@ -1,0 +1,90 @@
+<table>
+  <thead>
+  <tr>
+    <td *ngFor='let headerCell of headers'>{{headerCell}}</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor='let tbodyRow of data; let i = index' id="{{i}}">
+    <td  class="circle"><div class="tbody__circle" [ngStyle]="{'background': tbodyRow.color }"></div></td>
+    <td>
+        <input type="text"  [(ngModel)]="tbodyRow.comment" class="comment" [readonly]="!editTable">
+    </td>
+
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[0]" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[1]" [readonly]="!editTable" (change)="changeTotal($event.target,1)">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[2]" [readonly]="!editTable" (change)="changeTotal($event.target,2)">
+      </td><td>
+      <input type="number" [(ngModel)]="tbodyRow.time[3]" [readonly]="!editTable" (change)="changeTotal($event.target,3)">
+    </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[4]" [readonly]="!editTable" (change)="changeTotal($event.target,4)">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[5]" [readonly]="!editTable" (change)="changeTotal($event.target,5)">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[6]" [readonly]="!editTable" (change)="changeTotal($event.target,6)">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[7]" readonly>
+      </td>
+      <td *ngIf="editTable">
+        <i class="material-icons" (click)='removeRecord(i)'>clear</i>
+      </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr *ngIf="editTable">
+    <td>
+      <div class="tfoot__circle" ></div>
+    </td>
+    <td>
+      <input type="text" placeholder="Add new task" class="comment">
+    </td>
+    <td>
+      <input type="number" placeholder="0">
+    </td>
+    <td>
+      <input type="number" placeholder="0">
+    </td>
+    <td>
+      <input type="number" placeholder="0">
+    </td><td>
+    <input type="number" placeholder="0">
+  </td>
+    <td>
+      <input type="number" placeholder="0">
+    </td>
+    <td>
+      <input type="number" placeholder="0">
+    </td>
+    <td>
+      <input type="number" placeholder="0">
+    </td>
+    <td>
+      <input type="number" placeholder="0" readonly>
+    </td>
+  </tr>
+
+
+
+  <tr>
+      <td></td>
+      <td class="total">{{totalText}}</td>
+      <td>{{total[0]}}</td>
+      <td>{{total[1]}}</td>
+      <td>{{total[2]}}</td>
+      <td>{{total[3]}}</td>
+      <td>{{total[4]}}</td>
+      <td>{{total[5]}}</td>
+      <td>{{total[6]}}</td>
+      <td>{{total[7]}}</td>
+  </tr>
+  </tfoot>
+</table>

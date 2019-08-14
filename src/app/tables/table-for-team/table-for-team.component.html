@@ -1,0 +1,64 @@
+<table >
+  <tbody>
+  <tr *ngFor='let tbodyRow of data; let i = index' id="{{i}}">
+    <td>
+      <ng-template [ngIf]="!editTable">
+        <input type="text" [(ngModel)]="tbodyRow.name" readonly class="project">
+      </ng-template>
+      <ng-template [ngIf]="editTable ">
+        <div class="select" *ngIf="editTable">
+          <select name="" [(ngModel)]="tbodyRow.name" class="statuses__select project">
+            <option [value]='user' *ngFor='let user of users'>{{user}}</option>
+          </select>
+        </div>
+      </ng-template>
+    </td>
+    <ng-template>
+      <td>
+        <ng-template [ngIf]="!editTable">
+          <input type="text" [(ngModel)]="tbodyRow.role" class="role" readonly>
+        </ng-template>
+        <ng-template [ngIf]="editTable">
+          <div class="select">
+            <select name="" [(ngModel)]="tbodyRow.role" class="statuses__select role">
+              <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
+            </select>
+          </div>
+        </ng-template>
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time" [readonly]="!editTable" (change)="changeTotalHourse($event.target)" class="time"><p>h/week</p>
+      </td>
+    </ng-template>
+  </tr>
+  </tbody>
+  <tfoot>
+
+  <tr *ngIf="editTable">
+    <td>
+      <div class="select">
+        <select name="" class="statuses__select project">
+          <option selected class="text-option">Choose employee</option>
+          <option [value]='user' *ngFor='let user of users'>{{user}}</option>
+        </select>
+      </div>
+    </td>
+    <td>
+      <div class="select">
+        <select name="" [(ngModel)]="roles[0]" class="statuses__select role">
+          <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
+        </select>
+      </div>
+    </td>
+    <td>
+      <input type="number" placeholder="0" class="time"><p>h/week</p>
+    </td>
+  </tr>
+  <tr>
+    <ng-template>
+      <td class="total" colspan="3">{{totalText}}</td>
+      <td>{{totalHourse}}h/week</td>
+    </ng-template>
+  </tr>
+  </tfoot>
+</table>

@@ -1,0 +1,52 @@
+<table>
+  <thead>
+    <tr>
+      <td *ngFor='let headerCell of headers'>{{headerCell}}</td>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor='let tbodyRow of data; let i = index' id="{{i}}">
+    <td  class="circle"><div class="tbody__circle" [ngStyle]="{'background': tbodyRow.color }"></div></td>
+    <td>
+      <select [(ngModel)]="tbodyRow.projectName">
+        <option [value]="project" *ngFor="let project of projects">{{project}}</option>
+      </select>
+    </td>
+
+    <td>
+      <input type="number" [(ngModel)]="tbodyRow.time" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
+    </td>
+    <td>
+      <input type="text" [(ngModel)]="tbodyRow.comment" [readonly]="!editTable">
+    </td>
+
+    <td *ngIf="editTable">
+      <i class="material-icons" (click)='removeRecord(i)'>clear</i>
+    </td>
+
+  </tr>
+  </tbody>
+  <tfoot>
+
+  <tr *ngIf="editTable">
+    <td>
+      <div class="tfoot__circle" ></div>
+    </td>
+    <td>
+      <select name="" class="statuses__select project">
+        <option selected class="text-option">Choose Project</option>
+        <option [value]='project' *ngFor='let project of projects'>{{project}}</option>
+      </select>
+    </td>
+    <td>
+      <input type="number" placeholder="0">
+    </td>
+    <td>
+      <input type="text" placeholder="...">
+    </td>
+    <td>
+      <input type="number" placeholder="0" readonly>
+    </td>
+  </tr>
+  </tfoot>
+</table>

@@ -8,7 +8,8 @@ import {CoreModule} from '../core/core.module';
 import {ComponentsModule} from '../components/components.module';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {TablesModule} from '../tables/tables.module';
 
 
 
@@ -21,6 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
   ],
   imports: [
+    TablesModule,
+    FormsModule,
     RouterModule,
     MaterialModule,
     CoreModule,

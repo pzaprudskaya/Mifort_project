@@ -19,12 +19,15 @@ import {TimelogModel} from './timelog.model';
 export class TimelogsService {
 
   private API_URL = 'http://localhost:3000/logs';
-
+  httpOptions = {
+    mode: 'no-cors',
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
 
   constructor(private http: HttpClient) { }
 
   getLogs(): Observable<TimelogModel[]> {
-    return this.http.get<TimelogModel[]>(this.API_URL).pipe(
+    return this.http.get<TimelogModel[]>(this.API_URL, this.httpOptions).pipe(
       tap((data: TimelogModel[]) => console.log('logs: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
@@ -43,22 +46,21 @@ export class TimelogsService {
     return throwError(errorMessage);
   }
 
+
   addLog(log: TimelogModel): Observable<TimelogModel> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-    return this.http.post<TimelogModel>(this.API_URL, JSON.stringify(log), httpOptions).pipe(
+    return this.http.post<TimelogModel>(this.API_URL, JSON.stringify(log), this.httpOptions).pipe(
       tap(addLog => console.log('add log: ' + JSON.stringify(addLog))),
       catchError(this.handleError));
   }
-  deleteLog(log: TimelogModel): Observable<TimelogModel> {
+
+  update(timelog: TimelogModel[]) {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    return this.http.delete<TimelogModel>(`${this.API_URL}/${log.projectName}`, httpOptions).pipe(
-      tap(deleteLog => console.log('delete log: ' + JSON.stringify(deleteLog))),
-      catchError(this.handleError));
+    debugger;
+    return this.http.put<void>(`${this.API_URL}`, JSON.stringify(timelog), httpOptions).pipe(
+      tap(updateTimelogs => console.log('update timelogs: ' + JSON.stringify(updateTimelogs))),
+        catchError(this.handleError));
   }
-
-
 }
+

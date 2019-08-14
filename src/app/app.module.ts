@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { AuthorizationModule } from './authorization/authorization.module';
@@ -15,14 +16,18 @@ import { ChartsModule } from 'ng2-charts';
 import {ProfilePageModule} from './profile-page/profile-page.module';
 import {HttpClientModule} from '@angular/common/http';
 import {NotifierModule} from 'angular-notifier';
+import {ApprovalsPageModule} from './approvals/approvals-page.module';
+import {TablesModule} from './tables/tables.module';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    FormsModule,
     AuthorizationModule,
     CompanySettingModule,
+    ApprovalsPageModule,
     ComponentsModule,
     MaterialModule,
     EmployeeModule,
@@ -30,7 +35,7 @@ import {NotifierModule} from 'angular-notifier';
     ProjectsModule,
     ProfilePageModule,
     HttpClientModule,
-
+    TablesModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

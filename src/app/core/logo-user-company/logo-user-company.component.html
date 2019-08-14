@@ -13,6 +13,7 @@
       </mat-card-title>
       <select name="" class="profile-inf__select" [(ngModel)]='companyOption' (ngModelChange)='changeProject()'>
         <option [value]='company' *ngFor='let company of companies'>{{company}}</option>
+        <option [value]='"createCompany"' routerLink="/company-settings">+ Create company</option>
       </select>
     </div>
   </div>

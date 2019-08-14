@@ -1,16 +1,19 @@
 export interface TimelogModel {
+  id: number;
   color: string;
   projectName: string;
-  time: number;
+  time: any[];
   comment: string;
 }
 
 export class Timelog {
+  id: number;
   color: string;
   projectName: string;
-  time: number;
+  time: any[];
   comment: string;
-  constructor(color: string, projectName: string, time: number, comment: string ) {
+  constructor(id: number, color: string, projectName: string, time: any[], comment: string ) {
+    this.id = id;
     this.color = color;
     this.projectName = projectName;
     this.time = time;

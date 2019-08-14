@@ -14,8 +14,8 @@
         <h3>Projects: </h3>
           <app-table
             [editTable] = false
-            [headShow] = false
             [timelogs] = false
+            [profileBD] = true
             [data] = 'employeeProjects'></app-table>
       </div>
     </div>
@@ -31,7 +31,7 @@
           <h3>Pending for Approval: {{timesheet.period}} </h3>
           <app-table
             [editTable] = false
-            [headShow] = true
+            [profileBD] = true
             [timelogs] = true
             [data] = 'timesheet.logs'></app-table>
         </div>
@@ -42,8 +42,6 @@
         </div>
       </div>
   </app-container>
-
-
 
 
 

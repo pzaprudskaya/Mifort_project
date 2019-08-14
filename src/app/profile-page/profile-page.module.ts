@@ -8,6 +8,7 @@ import {ComponentsModule} from '../components/components.module';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {ProfileComponent} from './profile/profile.component';
+import {TablesModule} from '../tables/tables.module';
 
 
 
@@ -17,6 +18,7 @@ import {ProfileComponent} from './profile/profile.component';
 ProfileComponent
   ],
   imports: [
+    TablesModule,
     RouterModule,
     MaterialModule,
     CoreModule,

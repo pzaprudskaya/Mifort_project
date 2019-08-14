@@ -1,7 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {TableService} from './table.service';
-import {CompanyModel} from './company.model';
-
 
 @Component({
   selector: 'app-table',
@@ -9,85 +7,109 @@ import {CompanyModel} from './company.model';
   styleUrls: ['./table.component.sass']
 })
 export class TableComponent implements OnInit {
-  @Input() editTable: boolean;
-  @Input() headShow: boolean;
-  @Input() timelogs: boolean;
+  roles = ['Choose role', 'Project Manager', 'Employee', 'HR Manager', 'Owner', 'Admin'];
+  projects = ['Skype', 'Uber', 'Office'];
+  chooseRole = 'Choose role';
   @Input() data: any[];
-  tableData: any[];
-  tableHead: string[];
-  totalValue: number;
-  count: number;
-  company: CompanyModel;
-  projects: object[];
-  roles: string[];
-  option1: string;
-  option2: string;
+  @Input() editTable: boolean;
+  total: number[] = Array(8).fill(0);
+  headers: string[];
+  @Input() timelogs: boolean;
+  totalText: string;
+  totalHourse = 0;
+  @Input() profileBD: boolean;
+  @Output() updateTimelogs: EventEmitter<any> = new EventEmitter();
+  @Output() updateProfileBD: EventEmitter<any> = new EventEmitter();
 
   constructor(private tableService: TableService) {
   }
 
-  ngOnInit() {
-    this.tableData = [];
-    this.totalValue = 0;
-    this.tableHead = [];
-    this.projects = [];
-    this.option1 = 'chooseProject';
-    this.option1 = 'chooseRole';
-
-    this.tableService.getCompany().subscribe(
-      company => {
-        this.roles = company[0].roles;
-        company[0].projects.forEach((project) => {
-          this.projects.push(Object.keys(project).map((key) => {
-            return project[key];
-          }));
-        });
-      }
-    );
-
-
-    this.data.forEach((arr) => {
-      this.count = 0;
-      arr.forEach((property) => {
-        this.count++;
-        if (typeof property === 'number') {
-          this.calculate(property);
+  findTotalByDay(): void {
+    this.total = Array(8).fill(0);
+    for (let i = 0; i < this.total.length; i++) {
+      for (let item = 0; item < this.data.length; item++) {
+        for (let j = 0; j < this.data[item].time.length; j++) {
+          if (i === j) {
+            this.total[i] = this.total[i] + this.data[item].time[j];
+          }
         }
-      });
-    });
-    console.log('Count: ' + this.count);
-    if (!this.timelogs) {
-      if (!this.editTable) {
-        this.tableHead = [' ', 'Project', 'Role', 'Time'];
-      } else {
-        this.tableHead = [' ', 'Project', 'Role', 'Time', ' '];
       }
-    } else {
-      if (!this.editTable) {
-        if (this.count === 4) {
-          this.tableHead = [' ', 'Project', 'Time(hours)', 'Comment'];
-        } else if (this.count === 9) {
-          this.tableHead = [' ', 'Comment', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        } else {
-          return;
-        }
-      } else {
-        if (this.count === 4) {
-          this.tableHead = [' ', 'Project', 'Time(hours)', 'Comment', ' '];
-        } else if (this.count === 9) {
-          this.tableHead = [' ', 'Comment', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', ' '];
-        } else {
-          return;
-        }
-
-      }
-
     }
   }
 
-  calculate(value: number) {
-    this.totalValue += value;
+  findTotalForProject(): void {
+    this.data.forEach(item => {
+      const arrayTime = item.time;
+      arrayTime[arrayTime.length - 1] = 0;
+      for (let i = 0; i < arrayTime.length - 1; i++) {
+        arrayTime[arrayTime.length - 1] += arrayTime[i];
+      }
+    });
   }
 
+  findTotalHourse(): void {
+    this.totalHourse = 0;
+    for (let i = 0; i < this.data.length; i++) {
+      this.totalHourse += this.data[i].time;
+    }
+  }
 
+  determineViewTable(): string {
+    if (!this.timelogs) {
+      this.headers = ['', ' ', ' ', ' '];
+      this.totalText = 'Total time on projects';
+      return 'profile';
+    }
+    this.headers = ['', 'Comment', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    this.totalText = 'Total';
+    return 'timelogs';
+  }
+
+  changeTotal(input: object, day: number): void {
+    for (let i = 0; i < this.data.length; i++) {
+      if (input.parentElement.parentElement.getAttribute('id') === i) {
+        for (let j = 0; j < this.data[i].time.length; j++) {
+          if (j === day) {
+            this.data[i].time[j] = Number(input.value);
+            this.findTotalForProject();
+            this.findTotalByDay();
+            this.update();
+          }
+        }
+      }
+    }
+  }
+
+  changeTotalHourse(input: object) {
+    for (let i = 0; i < this.data.length; i++) {
+      if (input.parentElement.parentElement.getAttribute('id') === i) {
+        this.data[i].time = Number(input.value);
+        this.findTotalHourse();
+        this.updateProfileBD.emit(this.data);
+      }
+    }
+  }
+
+  removeRecord(value: number) {
+    console.log(this.data[value]);
+    this.data.slice(value, 1);
+    this.update();
+  }
+
+  update() {
+    if (this.profileBD) {
+      this.updateProfileBD.emit(this.data);
+    } else {
+      this.updateTimelogs.emit(this.data);
+    }
+  }
+
+  ngOnInit() {
+    if (this.determineViewTable() === 'timelogs') {
+      this.findTotalForProject();
+      this.findTotalByDay();
+    } else {
+      this.findTotalHourse();
+    }
+  }
 }

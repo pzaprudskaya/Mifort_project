@@ -8,33 +8,33 @@
           <h1>{{employee.name}}</h1>
           <div class="buttons">
             <button (click)="changeDeactivatePopupCondition()">Deactivate</button>
-            <button>Save</button>
+            <button (click)="save()">Save</button>
           </div>
 
         </div>
         <div class="inline">
           <div class="information">
-
-
             <div>
-              <input value="{{employee.role}}">
+              <select [(ngModel)]="employee.role">
+                <option [value]="role"*ngFor="let role of roles">{{role}}</option>
+              </select>
               <i (click)="open_information()" class="material-icons">help_outline</i>
               <ng-template [ngIf]="toggleFlag">
                 <div  class="information_about_role">
                   <h3>Owner</h3>
-                  <p>description</p>
+                  <p>Can do everything in the system: manage users, projects and company settings.</p>
                   <h3>Admin</h3>
-                  <p>description</p>
+                  <p>Can manage users: invite, deactivate users, change roles, workload on projects.</p>
                   <h3>Project Manager</h3>
-                  <p>description</p>
+                  <p>Has rights to manage projects, where he is assigned as Project Manager and manage users on his projects.</p>
                   <h3>HR Manager</h3>
-                  <p>description</p>
+                  <p>HR Manager is able to invite new users and manage projects.</p>
                   <h3>Employee</h3>
-                  <p>description</p>
+                  <p>Only fills his timesheet and is able to edit his profile info, including reports export from his timesheet.</p>
                 </div>
               </ng-template>
             </div>
-            <p>Workload: <input value="{{employee.workload}}"> h/week</p>
+            <p>Workload: <input [(ngModel)]="employee.workload"> h/week</p>
             <p class="gray">{{employee.email}}</p>
             <p class="gray">{{employee.phone}}</p>
           </div>
@@ -42,14 +42,12 @@
             <h3>Projects: </h3>
             <app-table
               [editTable] = true
-              [headShow] = false
               [timelogs] = false
+              [profileBD] = true
               [data] = 'employeeProjects'></app-table>
           </div>
         </div>
       </div>
-
-
     </div>
   </app-container>
 
@@ -62,9 +60,9 @@
       <div>
         <h3>Pending for Approval: {{timesheet.period}} </h3>
         <app-table
-          [editTable] = true
-          [headShow] = true
-          [timelogs] = true
+          [editTable] = false
+          [timelogs] = 'true'
+          [profileBD] = true
           [data] = 'timesheet.logs'></app-table>
       </div>
       <div class="donut_chart_and_buttons">
@@ -78,7 +76,8 @@
 
   <div class="box">
     <app-container class="notification_preferences">
-      <app-notification-preferences></app-notification-preferences>
+      <app-export [name]='employee.name'
+                  [profile]=true></app-export>
     </app-container>
   </div>
 </app-block>

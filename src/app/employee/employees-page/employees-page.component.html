@@ -6,11 +6,13 @@
       <button>Pending</button>
     </div>
     <div class="invite">
-      <span>Invite an employee:</span>
+      <span>Invite user:</span>
       <input type="text" (input) = "nameChange($event.target.value)" id="" placeholder="alex@timesheet.com">
-      <select>
-        <option value="">Chose Role</option>
-      </select>
+      <div class="select">
+        <select name="" class="statuses__select" [(ngModel)]='roleOption'>
+          <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
+        </select>
+      </div>
       <button>Invite</button>
     </div>
   </div>

@@ -1,22 +1,45 @@
 export interface TimelogModel {
-  id: number;
-  color: string;
-  projectName: string;
-  time: any[];
-  comment: string;
+  name: string;
+  data: [
+    {
+      period: string;
+      logs: [
+        {
+          id: number;
+          color: string;
+          projectName: string;
+          comment: string;
+          time: number;
+        }
+        ];
+    }
+    ];
 }
 
 export class Timelog {
-  id: number;
-  color: string;
-  projectName: string;
-  time: any[];
-  comment: string;
-  constructor(id: number, color: string, projectName: string, time: any[], comment: string ) {
-    this.id = id;
-    this.color = color;
-    this.projectName = projectName;
-    this.time = time;
-    this.comment = comment;
+  name: string;
+  data: [
+    {
+      period: string;
+      logs: [
+        {
+          id: number;
+          color: string;
+          projectName: string;
+          comment: string;
+          time: number;
+        }
+        ];
+    }
+    ];
+
+  constructor(name: string, data: [{ period: string; logs: [{ id: number; color: string; projectName: string;
+      comment: string; time: number }] }]) {
+    this.name = name;
+    this.data = data;
   }
+}
+
+{
+
 }

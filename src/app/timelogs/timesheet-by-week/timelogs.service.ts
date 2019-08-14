@@ -18,8 +18,8 @@ import {TimelogModel} from './timelog.model';
 
 export class TimelogsByWeekService {
 
-  private API_URL = 'http://localhost:3000/logs';
-name: string;
+  private API_URL = 'http://localhost:3000/logsbyweek';
+  name: string;
 
   constructor(private http: HttpClient) { }
 
@@ -30,7 +30,6 @@ name: string;
     );
   }
   private handleError(err: HttpErrorResponse) {
-
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
       errorMessage = `An error occurred: ${err.error.message}`;
@@ -40,13 +39,10 @@ name: string;
     console.error(errorMessage);
     return throwError(errorMessage);
   }
-
-
   update(timelog: TimelogModel) {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    debugger;
     return this.http.put<void>(`${this.API_URL}/${this.name}`, JSON.stringify(timelog), httpOptions).pipe(
       tap(updateTimelogs => console.log('update timelogs: ' + JSON.stringify(updateTimelogs))),
       catchError(this.handleError));

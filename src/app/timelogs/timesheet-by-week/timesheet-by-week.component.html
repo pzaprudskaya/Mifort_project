@@ -2,11 +2,9 @@
   <app-head class="table" (changePeriod)="filterByPeriod($event)"></app-head>
   <div class="inline">
     <app-container class="table">
-      <app-table
+      <app-table-for-week
         [editTable] = true
-        [profileBD] = false
-        [timelogs] = '"week"'
-        [data] = 'logs[1]' ></app-table>
+        [data] = 'logs[1]' ></app-table-for-week>
     </app-container>
     <app-container class="chart">
       <app-donut-chart [dataDonutChart]=""></app-donut-chart>

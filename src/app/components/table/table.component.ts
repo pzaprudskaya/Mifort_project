@@ -65,7 +65,7 @@ export class TableComponent implements OnInit {
     return 'timelogs';
   }
 
-  changeTotal(input: object, day: number): void {
+  changeTotal(input, day: number): void {
     for (let i = 0; i < this.data.length; i++) {
       if (input.parentElement.parentElement.getAttribute('id') === i) {
         for (let j = 0; j < this.data[i].time.length; j++) {
@@ -80,7 +80,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  changeTotalHourse(input: object) {
+  changeTotalHourse(input) {
     for (let i = 0; i < this.data.length; i++) {
       if (input.parentElement.parentElement.getAttribute('id') === i) {
         this.data[i].time = Number(input.value);
@@ -105,6 +105,7 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
     if (this.determineViewTable() === 'timelogs') {
       this.findTotalForProject();
       this.findTotalByDay();

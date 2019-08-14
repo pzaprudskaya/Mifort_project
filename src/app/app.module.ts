@@ -18,6 +18,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {NotifierModule} from 'angular-notifier';
 import {ApprovalsPageModule} from './approvals/approvals-page.module';
 import {TablesModule} from './tables/tables.module';
+import {TimesheetsModule} from './timesheets/timesheets.module';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {TablesModule} from './tables/tables.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     ChartsModule,
+    TimesheetsModule,
     NotifierModule.withConfig({
       position: {
         horizontal: {

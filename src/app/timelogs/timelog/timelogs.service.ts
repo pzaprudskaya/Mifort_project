@@ -17,8 +17,8 @@ import {TimelogModel} from './timelog.model';
 
 
 export class TimelogsService {
-
-  private API_URL = 'http://localhost:3000/logs';
+  name: string;
+  private API_URL = 'http://localhost:3000/logsbyday/';
   httpOptions = {
     mode: 'no-cors',
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -27,7 +27,7 @@ export class TimelogsService {
   constructor(private http: HttpClient) { }
 
   getLogs(): Observable<TimelogModel[]> {
-    return this.http.get<TimelogModel[]>(this.API_URL, this.httpOptions).pipe(
+    return this.http.get<TimelogModel[]>(this.API_URL + this.name, this.httpOptions).pipe(
       tap((data: TimelogModel[]) => console.log('logs: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
@@ -58,9 +58,12 @@ export class TimelogsService {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
     debugger;
-    return this.http.put<void>(`${this.API_URL}`, JSON.stringify(timelog), httpOptions).pipe(
+    return this.http.put<void>(`${this.API_URL}${this.name}`, JSON.stringify(timelog), httpOptions).pipe(
       tap(updateTimelogs => console.log('update timelogs: ' + JSON.stringify(updateTimelogs))),
         catchError(this.handleError));
+  }
+  getName(name) {
+    this.name = name;
   }
 }
 

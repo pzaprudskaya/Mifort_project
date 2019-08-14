@@ -12,8 +12,6 @@ import {Router} from '@angular/router';
 export class DonutChartComponent implements OnInit {
   @Input() dataDonutChart: any[];
   DoughnutChart;
-  realResult: number;
-  expectedResult: number;
   h = '';
 
   constructor(public router: Router) {}

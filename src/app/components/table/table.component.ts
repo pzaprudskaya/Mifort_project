@@ -76,14 +76,6 @@ export class TableComponent implements OnInit {
             this.update();
           }
         }
-      });
-    });
-    console.log('Count: ' + this.count);
-    if (!this.timelogs) {
-      if (!this.editTable) {
-        this.tableHead = [' ', 'Project', 'Role', 'Time'];
-      } else {
-        this.tableHead = [' ', 'Project', 'Role', 'Time', ' '];
       }
     }
   }
@@ -121,4 +113,3 @@ export class TableComponent implements OnInit {
     }
   }
 }
-

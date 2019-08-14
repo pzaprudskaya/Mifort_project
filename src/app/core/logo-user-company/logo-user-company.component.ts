@@ -4,6 +4,9 @@ import {EmployeesProfileService} from '../../profile-page/profile/employees-prof
 import {TableService} from '../../components/table/table.service';
 import {User} from './user.model';
 import {CompanySettingsService} from '../../company-setting/company-settings/company-settings.service';
+import {TimelogsByWeekService} from '../../timelogs/timesheet-by-week/timelogs.service';
+import {TimelogsService} from '../../timelogs/timelog/timelogs.service';
+
 
 @Component({
   selector: 'app-logo-user-company',
@@ -22,7 +25,9 @@ export class LogoUserCompanyComponent implements OnInit {
   constructor(private employeesProfileService: EmployeesProfileService,
               private tableService: TableService,
               private userService: UserService,
-              private companySettingsService: CompanySettingsService ) { }
+              private companySettingsService: CompanySettingsService,
+              private timelogsService: TimelogsByWeekService,
+              private timelogsByDay: TimelogsService) { }
 
   ngOnInit() {
     this.photo = '';
@@ -38,6 +43,7 @@ export class LogoUserCompanyComponent implements OnInit {
       });
     this.employeesProfileService.getName(this.nameOption);
     this.companySettingsService.getName(this.nameOption);
+    this.timelogsService.getName(this.nameOption);
 
     this.tableService.getNameCompany(this.companyOption);
     this.employeesProfileService.getEmployee().subscribe(
@@ -55,6 +61,7 @@ export class LogoUserCompanyComponent implements OnInit {
     console.log(this.nameOption);
     this.companySettingsService.setCompany(this.companyOption);
     this.employeesProfileService.getName(this.nameOption);
+    this.timelogsService.getName(this.nameOption);
     this.employeesProfileService.getEmployee().subscribe(
       employee => {
         this.photo = employee[0].photoUrl;

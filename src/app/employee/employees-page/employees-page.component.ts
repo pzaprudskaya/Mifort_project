@@ -10,6 +10,8 @@ import {Subject} from 'rxjs';
   styleUrls: ['./employees-page.component.sass']
 })
 export class  EmployeesPageComponent implements OnInit {
+  roles = ['Project Manager', 'Employee', 'HR Manager', 'Owner', 'Admin'];
+  roleOption = ['Project Manager'];
   @Input() employeeName: string;
 
   employees: Employees[];

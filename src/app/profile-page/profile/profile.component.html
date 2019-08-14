@@ -1,6 +1,5 @@
 <app-block let="employee">
     <app-container >
-      <button (click)="save()"> Save </button>
     <div class="box">
       <div mat-card-avatar class = "box__photo" [ngStyle]="{'background-image': 'url(' + employee.photoUrl + ')'}">
       </div>
@@ -14,10 +13,10 @@
       <div class="table_projects">
         <h3>Projects: </h3>
           <app-table
-            [editTable] = true
+            [editTable] = false
             [timelogs] = false
             [profileBD] = true
-            [data] = 'employeeProjects' (updateProfileBD)="updateProfileBD($event)"></app-table>
+            [data] = 'employeeProjects'></app-table>
       </div>
     </div>
   </app-container>
@@ -31,10 +30,10 @@
         <div>
           <h3>Pending for Approval: {{timesheet.period}} </h3>
           <app-table
-            [editTable] = true
+            [editTable] = false
             [profileBD] = true
             [timelogs] = true
-            [data] = 'timesheet.logs' (updateProfileBD)="updateProfileBD($event)"></app-table>
+            [data] = 'timesheet.logs'></app-table>
         </div>
         <div class="donut_chart">
           <app-donut-chart
@@ -43,8 +42,6 @@
         </div>
       </div>
   </app-container>
-
-
 
 
 

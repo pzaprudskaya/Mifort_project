@@ -16,7 +16,6 @@ export class ProfileComponent implements OnInit {
   @Input() timesheetWorkload: any[];
   @Input() employeeProjects: any[];
   @Input() barChart: any[];
-  logsTwo: any[];
   logsOne: any[];
   timesheetsPendingApproval: any[];
   period: string;
@@ -64,10 +63,6 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-  save() {
-    debugger;
-    this.employeesProfileService.update(this.employee)
-          .subscribe(() => console.log('Update!'));
-  }
+
 
 }

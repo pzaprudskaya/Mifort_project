@@ -2,32 +2,20 @@
   <app-head class="table" (change)="updateTimelogs($event)"></app-head>
   <div class="inline">
     <app-container class="table">
+      <app-table-for-day
+        [editTable]=true
+        [data]="logs[1]"></app-table-for-day>
       <app-table
         [editTable] = true
         [profileBD] = false
-        [timelogs] = true
-        [data] = 'logs' ></app-table>
+        [timelogs] = '"day"'
+        [data] = 'logs[1]' ></app-table>
     </app-container>
     <app-container class="chart">
-      
+      <app-donut-chart [dataDonutChart]=""></app-donut-chart>
     </app-container>
   </div>
 
-  <app-container>
-    <input id="color" type="text" value="">
-    <input id="projectName" type="text" value="">
-    <input id="time" type="number" value="">
-    <input id="comment" type="text" value="">
-    <button (click)="add()">Add</button>
-  </app-container>
-
-  <app-container>
-    <app-table
-      [editTable] = false
-      [headShow] = true
-      [timelogs] = true
-      [data] = 'logs'></app-table>
-  </app-container>
 </app-block>
 
 

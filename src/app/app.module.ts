@@ -17,6 +17,7 @@ import {ProfilePageModule} from './profile-page/profile-page.module';
 import {HttpClientModule} from '@angular/common/http';
 import {NotifierModule} from 'angular-notifier';
 import {ApprovalsPageModule} from './approvals/approvals-page.module';
+import {TablesModule} from './tables/tables.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import {ApprovalsPageModule} from './approvals/approvals-page.module';
     ProjectsModule,
     ProfilePageModule,
     HttpClientModule,
-
+    TablesModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -36,7 +36,7 @@ export class EmployeesProfileService {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
     return this.http.put<void>(`${this.API_URL}/${emploee.name}`, JSON.stringify(emploee), httpOptions).pipe(
-      tap(updateProject => console.log('update emploee: ' + JSON.stringify(updateEmploee))),
+      tap(updateEmploee => console.log('update emploee: ' + JSON.stringify(updateEmploee))),
         catchError(this.handleError));
   }
   private handleError(err: HttpErrorResponse) {

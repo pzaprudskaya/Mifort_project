@@ -9,7 +9,9 @@ import {CoreModule} from '../core/core.module';
 import {MaterialModule} from '../material.module';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
+import {ApprovalsPageModule} from '../approvals/approvals-page.module';
+import {TablesModule} from '../tables/tables.module';
 
 
 
@@ -23,12 +25,14 @@ import {FormsModule} from "@angular/forms";
     HeadComponent,
   ],
   imports: [
+    TablesModule,
     FormsModule,
     RouterModule,
     MaterialModule,
     CoreModule,
     ComponentsModule,
     CommonModule,
+    ApprovalsPageModule,
   ],
   entryComponents: [
   ],

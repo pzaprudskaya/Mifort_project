@@ -15,13 +15,9 @@
     <div class="integrations">
       <app-container >
         <h3>Team:</h3>
-        <app-table
-          [editTable] = false
-          [headShow] = false
-          [timelogs] = false
-          [data] = 'employeeProjects'
-
-        ></app-table>
+        <app-table-for-team
+          [editTable] = true
+          [data] = []></app-table-for-team>
       </app-container>
       <app-container>
         <app-integrations [object]="project"></app-integrations>
@@ -43,13 +39,9 @@
   <div class="inline" *ngIf="(stateCreate === true)">
   <app-container class="integrations">
     <h3>Team:</h3>
-    <app-table
-      [editTable] = false
-      [headShow] = false
-      [timelogs] = false
-      [data] = 'employeeProjects'
-
-    ></app-table>
+    <app-table-for-team
+      [editTable] = true
+      [data] = []></app-table-for-team>
   </app-container>
   <app-container class="bar-chart__width">
     <app-integrations [object]="project"></app-integrations>

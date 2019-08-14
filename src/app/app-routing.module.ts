@@ -8,6 +8,7 @@ import {CompanySettingsComponent} from './company-setting/company-settings/compa
 import {ProjectComponent} from './projects/project/project.component';
 import {ProfileComponent} from './profile-page/profile/profile.component';
 import {TimelogComponent} from './timelogs/timelog/timelog.component';
+import {TimesheetByWeekComponent} from './timelogs/timesheet-by-week/timesheet-by-week.component';
 import {ProjectNameComponent} from './projects/project-name/project-name.component';
 import { ExportComponent } from './components/export/export.component';
 
@@ -17,6 +18,7 @@ import {ApprovalsPageComponent} from './approvals/approvals-page/approvals-page.
 
 const itemMenu: Routes = [
   { path: 'timelog-day', component: TimelogComponent},
+  { path: 'timelog-week', component: TimesheetByWeekComponent},
   { path: 'profile', component: ProfileComponent},
   { path: 'projects/:project_name', component: ProjectNameComponent},
   { path: 'projects', component: ProjectComponent},

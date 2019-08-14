@@ -11,7 +11,6 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {ApprovalsPageModule} from '../approvals/approvals-page.module';
-import {TablesModule} from '../tables/tables.module';
 
 
 
@@ -25,7 +24,6 @@ import {TablesModule} from '../tables/tables.module';
     HeadComponent,
   ],
   imports: [
-    TablesModule,
     FormsModule,
     RouterModule,
     MaterialModule,

@@ -9,7 +9,6 @@ import {ComponentsModule} from '../components/components.module';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {TablesModule} from '../tables/tables.module';
 
 
 
@@ -22,7 +21,6 @@ import {TablesModule} from '../tables/tables.module';
 
   ],
   imports: [
-    TablesModule,
     FormsModule,
     RouterModule,
     MaterialModule,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Timelog} from "../../timelogs/timesheet-by-week/timelog.model";
-import {TimelogsByWeekService} from "../../timelogs/timesheet-by-week/timelogs.service";
+import {TimelogsByWeekService} from './timelogs-by-week.service';
+import {Timelog} from './timelog.model';
 
 @Component({
   selector: 'app-by-week',
@@ -25,10 +25,10 @@ export class ByWeekComponent implements OnInit {
     this.arrayPeriod = [];
     this.timelogsByWeekService.getLogs().subscribe(
       timelogs => {
-
-        this.timelogs = timelogs[0];
-        debugger;
-        this.timelogs.data.forEach((data) => {
+debugger;
+this.timelogs = timelogs[0];
+debugger;
+this.timelogs.data.forEach((data) => {
           this.arrayPeriod.push(Object.keys(data).map((key) => {
             if (key === 'logs') {
               const logs = [];
@@ -42,8 +42,8 @@ export class ByWeekComponent implements OnInit {
           }));
 
         });
-        this.inputEvent(today);
-        this.filterByPeriod(this.period);
+this.inputEvent(today);
+this.filterByPeriod(this.period);
       });
   }
   updateTimelogs() {

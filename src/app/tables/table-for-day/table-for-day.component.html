@@ -21,7 +21,7 @@
     </td>
 
     <td *ngIf="editTable">
-      <i class="material-icons" (click)='removeRecord(i)'>clear</i>
+      <i class="material-icons" (click)='delete(tbodyRow)'>clear</i>
     </td>
 
   </tr>
@@ -33,9 +33,9 @@
       <div class="tfoot__circle" ></div>
     </td>
     <td>
-      <select name="" class="statuses__select project">
-        <option selected class="text-option">Choose Project</option>
-        <option [value]='project' *ngFor='let project of projects'>{{project}}</option>
+      <select name="" id="" class="table__select" [(ngModel)]='option1' (ngModelChange)='customFunction()'>
+        <option [value]="'chooseProject'" [selected] = "selected">Choose project</option>
+        <option [value]="project" *ngFor='let project of projects; let i = index'>project</option>
       </select>
     </td>
     <td>

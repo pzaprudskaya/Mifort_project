@@ -10,10 +10,28 @@ export class TableForDayComponent implements OnInit {
   projects = ['Skype', 'Uber', 'Office'];
   @Input() data: any;
   @Input() editTable: boolean;
-  constructor() { }
+  option1;
 
-  ngOnInit() {
-    console.log(this.data);
+  constructor() {
   }
 
+  ngOnInit() {
+    this.option1 = 'chooseProject';
+
+  }
+
+  customFunction() {
+    this.data.push({id: this.data.length + 1, color: 'gray', projectName: this.option1, time: 0, comment: ' '});
+    this.option1 = 'chooseProject';
+  }
+
+  delete(item) {
+    this.data.forEach((log, i) => {
+      debugger;
+      if (log.id === item.id) {
+        this.data.splice(i, 1);
+      }
+    });
+  }
 }
+

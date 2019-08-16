@@ -31,6 +31,7 @@ export class ByDayComponent implements OnInit {
     this.date = today.getDate() + '/' + this.month[today.getMonth()] + '/' + today.getFullYear();
     this.chooseDate = today;
     this.period = 'select';
+
     this.timelogsByDayService.getLogs().subscribe(
       timelogs => {
         this.arrayDay = [];

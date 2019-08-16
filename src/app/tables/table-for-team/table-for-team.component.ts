@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 
 @Component({
@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material';
   styleUrls: ['./table-for-team.component.sass']
 })
 export class TableForTeamComponent implements OnInit {
+  @Output() change: EventEmitter<number> = new EventEmitter<number>();
   @Input() editTable: boolean;
   @Input() data: any;
   roles = ['Project Manager', 'Employee', 'HR Manager', 'Owner', 'Admin'];
@@ -46,10 +47,12 @@ export class TableForTeamComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Team>(this.data);
   }
   getTotal() {
-    return this.data.map(t => t.time).reduce((acc, value) => acc + value, 0);
+    this.change.emit(this.data.map(t => t.workload).reduce((acc, value) => acc + value, 0));
+    return this.data.map(t => t.workload).reduce((acc, value) => acc + value, 0);
   }
 
 }
+
 
 export interface Team {
   id: number;

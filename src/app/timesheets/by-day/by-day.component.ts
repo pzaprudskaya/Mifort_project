@@ -72,9 +72,15 @@ export class ByDayComponent implements OnInit {
     debugger;
     this.dataDonut = [];
     this.logs = this.arrayDay.filter((arr) => arr[0] === day );
-    this.logs[0][1].forEach((item) => {
-      this.dataDonut.push(new Donut(item.projectName, item.color, item.time));
-    });
+    if (this.logs === []) {
+      this.logs = [day, []];
+      this.dataDonut = [];
+    } else {
+      this.logs[0][1].forEach((item) => {
+        this.dataDonut.push(new Donut(item.projectName, item.color, item.time));
+      });
+    }
+
 
 
   }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProjectNameService} from './project-name.service';
 import {ProjectNameModel} from './project-name.model';
@@ -15,6 +15,7 @@ export class ProjectNameComponent implements OnInit {
   project: ProjectNameModel;
   stateCreate: boolean;
   state: boolean;
+  total: number;
 
   constructor(private route: ActivatedRoute, private projectNameService: ProjectNameService,
               private projectTableService: ProjectsTableService) {}
@@ -26,12 +27,14 @@ export class ProjectNameComponent implements OnInit {
       this.projectNameService.getProject('Name').subscribe(
         project => {
           this.project = project[0];
+          this.total = 0;
         });
       this.stateCreate = true;
     } else {
       this.projectNameService.getProject(this.projectName).subscribe(
         project => {
           this.project = project[0];
+          this.total = this.project.team.map(t => t.workload).reduce((acc, value) => acc + value, 0);
         });
       this.stateCreate = false;
     }
@@ -62,5 +65,8 @@ export class ProjectNameComponent implements OnInit {
 
   changeStateArrow() {
     this.state = !this.state;
+  }
+  changeTotal(value) {
+    this.total = value;
   }
 }

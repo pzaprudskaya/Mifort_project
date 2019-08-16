@@ -6,7 +6,7 @@ import {User} from './user.model';
 import {CompanySettingsService} from '../../company-setting/company-settings/company-settings.service';
 import {TimelogsByWeekService} from '../../timelogs/timesheet-by-week/timelogs.service';
 import {TimelogsService} from '../../timelogs/timelog/timelogs.service';
-
+// import { SignInComponent } from '../../authorization/sign-in/sign-in.component';
 
 @Component({
   selector: 'app-logo-user-company',
@@ -27,9 +27,15 @@ export class LogoUserCompanyComponent implements OnInit {
               private userService: UserService,
               private companySettingsService: CompanySettingsService,
               private timelogsService: TimelogsByWeekService,
-              private timelogsByDay: TimelogsService) { }
+              private timelogsByDay: TimelogsService,
+              
+              // private signInComponent: SignInComponent
+              
+              ) { }
 
   ngOnInit() {
+    // console.log('VERBEEEEE' + this.signInComponent.userData);
+
     this.photo = '';
     this.nameOption = this.users[0];
 

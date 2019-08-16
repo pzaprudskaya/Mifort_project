@@ -13,13 +13,13 @@ export class ExportComponent implements OnInit {
   project: ProjectNameModel;
   employees: any;
   @Input() name;
-  @Input() profile;
+  @Input() profile; 
   ngOnInit() {
     this.exportService.getName(this.name);
     this.exportService.getProject().subscribe(
       project => {
         this.project = project[0];
-      });
+      });    
     this.employeesService.getEmployee().subscribe(
       employees => {
         this.employees = employees[0];

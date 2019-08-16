@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService, GoogleLoginProvider } from 'angular5-social-login';
 import { User } from '../authorization.model';
 import { Router } from '@angular/router';
-
+import { AuthorizationService } from '../authorization.service';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -32,7 +32,7 @@ export class SignUpComponent implements OnInit {
       password: this.signForm.value.passwordControl
     }
   }
-  constructor( private socialAuthService: AuthService,  private router: Router ) {}
+  constructor( private socialAuthService: AuthService,  private router: Router, private authorizationService: AuthorizationService ) {}
 
   public socialSignUn(socialPlatform : string) {
     let socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
@@ -65,8 +65,12 @@ export class SignUpComponent implements OnInit {
       image: 'https://www.deadline.com.ua/design/img/default-avatar.png',
       password: this.signForm.value.passwordControl
     }
+    
     if(this.signForm.status === "VALID"){
       this.router.navigate(['/profile']);
+      this.authorizationService.sendUser(this.user).subscribe(
+        () => console.log('send user!!!')
+      );
     }
     else {
       this.authPrompt = true;

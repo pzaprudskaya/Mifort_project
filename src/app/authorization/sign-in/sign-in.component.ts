@@ -55,12 +55,13 @@ export class SignInComponent implements OnInit {
       this.flag = false
     }
   }
-  authentification() {
-    
+  authentification() {  
+    console.log(this.users)
     let formData = this.users.find(
       element => 
         element.email == this.signForm.value.emailControl && element.password == this.signForm.value.passwordControl && this.signForm.status === "VALID"
     );
+
     formData ?  this.router.navigate(['/profile']) : alert('Invalid email or password');
   }
 }

@@ -25,11 +25,12 @@ export class AuthorizationService {
     );
   }
 
-  sendUser(user): Observable<User[]>{
-    return this.http.post<User[]>(this.API_URL, JSON.stringify(user), this.httpOptions).pipe(
+  sendUser(user): Observable<User>{
+    return this.http.post<User>(this.API_URL, JSON.stringify(user), this.httpOptions).pipe(
       tap(addUser => console.log('add User: ' + JSON.stringify(addUser))),
       catchError(this.handleError));
   }
+
   private handleError(err: HttpErrorResponse) {
 
     let errorMessage = '';

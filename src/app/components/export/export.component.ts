@@ -20,6 +20,7 @@ export class ExportComponent implements OnInit {
       project => {
         this.project = project[0];
       });    
+      
     this.employeesService.getEmployee().subscribe(
       employees => {
         this.employees = employees[0];

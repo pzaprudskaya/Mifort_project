@@ -4,6 +4,7 @@ import { AuthService, GoogleLoginProvider } from 'angular5-social-login';
 import { User } from '../authorization.model';
 import { Router } from '@angular/router';
 import { AuthorizationService } from '../authorization.service';
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -14,8 +15,10 @@ export class SignUpComponent implements OnInit {
   type: string = "password";
   flag: boolean = false;
   user: User;
-  authPrompt: boolean;
+  users: User[];
+  state: boolean;
   ngOnInit() {
+    this.state = false;
     this.signForm = new FormGroup({
       "fullNameControl": new FormControl('', [Validators.required, Validators.minLength(2)]),
       "emailControl": new FormControl('', [Validators.required, Validators.minLength(5),
@@ -31,14 +34,17 @@ export class SignUpComponent implements OnInit {
       image: 'https://www.deadline.com.ua/design/img/default-avatar.png',
       password: this.signForm.value.passwordControl
     }
+    this.authorizationService.getUsers().subscribe(
+      users => {
+        this.users = users; 
+      }
+    );
   }
   constructor( private socialAuthService: AuthService,  private router: Router, private authorizationService: AuthorizationService ) {}
-
   public socialSignUn(socialPlatform : string) {
     let socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     this.socialAuthService.signIn(socialPlatformProvider).then(
       userData => {
-        // console.log(socialPlatform + " sign in data : " , userData);
         this.user.id = userData.id;
         this.user.email = userData.email;
         this.user.name = userData.name;
@@ -65,15 +71,31 @@ export class SignUpComponent implements OnInit {
       image: 'https://www.deadline.com.ua/design/img/default-avatar.png',
       password: this.signForm.value.passwordControl
     }
-    
+    // this.users.find(
+    //   element => element.email == this.user.email) ? this.state = true : this.state = false;
+
+    // this.users.forEach(
+    //   (item) => {
+    //     // if(item.email === this.user.email){
+    //     //   alert('mail is already registered');
+    //     // }
+    //     console.log(item)
+    //   }
+    // );
+    let formData = this.users.find(
+      element => 
+        element.email == this.signForm.value.emailControl 
+    );
+
+
     if(this.signForm.status === "VALID"){
-      this.router.navigate(['/profile']);
       this.authorizationService.sendUser(this.user).subscribe(
         () => console.log('send user!!!')
       );
+      this.router.navigate(['/sign-in']);
     }
     else {
-      this.authPrompt = true;
+      alert('Invalid data');
     }
-  }
+  } 
 }

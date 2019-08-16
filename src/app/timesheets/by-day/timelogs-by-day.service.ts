@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 
 
@@ -17,6 +17,7 @@ import {TimelogModel} from './timelog.model';
 
 
 export class TimelogsByDayService {
+
   name: string;
   private API_URL = 'http://localhost:3000/logsbyday/';
   httpOptions = {

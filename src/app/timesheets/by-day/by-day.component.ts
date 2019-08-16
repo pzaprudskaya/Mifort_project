@@ -31,7 +31,6 @@ export class ByDayComponent implements OnInit {
     this.date = today.getDate() + '/' + this.month[today.getMonth()] + '/' + today.getFullYear();
     this.chooseDate = today;
     this.period = 'select';
-
     this.timelogsByDayService.getLogs().subscribe(
       timelogs => {
         this.arrayDay = [];
@@ -69,7 +68,6 @@ export class ByDayComponent implements OnInit {
       .subscribe(() => console.log('Update!'));
   }
   filterByDay(day) {
-    debugger;
     this.dataDonut = [];
     this.logs = this.arrayDay.filter((arr) => arr[0] === day );
     if (this.logs === []) {
@@ -80,9 +78,6 @@ export class ByDayComponent implements OnInit {
         this.dataDonut.push(new Donut(item.projectName, item.color, item.time));
       });
     }
-
-
-
   }
 
   saveLogs() {
@@ -94,7 +89,6 @@ export class ByDayComponent implements OnInit {
   prevDate() {
     this.chooseDate.setDate(this.chooseDate.getDate() - 1);
     this.date = this.chooseDate.getDate() + '/' + this.month[this.chooseDate.getMonth()] + '/' + this.chooseDate.getFullYear();
-    debugger;
     this.filterByDay(this.date);
   }
   nextDate() {

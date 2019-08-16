@@ -17,6 +17,7 @@ export class SignInComponent implements OnInit {
   users: User[];
   authPrompt: boolean;
   userData;
+
   ngOnInit() {
     this.authPrompt = false;
     this.signForm = new FormGroup({

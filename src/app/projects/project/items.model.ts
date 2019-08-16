@@ -4,9 +4,11 @@ export interface Project {
   team:
     [
       {
-        photo:	string,
-        name:	string,
-        workload:	number,
+        id: number;
+        photo: string;
+        role: string;
+        name: string;
+        workload: number;
       }
     ];
   startDate:	string;
@@ -22,11 +24,11 @@ export class ProjectModel {
   team:
     [
       {
-        id: number
-        photo: string,
+        id: number;
+        photo: string;
         role: string;
-        name: string,
-        workload: number,
+        name: string;
+        workload: number;
       }
       ];
   startDate:	string;
@@ -36,7 +38,13 @@ export class ProjectModel {
   status: string;
 
   constructor(color: string, name: string,
-              team: [{ photo: string; name: string; workload: number }],
+              team: [ {
+                id: number;
+                photo: string;
+                role: string;
+                name: string;
+                workload: number;
+              }],
               startDate: string, endDate: string, planned: number, actual: number, status: string) {
     this.color = color;
     this.name = name;

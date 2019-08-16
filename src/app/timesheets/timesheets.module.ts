@@ -11,11 +11,6 @@ import {ByDayComponent} from './by-day/by-day.component';
 import {ByWeekComponent} from './by-week/by-week.component';
 
 
-
-
-
-
-
 @NgModule({
   declarations: [
     ByDayComponent,

@@ -22,9 +22,11 @@ export class ProjectModel {
   team:
     [
       {
-        photo:	string,
-        name:	string,
-        workload:	number,
+        id: number
+        photo: string,
+        role: string;
+        name: string,
+        workload: number,
       }
       ];
   startDate:	string;

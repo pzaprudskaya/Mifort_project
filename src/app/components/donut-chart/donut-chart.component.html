@@ -1,4 +1,8 @@
 <div class="doughnut-chart">
   <h3>Workload</h3>
-  <canvas id='doughnutChart' ></canvas>
+  <canvas baseChart
+  [options]="DoughnutChart.options"
+  [datasets]="DoughnutChart.data.datasets"
+  [labels] = "DoughnutChart.data.labels"
+  [chartType]="DoughnutChart.type"></canvas>
 </div>

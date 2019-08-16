@@ -6,7 +6,6 @@ import { CompanySettingModule} from './company-setting/company-setting.module';
 import { ComponentsModule} from './components/components.module';
 import {MaterialModule} from './material.module';
 import {EmployeeModule} from './employee/employee.module';
-import {TimelogsModule} from './timelogs/timelogs.module';
 import {ProjectsModule} from './projects/projects.module';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,7 +31,6 @@ import {TimesheetsModule} from './timesheets/timesheets.module';
     ComponentsModule,
     MaterialModule,
     EmployeeModule,
-    TimelogsModule,
     ProjectsModule,
     ProfilePageModule,
     HttpClientModule,

@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-table-for-team',
@@ -8,11 +9,52 @@ import {Component, Input, OnInit} from '@angular/core';
 export class TableForTeamComponent implements OnInit {
   @Input() editTable: boolean;
   @Input() data: any;
-  roles = ['Choose role', 'Project Manager', 'Employee', 'HR Manager', 'Owner', 'Admin'];
+  roles = ['Project Manager', 'Employee', 'HR Manager', 'Owner', 'Admin'];
   users = ['Polina Zaprudskaya', 'Egor Drozd'];
+  usersInCompany = [{name: 'Polina Zaprudskaya', photo: 'https://pp.userapi.com/c849032/v849032975/1b5995/yD94I7fPbLQ.jpg'},
+    {name: 'Egor Drozd', photo: 'https://sun9-36.userapi.com/c850616/v850616650/190edd/-5m_QHZ0b0I.jpg'}];
+  option1;
+  option2;
+  photo: string;
+  displayedColumns;
+  dataSource;
   constructor() { }
 
   ngOnInit() {
+    this.dataSource = new MatTableDataSource<Team>(this.data);
+    this.option1 = 'chooseName';
+    this.option1 = 'chooseRole';
+    this.displayedColumns = ['name', 'roles', 'time', 'hours', 'delete' ];
+  }
+  customFunction() {
+    this.usersInCompany.forEach((user) => {
+      if (user.name === this.option1) {
+        this.photo = user.photo;
+      }
+    });
+    this.data.push({id: this.data.length + 1, photo: this.photo, name: this.option1, role: this.option2, workload: 0});
+    this.option1 = 'chooseProject';
+    this.dataSource = new MatTableDataSource<Team>(this.data);
   }
 
+  delete(item) {
+    this.data.forEach((user, i) => {
+      if (user.id === item.id) {
+        this.data.splice(i, 1);
+      }
+    });
+    this.dataSource = new MatTableDataSource<Team>(this.data);
+  }
+  getTotal() {
+    return this.data.map(t => t.time).reduce((acc, value) => acc + value, 0);
+  }
+
+}
+
+export interface Team {
+  id: number;
+  photo: string;
+  name: string;
+  role: string;
+  workload: number;
 }

@@ -4,7 +4,7 @@
       <div class="inline">
 
         <mat-form-field class="matDatepicker">
-          <input matInput [matDatepicker]="picker" (dateInput)="inputEvent($event)" (dateChange)="inputEvent($event)" placeholder="Select period" >
+          <input matInput [matDatepicker]="picker" (dateInput)="inputEvent($event.value)" (dateChange)="inputEvent($event.value)" placeholder="Select period" >
           <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
           <mat-datepicker #picker ></mat-datepicker>
         </mat-form-field>
@@ -31,7 +31,7 @@
         [data] = 'logs[0][1]' ></app-table-for-week>
     </app-container>
     <app-container class="chart">
-      <app-donut-chart [dataDonutChart]=""></app-donut-chart>
+      <app-donut-chart [dataDonutChart]="dataDonut"></app-donut-chart>
     </app-container>
   </div>
 

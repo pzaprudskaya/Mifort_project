@@ -14,10 +14,12 @@ export class ProjectNameComponent implements OnInit {
   projectName: string;
   project: ProjectNameModel;
   stateCreate: boolean;
+  state: boolean;
 
   constructor(private route: ActivatedRoute, private projectNameService: ProjectNameService,
               private projectTableService: ProjectsTableService) {}
   ngOnInit() {
+    this.state = false;
     this.projectName = '';
     this.projectName = this.route.snapshot.params.project_name;
     if (this.projectName === 'create') {
@@ -40,6 +42,7 @@ export class ProjectNameComponent implements OnInit {
       .subscribe(() => console.log('Update!'));
   }
   save() {
+    debugger;
     const myProject = new ProjectModel(this.project.color, this.project.name, this.project.team, this.project.startDate,
       this.project.endDateOrMen, this.project.progressBar.expected, this.project.progressBar.currentlySpent,
       this.project.status);
@@ -55,5 +58,9 @@ export class ProjectNameComponent implements OnInit {
       this.projectTableService.update(myProject)
         .subscribe(() => console.log('Add!'));
     }
+  }
+
+  changeStateArrow() {
+    this.state = !this.state;
   }
 }

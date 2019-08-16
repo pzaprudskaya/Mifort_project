@@ -56,7 +56,6 @@ export class ByDayComponent implements OnInit {
   }
   updateTimelogs() {
     let arr = [];
-    debugger;
     arr = this.timelogs.data.map(obj => {
         if (obj.day === this.logs[0][0]) {
           return {day: obj.day, logs: this.logs[0][1]};
@@ -70,6 +69,7 @@ export class ByDayComponent implements OnInit {
       .subscribe(() => console.log('Update!'));
   }
   filterByDay(day) {
+    debugger;
     this.dataDonut = [];
     this.logs = this.arrayDay.filter((arr) => arr[0] === day );
     this.logs[0][1].forEach((item) => {
@@ -88,6 +88,7 @@ export class ByDayComponent implements OnInit {
   prevDate() {
     this.chooseDate.setDate(this.chooseDate.getDate() - 1);
     this.date = this.chooseDate.getDate() + '/' + this.month[this.chooseDate.getMonth()] + '/' + this.chooseDate.getFullYear();
+    debugger;
     this.filterByDay(this.date);
   }
   nextDate() {

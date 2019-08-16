@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TimelogsByWeekService} from './timelogs-by-week.service';
-import {Timelog} from './timelog.model';
+import {Timelog, Donut} from './timelog.model';
 
 @Component({
   selector: 'app-by-week',
@@ -16,6 +16,7 @@ export class ByWeekComponent implements OnInit {
   toggleFlag: boolean;
   date: string;
   router: string;
+  dataDonut: Donut[];
   constructor(private timelogsByWeekService: TimelogsByWeekService) { }
 
   ngOnInit() {
@@ -25,10 +26,8 @@ export class ByWeekComponent implements OnInit {
     this.arrayPeriod = [];
     this.timelogsByWeekService.getLogs().subscribe(
       timelogs => {
-debugger;
-this.timelogs = timelogs[0];
-debugger;
-this.timelogs.data.forEach((data) => {
+      this.timelogs = timelogs[0];
+      this.timelogs.data.forEach((data) => {
           this.arrayPeriod.push(Object.keys(data).map((key) => {
             if (key === 'logs') {
               const logs = [];
@@ -42,17 +41,31 @@ this.timelogs.data.forEach((data) => {
           }));
 
         });
-this.inputEvent(today);
-this.filterByPeriod(this.period);
+      this.inputEvent(today);
+      this.filterByPeriod(this.period);
       });
   }
   updateTimelogs() {
-    this.timelogsByWeekService.update(this.timelogs)
+    let arr = [];
+    arr = this.timelogs.data.map(obj => {
+      if (obj.period === this.logs[0][0]) {
+        return {period: obj.period, logs: this.logs[0][1]};
+      } else {
+        return obj;
+      }
+    });
+    const myTimelog = new Timelog(this.timelogs.name, arr);
+    this.timelogsByWeekService.update(myTimelog)
       .subscribe(() => console.log('Update!'));
   }
   filterByPeriod(event) {
-    debugger;
+    this.dataDonut = [];
     this.logs = this.arrayPeriod.filter((arr) => arr[0] === event );
+    this.logs[0][1].forEach((item) => {
+      debugger;
+      const actual = item.time.reduce((itemOne, itemTwo) => itemOne + itemTwo);
+      this.dataDonut.push(new Donut(item.projectName, item.color, actual));
+    });
   }
   inputEvent(event) {
     const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -67,9 +80,10 @@ this.filterByPeriod(this.period);
     } else {
       this.period = start.getDate() + ' ' + month[start.getMonth()] + ' - ' + end.getDate() + ' ' + month[end.getMonth()];
     }
+    this.filterByPeriod(this.period);
   }
+
   time() {
-    debugger;
     this.toggleFlag = false;
     const now = new Date();
     this.timeNow = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();

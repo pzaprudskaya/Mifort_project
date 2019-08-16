@@ -40,6 +40,14 @@ export class Timelog {
   }
 }
 
-{
+export class Donut {
+  name: string;
+  color: string;
+  actual: number;
 
+  constructor(name: string, color: string, actual: number) {
+    this.name = name;
+    this.color = color;
+    this.actual = actual;
+  }
 }

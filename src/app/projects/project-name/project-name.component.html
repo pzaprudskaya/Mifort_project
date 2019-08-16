@@ -14,10 +14,19 @@
   <div class="inline" *ngIf="(stateCreate === false)">
     <div class="integrations">
       <app-container >
-        <h3>Team:</h3>
-        <app-table-for-team
+
+        <div class="inline">
+          <h3>Team:</h3>
+          <app-team
+            [value] = 'project.team'>
+          </app-team>
+          <i *ngIf="(state === false)" (click)="changeStateArrow()" class="material-icons">keyboard_arrow_down</i>
+          <i *ngIf="(state === true)" (click)="changeStateArrow()" class="material-icons">keyboard_arrow_up</i>
+        </div>
+
+        <app-table-for-team *ngIf="(state === true)"
           [editTable] = true
-          [data] = []></app-table-for-team>
+          [data] = 'project.team'></app-table-for-team>
       </app-container>
       <app-container>
         <app-integrations [object]="project"></app-integrations>
@@ -37,12 +46,19 @@
 
   </div>
   <div class="inline" *ngIf="(stateCreate === true)">
-  <app-container class="integrations">
-    <h3>Team:</h3>
-    <app-table-for-team
-      [editTable] = true
-      [data] = []></app-table-for-team>
-  </app-container>
+    <app-container class="integrations">
+      <div class="inline">
+        <h3>Team:</h3>
+        <app-team
+          [value] = 'project.team'>
+        </app-team>
+        <i *ngIf="(state === false)" (click)="changeStateArrow()" class="material-icons">keyboard_arrow_down</i>
+        <i *ngIf="(state === true)" (click)="changeStateArrow()" class="material-icons">keyboard_arrow_up</i>
+      </div>
+      <app-table-for-team *ngIf="(state === true)"
+                          [editTable] = true
+                          [data] = 'project.team'></app-table-for-team>
+    </app-container>
   <app-container class="bar-chart__width">
     <app-integrations [object]="project"></app-integrations>
   </app-container>

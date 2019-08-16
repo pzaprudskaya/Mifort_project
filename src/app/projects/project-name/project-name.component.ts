@@ -62,7 +62,6 @@ export class ProjectNameComponent implements OnInit {
         .subscribe(() => console.log('Add!'));
     }
   }
-
   changeStateArrow() {
     this.state = !this.state;
   }

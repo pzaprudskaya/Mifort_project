@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 
 
@@ -16,15 +16,19 @@ import {TimelogModel} from './timelog.model';
 })
 
 
-export class TimelogsByWeekService {
+export class TimelogsByDayService {
 
-  private API_URL = 'http://localhost:3000/logs';
-name: string;
+  name: string;
+  private API_URL = 'http://localhost:3000/logsbyday/';
+  httpOptions = {
+    mode: 'no-cors',
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
 
   constructor(private http: HttpClient) { }
 
   getLogs(): Observable<TimelogModel[]> {
-    return this.http.get<TimelogModel[]>(`${this.API_URL}/${this.name}`).pipe(
+    return this.http.get<TimelogModel[]>(this.API_URL + this.name, this.httpOptions).pipe(
       tap((data: TimelogModel[]) => console.log('logs: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
@@ -33,8 +37,10 @@ name: string;
 
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
+
       errorMessage = `An error occurred: ${err.error.message}`;
     } else {
+
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
@@ -42,16 +48,23 @@ name: string;
   }
 
 
+  addLog(log: TimelogModel): Observable<TimelogModel> {
+    return this.http.post<TimelogModel>(this.API_URL, JSON.stringify(log), this.httpOptions).pipe(
+      tap(addLog => console.log('add log: ' + JSON.stringify(addLog))),
+      catchError(this.handleError));
+  }
+
   update(timelog: TimelogModel) {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
     debugger;
-    return this.http.put<void>(`${this.API_URL}/${this.name}`, JSON.stringify(timelog), httpOptions).pipe(
-      tap(updateTimelogs => console.log('update timelogs: ' + JSON.stringify(updateTimelogs))),
-      catchError(this.handleError));
+    return this.http.put<void>(`${this.API_URL}${this.name}`, JSON.stringify(timelog), httpOptions).pipe(
+      tap(updateTimelog => console.log('update timelog: ' + JSON.stringify(updateTimelog))),
+        catchError(this.handleError));
   }
   getName(name) {
     this.name = name;
   }
 }
+

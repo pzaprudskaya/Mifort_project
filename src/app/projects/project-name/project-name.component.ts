@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProjectNameService} from './project-name.service';
 import {ProjectNameModel} from './project-name.model';
@@ -14,22 +14,27 @@ export class ProjectNameComponent implements OnInit {
   projectName: string;
   project: ProjectNameModel;
   stateCreate: boolean;
+  state: boolean;
+  total: number;
 
   constructor(private route: ActivatedRoute, private projectNameService: ProjectNameService,
               private projectTableService: ProjectsTableService) {}
   ngOnInit() {
+    this.state = false;
     this.projectName = '';
     this.projectName = this.route.snapshot.params.project_name;
     if (this.projectName === 'create') {
       this.projectNameService.getProject('Name').subscribe(
         project => {
           this.project = project[0];
+          this.total = 0;
         });
       this.stateCreate = true;
     } else {
       this.projectNameService.getProject(this.projectName).subscribe(
         project => {
           this.project = project[0];
+          this.total = this.project.team.map(t => t.workload).reduce((acc, value) => acc + value, 0);
         });
       this.stateCreate = false;
     }
@@ -40,6 +45,7 @@ export class ProjectNameComponent implements OnInit {
       .subscribe(() => console.log('Update!'));
   }
   save() {
+    debugger;
     const myProject = new ProjectModel(this.project.color, this.project.name, this.project.team, this.project.startDate,
       this.project.endDateOrMen, this.project.progressBar.expected, this.project.progressBar.currentlySpent,
       this.project.status);
@@ -55,5 +61,12 @@ export class ProjectNameComponent implements OnInit {
       this.projectTableService.update(myProject)
         .subscribe(() => console.log('Add!'));
     }
+  }
+
+  changeStateArrow() {
+    this.state = !this.state;
+  }
+  changeTotal(value) {
+    this.total = value;
   }
 }

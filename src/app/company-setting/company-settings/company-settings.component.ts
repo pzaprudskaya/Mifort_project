@@ -3,7 +3,6 @@ import {CompanySettingsService} from './company-settings.service';
 import {CompanySettingsModel} from './company-settings.model';
 import {UserService} from '../../core/logo-user-company/user.service';
 import {User} from '../../core/logo-user-company/user.model';
-import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-company-settings',
@@ -17,12 +16,6 @@ export class CompanySettingsComponent implements OnInit {
               private  userService: UserService ) {
   }
   ngOnInit() {
-
-    this.userService.getUser(this.companySettingsService.nameUser)
-      .subscribe((user: User) => {
-        this.user = user[0];
-      });
-
     this.userService.userSubject$.subscribe((name) => {
       this.companySettingsService.getCompany(name).
       subscribe( (company) => {
@@ -31,7 +24,6 @@ export class CompanySettingsComponent implements OnInit {
     });
   }
   save() {
-    debugger;
     if (this.companySettingsService.companyName === 'createCompany') {
       this.user.companies.push(this.companySettings.name);
       this.userService.updateUser(this.user);

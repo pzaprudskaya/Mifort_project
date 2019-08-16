@@ -25,7 +25,6 @@ export class ProjectNameService {
   constructor(private http: HttpClient) { }
 
   getProject(name): Observable<ProjectNameModel> {
-    debugger;
     return this.http.get<ProjectNameModel>(`${this.API_URL}${name}`, this.httpOptions).pipe(
       tap((data: ProjectNameModel) => console.log('Project: ' + JSON.stringify(data))),
       catchError(this.handleError)
@@ -52,6 +51,7 @@ export class ProjectNameService {
       tap(addProject => console.log('add project: ' + JSON.stringify(addProject))),
       catchError(this.handleError));
   }
+
 
 
 

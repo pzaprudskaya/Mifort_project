@@ -1,27 +1,22 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-
-
-import { HeadComponent } from './head/head.component';
-import { TimesheetByWeekComponent } from './timesheet-by-week/timesheet-by-week.component';
-import { TimelogComponent } from './timelog/timelog.component';
 import {ComponentsModule} from '../components/components.module';
 import {CoreModule} from '../core/core.module';
 import {MaterialModule} from '../material.module';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {ApprovalsPageModule} from '../approvals/approvals-page.module';
-
-
-
-
+import {TableForDayComponent} from './table-for-day/table-for-day.component';
+import {TableForProjectComponent} from './table-for-project/table-for-project.component';
+import {TableForTeamComponent} from './table-for-team/table-for-team.component';
+import {TableForWeekComponent} from './table-for-week/table-for-week.component';
 
 
 @NgModule({
   declarations: [
-    TimesheetByWeekComponent,
-    TimelogComponent,
-    HeadComponent,
+    TableForDayComponent,
+    TableForProjectComponent,
+    TableForTeamComponent,
+    TableForWeekComponent
   ],
   imports: [
     FormsModule,
@@ -29,17 +24,17 @@ import {ApprovalsPageModule} from '../approvals/approvals-page.module';
     MaterialModule,
     CoreModule,
     ComponentsModule,
-    CommonModule,
-    ApprovalsPageModule,
+    CommonModule
   ],
   entryComponents: [
   ],
   exports: [
-    TimesheetByWeekComponent,
-    TimelogComponent,
-    HeadComponent,
+    TableForDayComponent,
+    TableForProjectComponent,
+    TableForTeamComponent,
+    TableForWeekComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 
 })
-export class TimelogsModule { }
+export class TablesModule { }

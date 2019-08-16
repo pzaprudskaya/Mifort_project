@@ -12,8 +12,6 @@ import {Router} from '@angular/router';
 export class DonutChartComponent implements OnInit {
   @Input() dataDonutChart: any[];
   DoughnutChart;
-  realResult: number;
-  expectedResult: number;
   h = '';
 
   constructor(public router: Router) {}
@@ -26,14 +24,14 @@ export class DonutChartComponent implements OnInit {
         borderWidth: 0,
       }]
     };
-
     this.dataDonutChart.forEach((item) => {
       data.labels.push(item.name);
       data.datasets[0].backgroundColor.push(item.color);
       data.datasets[0].data.push(item.actual);
     });
     Chart.defaults.global.legend.labels.usePointStyle = true;
-    this.DoughnutChart = new Chart('doughnutChart', {
+
+    this.DoughnutChart = {
       type: 'doughnut',
       data,
       options: {
@@ -49,7 +47,8 @@ export class DonutChartComponent implements OnInit {
         }
 
       }
-    });
+    };
+debugger;
   /*  const originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
     Chart.helpers.extend(Chart.controllers.doughnut.prototype, {
       draw() {

@@ -1,0 +1,164 @@
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Color Column -->
+  <ng-container matColumnDef="color">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element"> <div class="tbody__circle" [ngStyle]="{'background': element.color }"></div> </td>
+    <td mat-footer-cell *matFooterCellDef> <div class="tfoot__circle" ></div> </td>
+  </ng-container>
+
+  <!-- Project Column -->
+  <ng-container matColumnDef="project">
+    <th mat-header-cell *matHeaderCellDef> Project </th>
+    <td mat-cell *matCellDef="let element">
+      <select [(ngModel)]="element.projectName">
+        <option [value]="project" *ngFor="let project of projects">{{project}}</option>
+      </select>
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <select name="" class="table__select" [(ngModel)]='option1' (ngModelChange)='customFunction()'>
+        <option [value]="'chooseProject'" [selected] = "selected">Choose project</option>
+        <option [value]="project" *ngFor='let project of projects; let i = index'>{{project}}</option>
+      </select></td>
+  </ng-container>
+
+  <!-- Comment Column -->
+  <ng-container matColumnDef="comment">
+    <th mat-header-cell *matHeaderCellDef> Comment </th>
+    <td mat-cell *matCellDef="let element">
+      <input type="text" [(ngModel)]="element.comment" [readonly]="!editTable">
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <input type="text" placeholder="...">
+    </td>
+  </ng-container>
+
+  <!-- Mon Column -->
+  <ng-container matColumnDef="mon">
+    <th mat-header-cell *matHeaderCellDef> Mon </th>
+    <td mat-cell *matCellDef="let element">
+      <input type="number" [(ngModel)]="element.time[0]" [readonly]="!editTable">
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <input type="number" placeholder="0">
+    </td>
+  </ng-container>
+
+  <!--Tue  Column -->
+  <ng-container matColumnDef="tue">
+    <th mat-header-cell *matHeaderCellDef> Tue </th>
+    <td mat-cell *matCellDef="let element">
+      <input type="number" [(ngModel)]="element.time[1]" [readonly]="!editTable">
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <input type="number" placeholder="0">
+    </td>
+  </ng-container>
+
+  <!-- Wed Column -->
+  <ng-container matColumnDef="wed">
+    <th mat-header-cell *matHeaderCellDef> Wed </th>
+    <td mat-cell *matCellDef="let element">
+      <input type="number" [(ngModel)]="element.time[2]" [readonly]="!editTable">
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <input type="number" placeholder="0">
+    </td>
+  </ng-container>
+
+  <!-- Thu Column -->
+  <ng-container matColumnDef="thu">
+    <th mat-header-cell *matHeaderCellDef> Thu </th>
+    <td mat-cell *matCellDef="let element">
+      <input type="number" [(ngModel)]="element.time[3]" [readonly]="!editTable">
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <input type="number" placeholder="0">
+    </td>
+  </ng-container>
+
+  <!-- Fri Column -->
+  <ng-container matColumnDef="fri">
+    <th mat-header-cell *matHeaderCellDef> Fri </th>
+    <td mat-cell *matCellDef="let element">
+      <input type="number" [(ngModel)]="element.time[4]" [readonly]="!editTable" (change)="changeTotal($event.target,4)">
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <input type="number" placeholder="0">
+    </td>
+  </ng-container>
+
+  <!-- Sat Column -->
+  <ng-container matColumnDef="sat">
+    <th mat-header-cell *matHeaderCellDef> Sat </th>
+    <td mat-cell *matCellDef="let element">
+      <input type="number" [(ngModel)]="element.time[5]" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <input type="number" placeholder="0">
+    </td>
+  </ng-container>
+
+  <!-- Sun Column -->
+  <ng-container matColumnDef="sun">
+    <th mat-header-cell *matHeaderCellDef> Sun </th>
+    <td mat-cell *matCellDef="let element">
+      <input type="number" [(ngModel)]="element.time[6]" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <input type="number" placeholder="0">
+    </td>
+  </ng-container>
+
+  <!-- X Column -->
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element">
+      <i class="material-icons" (click)='delete(element)'>clear</i>
+    </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+
+  <!-- Total week -->
+  <ng-container matColumnDef="week">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">{{totalByWeek(element)}}</td>
+    <td mat-footer-cell *matFooterCellDef>0</td>
+  </ng-container>
+
+  <!-- Total column -->
+  <ng-container matColumnDef="total">
+    <td mat-footer-cell *matFooterCellDef colspan="3">Total:</td>
+  </ng-container>
+
+  <!-- Total number column -->
+  <ng-container matColumnDef="total_mon" >
+    <td mat-footer-cell *matFooterCellDef>{{getTotalByDay(0)}}</td>
+  </ng-container>
+  <ng-container matColumnDef="total_tue" >
+    <td mat-footer-cell *matFooterCellDef>{{getTotalByDay(1)}}</td>
+  </ng-container>
+  <ng-container matColumnDef="total_wed" >
+    <td mat-footer-cell *matFooterCellDef>{{getTotalByDay(2)}}</td>
+  </ng-container>
+  <ng-container matColumnDef="total_thu" >
+    <td mat-footer-cell *matFooterCellDef>{{getTotalByDay(3)}}</td>
+  </ng-container>
+  <ng-container matColumnDef="total_fri" >
+    <td mat-footer-cell *matFooterCellDef>{{getTotalByDay(4)}}</td>
+  </ng-container>
+  <ng-container matColumnDef="total_sat" >
+    <td mat-footer-cell *matFooterCellDef>{{getTotalByDay(5)}}</td>
+  </ng-container>
+  <ng-container matColumnDef="total_sun" >
+    <td mat-footer-cell *matFooterCellDef>{{getTotalByDay(6)}}</td>
+  </ng-container>
+  <ng-container matColumnDef="full_total" >
+    <td mat-footer-cell *matFooterCellDef>{{getFullTotal()}}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  <tr mat-footer-row *matFooterRowDef="['total', 'total_mon', 'total_tue', 'total_wed', 'total_thu', 'total_fri', 'total_sat', 'total_sun', 'full_total']"></tr>
+</table>
+

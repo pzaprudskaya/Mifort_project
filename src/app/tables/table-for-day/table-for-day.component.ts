@@ -20,6 +20,7 @@ export class TableForDayComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Log>(this.data);
+    console.log(this.data)
     this.option1 = 'chooseProject';
     this.displayedColumns = ['color', 'project', 'time', 'comment', 'delete', ];
   }

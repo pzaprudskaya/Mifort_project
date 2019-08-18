@@ -90,7 +90,6 @@ export class ByDayComponent implements OnInit {
   prevDate() {
     this.chooseDate.setDate(this.chooseDate.getDate() - 1);
     this.date = this.chooseDate.getDate() + '/' + this.month[this.chooseDate.getMonth()] + '/' + this.chooseDate.getFullYear();
-    this.filterByDay(this.date);
   }
   nextDate() {
     this.chooseDate.setDate(this.chooseDate.getDate() + 1);

@@ -21,10 +21,12 @@ export class ExportComponent implements OnInit {
         this.project = project[0];
       });
     this.employeesService.getEmployee().subscribe(
-      employees => {
+      
+            employees => {
         this.employees = employees[0];
       });
   }
+
   exportInCsv() {
     console.log(this.project);
     const data: any = [];

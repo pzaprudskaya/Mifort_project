@@ -21,7 +21,6 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
-    "@mobiscroll/angular": "https://npm.mobiscroll.com/@mobiscroll/angular-trial/-/angular-trial-4.7.3.tgz",
     "angular-calendar": "^0.27.14",
     "angular-calendar-scheduler": "^1.0.10",
     "angular-notifier": "^4.1.1",

@@ -18,7 +18,7 @@
   </div>
   <div class="inline">
     <app-container class="table">
-      <app-table-for-day
+      <app-table-for-day (changeDonutChart)="changeDonutChart($event)"
         [editTable]=true
         [data]="logs[0][1]"></app-table-for-day>
     </app-container>

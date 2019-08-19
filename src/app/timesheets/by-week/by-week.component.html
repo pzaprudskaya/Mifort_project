@@ -26,7 +26,7 @@
   </div>
   <div class="inline">
     <app-container class="table">
-      <app-table-for-week
+      <app-table-for-week (changeDonutChart)="changeDonutChart($event)"
         [editTable] = true
         [data] = 'logs[0][1]' ></app-table-for-week>
     </app-container>

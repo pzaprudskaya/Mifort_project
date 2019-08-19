@@ -24,6 +24,7 @@ export class DonutChartComponent implements OnInit {
         borderWidth: 0,
       }]
     };
+    console.log(this.dataDonutChart);
     this.dataDonutChart.forEach((item) => {
       data.labels.push(item.name);
       data.datasets[0].backgroundColor.push(item.color);

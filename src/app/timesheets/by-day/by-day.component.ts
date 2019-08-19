@@ -97,6 +97,13 @@ export class ByDayComponent implements OnInit {
     this.date = this.chooseDate.getDate() + '/' + this.month[this.chooseDate.getMonth()] + '/' + this.chooseDate.getFullYear();
     this.filterByDay(this.date);
   }
-
-
+  changeDonutChart(event) {
+    for(let i = 0; i < this.dataDonut.length; i++) {
+        if(i === event.id - 1) {
+            let actual = Number(event.value);
+            this.dataDonut[i].actual = actual;
+        }
+    }
+    console.log(this.dataDonut);
+  } 
 }

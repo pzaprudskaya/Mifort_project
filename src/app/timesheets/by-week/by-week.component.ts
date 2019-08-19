@@ -66,6 +66,7 @@ export class ByWeekComponent implements OnInit {
       const actual = item.time.reduce((itemOne, itemTwo) => itemOne + itemTwo);
       this.dataDonut.push(new Donut(item.projectName, item.color, actual));
     });
+    console.log(this.dataDonut);
   }
   inputEvent(event) {
     const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -89,4 +90,11 @@ export class ByWeekComponent implements OnInit {
     this.timeNow = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
     this.updateTimelogs();
   }
+  changeDonutChart(event) {
+    for(let i = 0; i < this.dataDonut.length; i++) {
+        if(i === event.id - 1) {
+        }
+    }
+    console.log(this.dataDonut);
+  } 
 }

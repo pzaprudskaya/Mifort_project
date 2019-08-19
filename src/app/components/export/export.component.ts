@@ -17,12 +17,12 @@ export class ExportComponent implements OnInit {
   ngOnInit() {
     this.exportService.getName(this.name);
     this.exportService.getProject().subscribe(
+      
       project => {
         this.project = project[0];
       });
     this.employeesService.getEmployee().subscribe(
-      
-            employees => {
+        employees => {
         this.employees = employees[0];
       });
   }

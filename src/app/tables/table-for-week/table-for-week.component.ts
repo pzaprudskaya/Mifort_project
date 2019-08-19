@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnChanges} from '@angular/core';
+import {Component, Input, OnInit, OnChanges, Output, EventEmitter} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 import {Log} from '../table-for-day/table-for-day.component';
 
@@ -10,6 +10,7 @@ import {Log} from '../table-for-day/table-for-day.component';
 export class TableForWeekComponent implements OnInit, OnChanges {
   @Input() editTable: boolean;
   @Input() data: any;
+  @Output() changeDonutChart: EventEmitter = new EventEmitter<any>();
   headers = ['', 'Comment', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   roles = ['Project Manager', 'Employee', 'HR Manager', 'Owner', 'Admin'];
   option1;
@@ -18,7 +19,7 @@ export class TableForWeekComponent implements OnInit, OnChanges {
   dataSource;
   fullTotal: number;
   constructor() {
-  }
+  } 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Log>(this.data);
     this.option1 = 'chooseProject';
@@ -54,6 +55,10 @@ export class TableForWeekComponent implements OnInit, OnChanges {
     });
     return this.fullTotal;
  }
+  changeInput(value,id) {
+    console.log(value,id);
+    this.changeDonutChart.emit({value,id});
+  }
 }
 
 

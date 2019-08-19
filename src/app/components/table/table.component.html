@@ -121,8 +121,9 @@
       </div>
     </td>
     <td>
-      <input type="number" placeholder="0" class="time"><p>h/week</p>
+      <input type="number" placeholder="0" class="time">
     </td>
+    <td>h/week</td>
   </tr>
   <tr>
     <ng-template [ngIf]="timelogs">
@@ -139,7 +140,8 @@
     </ng-template>
     <ng-template [ngIf]="!timelogs">
       <td class="total" colspan="3">{{totalText}}</td>
-      <td>{{totalHourse}}h/week</td>
+      <td>{{totalHourse}}</td>
+      <td>h/week</td>
     </ng-template>
   </tr>
   </tfoot>

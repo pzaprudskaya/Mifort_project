@@ -55,9 +55,12 @@ export class TableForWeekComponent implements OnInit, OnChanges {
     });
     return this.fullTotal;
  }
-  changeInput(value,id) {
-    console.log(value,id);
-    this.changeDonutChart.emit({value,id});
+  changeInput(id,time) {
+    let actual = 0;
+    time.forEach(function(item) {
+      actual += item;
+    })
+    this.changeDonutChart.emit({actual,id});
   }
 }
 

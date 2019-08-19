@@ -62,7 +62,6 @@ export class ByWeekComponent implements OnInit {
     this.dataDonut = [];
     this.logs = this.arrayPeriod.filter((arr) => arr[0] === event );
     this.logs[0][1].forEach((item) => {
-      debugger;
       const actual = item.time.reduce((itemOne, itemTwo) => itemOne + itemTwo);
       this.dataDonut.push(new Donut(item.projectName, item.color, actual));
     });
@@ -93,8 +92,8 @@ export class ByWeekComponent implements OnInit {
   changeDonutChart(event) {
     for(let i = 0; i < this.dataDonut.length; i++) {
         if(i === event.id - 1) {
+          this.dataDonut[i].actual = event.actual;
         }
     }
-    console.log(this.dataDonut);
   } 
 }

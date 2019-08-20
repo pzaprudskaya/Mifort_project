@@ -15,8 +15,10 @@ export class TableComponent implements OnInit {
   total: number[] = Array(8).fill(0);
   headers: string[];
   @Input() timelogs: boolean;
+  @Input() workload: number;
   totalText: string;
   totalHourse = 0;
+  flag : boolean = false;
   @Input() profileBD: boolean;
   @Output() updateTimelogs: EventEmitter<any> = new EventEmitter();
   @Output() updateProfileBD: EventEmitter<any> = new EventEmitter();
@@ -52,6 +54,12 @@ export class TableComponent implements OnInit {
     for (let i = 0; i < this.data.length; i++) {
       this.totalHourse += this.data[i].time;
     }
+    console.log(this.totalHourse)
+    if(this.totalHourse > 40) {
+      this.flag = true;
+    } else {
+      this.flag = false;
+    }
   }
 
   determineViewTable(): string {
@@ -65,24 +73,9 @@ export class TableComponent implements OnInit {
     return 'timelogs';
   }
 
-  changeTotal(input, day: number): void {
+  changeTotalHourse(input,id) {
     for (let i = 0; i < this.data.length; i++) {
-      if (input.parentElement.parentElement.getAttribute('id') === i) {
-        for (let j = 0; j < this.data[i].time.length; j++) {
-          if (j === day) {
-            this.data[i].time[j] = Number(input.value);
-            this.findTotalForProject();
-            this.findTotalByDay();
-            this.update();
-          }
-        }
-      }
-    }
-  }
-
-  changeTotalHourse(input) {
-    for (let i = 0; i < this.data.length; i++) {
-      if (input.parentElement.parentElement.getAttribute('id') === i) {
+      if (input.parentElement.parentElement.getAttribute('id') == i) {
         this.data[i].time = Number(input.value);
         this.findTotalHourse();
         this.updateProfileBD.emit(this.data);
@@ -105,6 +98,7 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.workload)
     if (this.determineViewTable() === 'timelogs') {
       this.findTotalForProject();
       this.findTotalByDay();

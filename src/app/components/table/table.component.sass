@@ -1,7 +1,6 @@
 table, .table__select
   font-family: Poppins, sans-serif
   font-size: 15px
-  color: #707683
   border-spacing: 0px 15px
 .tbody__circle
   border-radius: 50%
@@ -26,7 +25,8 @@ input
   outline: none
   cursor: pointer
   font-size: 14px
-  &:focus
+input[readonly]
+   &:focus
     border-bottom: 1px solid black
     transition: border-width 10s ease
 .total
@@ -37,8 +37,6 @@ tfoot
    td 
     color: black
     font-size: 14px
-    p 
-      color: #707683
 .table-timelogs
   input 
     width: 50px
@@ -81,3 +79,5 @@ td
     margin: 0
     padding: 0
     color: black
+#error 
+  color: red

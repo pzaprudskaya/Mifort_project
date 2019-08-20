@@ -36,36 +36,10 @@
         </ng-template>
       </td>
       <td>
-        <input type="number" [(ngModel)]="tbodyRow.time" [readonly]="!editTable" (change)="changeTotalHourse($event.target)" class="time"><p>h/week</p>
+        <input type="number" [(ngModel)]="tbodyRow.time" [readonly]="!editTable" (input)="changeTotalHourse($event.target)" class="time">
       </td>
-    </ng-template>
-    <ng-template [ngIf]="timelogs">
-      <td>
-        <input type="number" [(ngModel)]="tbodyRow.time[0]" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="tbodyRow.time[1]" [readonly]="!editTable" (change)="changeTotal($event.target,1)">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="tbodyRow.time[2]" [readonly]="!editTable" (change)="changeTotal($event.target,2)">
-      </td><td>
-      <input type="number" [(ngModel)]="tbodyRow.time[3]" [readonly]="!editTable" (change)="changeTotal($event.target,3)">
-    </td>
-      <td>
-        <input type="number" [(ngModel)]="tbodyRow.time[4]" [readonly]="!editTable" (change)="changeTotal($event.target,4)">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="tbodyRow.time[5]" [readonly]="!editTable" (change)="changeTotal($event.target,5)">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="tbodyRow.time[6]" [readonly]="!editTable" (change)="changeTotal($event.target,6)">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="tbodyRow.time[7]" readonly>
-      </td>
-      <td *ngIf="editTable">
-        <i class="material-icons" (click)='removeRecord(i)'>clear</i>
-      </td>
+      <td>h/week</td>
+      <td> <i class="material-icons" (click)='removeRecord(i)'>clear</i></td>
     </ng-template>
   </tr>
   </tbody>
@@ -146,3 +120,4 @@
   </tr>
   </tfoot>
 </table>
+<p *ngIf="flag" id="error">Total expected time doesn't coincide with workload {{totalHourse}}</p>

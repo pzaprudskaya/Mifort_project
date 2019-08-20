@@ -30,6 +30,7 @@
         <div>
           <h3>Pending for Approval: {{timesheet.period}} </h3>
           <app-table
+            [workload] = 'employee.workload'
             [editTable] = false
             [profileBD] = true
             [timelogs] = true

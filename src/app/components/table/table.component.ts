@@ -54,7 +54,6 @@ export class TableComponent implements OnInit {
     for (let i = 0; i < this.data.length; i++) {
       this.totalHourse += this.data[i].time;
     }
-    console.log(this.totalHourse)
     if(this.totalHourse > 40) {
       this.flag = true;
     } else {

@@ -15,7 +15,7 @@ export class DatepickerComponent implements OnInit {
     this.period = 'Select period';
   }
 
-  inputEvent(event) {
+  inputEvent(event): void {
     const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     const start = new Date(event.value);

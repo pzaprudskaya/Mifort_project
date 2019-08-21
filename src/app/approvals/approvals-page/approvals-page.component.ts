@@ -29,7 +29,7 @@ export class  ApprovalsPageComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.flag === 'Rejected') {
       this.displayedColumns = ['photo', 'name', 'planned_actual', 'hours', 'period', 'comment', 'status'];
     } else {
@@ -51,7 +51,7 @@ export class  ApprovalsPageComponent implements OnInit {
       return 'green';
     }
   }
-  filter(value) {
+  filter(value): void {
     this.flag = value;
     if (this.flag === 'Rejected') {
       this.displayedColumns = ['photo', 'name', 'planned_actual', 'hours', 'period', 'comment', 'status'];
@@ -65,7 +65,7 @@ export class  ApprovalsPageComponent implements OnInit {
         }
       );
   }
-    filterByPeriod(event) {
+    filterByPeriod(event): void {
       this.approvalsService.filterByPeriod(event)
           .subscribe(
             (employees: any) => {
@@ -74,7 +74,7 @@ export class  ApprovalsPageComponent implements OnInit {
           );
   }
 
-  changeStatus(approval: Approval) {
+  changeStatus(approval: Approval): void {
     if (approval.status === 'Rejected') {
       this.changeStatusDialog(approval);
     } else {
@@ -82,7 +82,7 @@ export class  ApprovalsPageComponent implements OnInit {
         .subscribe(() => console.log('Update!'));
     }
   }
-  changeStatusDialog(approval: Approval) {
+  changeStatusDialog(approval: Approval): void {
     const dialogRef = this.dialog.open(DialogChangeStatusComponent, {data: {comment: ''}});
     dialogRef.afterClosed().subscribe(result => {
       if (result.length !==  0) {

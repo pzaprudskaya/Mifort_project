@@ -72,32 +72,39 @@ export class TableComponent implements OnInit {
     return 'timelogs';
   }
 
+  changeTotal(input, day: number): void {
+    for (let i = 0; i < this.data.length; i++) {
+      if (input.parentElement.parentElement.getAttribute('id') === i) {
+        for (let j = 0; j < this.data[i].time.length; j++) {
+          if (j === day) {
+            this.data[i].time[j] = Number(input.value);
+            this.findTotalForProject();
+            this.findTotalByDay();
+          }
+        }
+      }
+    }
+  }
+
   changeTotalHourse(input,id) {
     for (let i = 0; i < this.data.length; i++) {
       if (input.parentElement.parentElement.getAttribute('id') == i) {
         this.data[i].time = Number(input.value);
         this.findTotalHourse();
-        this.updateProfileBD.emit(this.data);
       }
     }
   }
 
-  removeRecord(value: number) {
-    console.log(this.data[value]);
-    this.data.slice(value, 1);
-    this.update();
-  }
-
-  update() {
-    if (this.profileBD) {
-      this.updateProfileBD.emit(this.data);
-    } else {
-      this.updateTimelogs.emit(this.data);
-    }
+  removeRecord(item) {
+    this.data.forEach((log,id) => {
+      if (id === item) {
+        this.data.splice(id, 1);
+        this.findTotalHourse();
+      }
+    });
   }
 
   ngOnInit() {
-    console.log(this.workload)
     if (this.determineViewTable() === 'timelogs') {
       this.findTotalForProject();
       this.findTotalByDay();

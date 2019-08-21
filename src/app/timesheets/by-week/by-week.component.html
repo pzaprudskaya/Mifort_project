@@ -24,6 +24,10 @@
       <button (click) = time() class="button_save_time">Save at {{timeNow}}</button>
     </ng-template>
   </div>
+  <div class="error">
+    <p>Rejected on 1 May by Mary Williamson</p>
+    <p>Comment: “30 hours per month??????????????”</p>
+  </div>
   <div class="inline">
     <app-container class="table">
       <app-table-for-week (changeDonutChart)="changeDonutChart($event)"

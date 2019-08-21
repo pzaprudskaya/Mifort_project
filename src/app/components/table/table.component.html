@@ -13,13 +13,13 @@
       </ng-template>
       <ng-template [ngIf]="editTable && !timelogs">
         <div class="select" *ngIf="editTable">
-          <select name="" [(ngModel)]="tbodyRow.name" class="statuses__select project">
+          <select name="" [(ngModel)]="tbodyRow.name" class="statuses__select project edit">
             <option [value]='project' *ngFor='let project of projects'>{{project}}</option>
           </select>
         </div>
       </ng-template>
       <ng-template [ngIf]="timelogs">
-        <input type="text"  [(ngModel)]="tbodyRow.comment" class="comment" [readonly]="!editTable">
+        <input type="text"  [(ngModel)]="tbodyRow.comment" class="comment" [readonly]="!editTable" [ngClass]="{'edit':editTable}">
       </ng-template>
     </td>
     <ng-template [ngIf]="!timelogs">
@@ -29,17 +29,45 @@
         </ng-template>
         <ng-template [ngIf]="editTable && !timelogs">
           <div class="select">
-            <select name="" [(ngModel)]="tbodyRow.role" class="statuses__select role">
+            <select name="" [(ngModel)]="tbodyRow.role" class="statuses__select role edit">
               <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
             </select>
           </div>
         </ng-template>
       </td>
       <td>
-        <input type="number" [(ngModel)]="tbodyRow.time" [readonly]="!editTable" (input)="changeTotalHourse($event.target)" class="time">
+        <input type="number" [(ngModel)]="tbodyRow.time" [readonly]="!editTable" (input)="changeTotalHourse($event.target)" class="time" [ngClass]="{'edit':editTable}">
       </td>
       <td>h/week</td>
-      <td> <i class="material-icons" (click)='removeRecord(i)'>clear</i></td>
+      <td *ngIf = "editTable"> <i class="material-icons" (click)='removeRecord(i)'>clear</i></td>
+    </ng-template>
+     <ng-template [ngIf]="timelogs">
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[0]" [readonly]="!editTable" (input)="changeTotal($event.target,0)">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[1]" [readonly]="!editTable" (input)="changeTotal($event.target,1)">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[2]" [readonly]="!editTable" (input)="changeTotal($event.target,2)">
+      </td><td>
+      <input type="number" [(ngModel)]="tbodyRow.time[3]" [readonly]="!editTable" (input)="changeTotal($event.target,3)">
+    </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[4]" [readonly]="!editTable" (input)="changeTotal($event.target,4)">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[5]" [readonly]="!editTable" (input)="changeTotal($event.target,5)">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[6]" [readonly]="!editTable" (input)="changeTotal($event.target,6)">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="tbodyRow.time[7]" readonly>
+      </td>
+      <td *ngIf="editTable">
+        <i class="material-icons" (click)='removeRecord(i)'>clear</i>
+      </td>
     </ng-template>
   </tr>
   </tbody>
@@ -52,24 +80,24 @@
       <input type="text" placeholder="Add new task" class="comment">
     </td>
     <td>
-      <input type="number" placeholder="0">
+      <input type="number" placeholder="0" (input)="changeTotal($event.target,0)">
     </td>
     <td>
-      <input type="number" placeholder="0">
+      <input type="number" placeholder="0" (input)="changeTotal($event.target,1)">
     </td>
     <td>
-      <input type="number" placeholder="0">
+      <input type="number" placeholder="0" (input)="changeTotal($event.target,2)">
     </td><td>
-    <input type="number" placeholder="0">
+    <input type="number" placeholder="0" (input)="changeTotal($event.target,3)">
   </td>
     <td>
-      <input type="number" placeholder="0">
+      <input type="number" placeholder="0" (input)="changeTotal($event.target,4)">
     </td>
     <td>
-      <input type="number" placeholder="0">
+      <input type="number" placeholder="0" (input)="changeTotal($event.target,5)">
     </td>
     <td>
-      <input type="number" placeholder="0">
+      <input type="number" placeholder="0" (input)="changeTotal($event.target,6)">
     </td>
     <td>
       <input type="number" placeholder="0" readonly>
@@ -81,7 +109,7 @@
     </td>
     <td>
       <div class="select">
-        <select name="" class="statuses__select project">
+        <select name="" class="statuses__select project edit">
           <option selected class="text-option">Choose Project</option>
           <option [value]='project' *ngFor='let project of projects'>{{project}}</option>
         </select>
@@ -89,13 +117,13 @@
     </td>
     <td>
       <div class="select">
-        <select name="" [(ngModel)]="roles[0]" class="statuses__select role">
+        <select name="" [(ngModel)]="roles[0]" class="statuses__select role edit">
           <option [value]='role' *ngFor='let role of roles'>{{role}}</option>
         </select>
       </div>
     </td>
     <td>
-      <input type="number" placeholder="0" class="time">
+      <input type="number" placeholder="0" class="time edit" (input)="changeTotalHourse($event.target)">
     </td>
     <td>h/week</td>
   </tr>

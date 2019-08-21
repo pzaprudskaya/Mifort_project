@@ -58,7 +58,7 @@ export class TimelogsByDayService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    debugger;
+    //debugger;
     return this.http.put<void>(`${this.API_URL}${this.name}`, JSON.stringify(timelog), httpOptions).pipe(
       tap(updateTimelog => console.log('update timelog: ' + JSON.stringify(updateTimelog))),
         catchError(this.handleError));

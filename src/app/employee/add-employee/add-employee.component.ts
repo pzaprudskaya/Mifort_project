@@ -92,7 +92,6 @@ export class AddEmployeeComponent implements OnInit {
       .subscribe(() => console.log('Update!'));
   }
   save() {
-    debugger;
     this.employeesProfileService.update(this.employee)
       .subscribe(() => console.log('Update!'));
   }

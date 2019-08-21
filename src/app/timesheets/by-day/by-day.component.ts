@@ -55,7 +55,7 @@ export class ByDayComponent implements OnInit {
       });
   }
   updateTimelogs() {
-    let arr = [];
+    let arr: any = [];
     arr = this.timelogs.data.map(obj => {
         if (obj.day === this.logs[0][0]) {
           return {day: obj.day, logs: this.logs[0][1]};

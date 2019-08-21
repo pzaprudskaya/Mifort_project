@@ -40,7 +40,6 @@ export class  ApprovalsPageComponent implements OnInit {
         this.employees = employees;
       }
     );
-    console.log('Employees: ' + this.employees);
   }
 
   checkValue(max: number, value: number): string {

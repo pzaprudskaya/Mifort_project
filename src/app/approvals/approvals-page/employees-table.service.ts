@@ -13,7 +13,6 @@ import 'rxjs/add/operator/switchMap';
   providedIn: 'root'
 })
 
-
 export class ApprovalsService {
 
   private API_URL = 'http://localhost:3000/approvals-items';
@@ -32,13 +31,10 @@ export class ApprovalsService {
     );
   }
   private handleError(err: HttpErrorResponse) {
-
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
-
       errorMessage = `An error occurred: ${err.error.message}`;
     } else {
-
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
@@ -63,12 +59,13 @@ export class ApprovalsService {
   }
 
   update(employee: Approval) {
-    const httpOptions = {
-      mode: 'no-cors',
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-    return this.http.put<void>(`${this.API_URL}/${employee.id}`, JSON.stringify(employee), httpOptions).pipe(
+    return this.http.put<void>(`${this.API_URL}/${employee.id}`, JSON.stringify(employee), this.httpOptions).pipe(
       tap(updateEmployee => console.log('update employee in approval: ' + JSON.stringify(updateEmployee))),
+      catchError(this.handleError));
+  }
+  add(employee: Approval) {
+    return this.http.post<Approval>(this.API_URL, JSON.stringify(employee), this.httpOptions).pipe(
+      tap(addApproval => console.log('add approval: ' + JSON.stringify(addApproval))),
       catchError(this.handleError));
   }
   filterByPeriod(term) {
@@ -76,5 +73,4 @@ export class ApprovalsService {
       .get(this.API_URL + '?period=' + term, this.httpOptions)
       .map(res => res);
   }
-
 }

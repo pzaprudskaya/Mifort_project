@@ -12,6 +12,8 @@ export interface TimelogModel {
           time: number[];
         }
       ];
+      status: string;
+      comment: string;
     }
   ];
 }
@@ -30,11 +32,14 @@ export class Timelog {
           time: number[];
         }
         ];
+      status: string;
+      comment: string;
     }
     ];
 
+
   constructor(name: string, data: [{ period: string; logs: [{ id: number; color: string; projectName: string;
-  comment: string; time: number[] }] }]) {
+  comment: string; time: number[] }]; status: string; comment: string }]) {
     this.name = name;
     this.data = data;
   }

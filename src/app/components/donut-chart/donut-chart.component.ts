@@ -11,11 +11,27 @@ import {Router} from '@angular/router';
 })
 export class DonutChartComponent implements OnInit {
   @Input() dataDonutChart: any[];
+  @Input() status: string;
+  statusFlag: boolean;
+  color: string;
   DoughnutChart;
+  text: string;
   h = '';
 
   constructor(public router: Router) {}
   ngOnInit() {
+    debugger;
+    if (this.status === 'Approved') {
+      this.color = 'green';
+      this.text = 'Approved';
+      this.statusFlag = true;
+    } else if (this.status === 'Forgot') {
+      this.statusFlag = true;
+      this.text = 'Submitted';
+      this.color = 'gray';
+    } else {
+      this.statusFlag = false;
+    }
     const data = {
       labels: [],
       datasets: [{

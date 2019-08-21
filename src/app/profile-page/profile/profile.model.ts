@@ -8,21 +8,21 @@ export interface Profile {
   employeeProjects:
     [
       {
-        color: string,
-        name: string,
-        role: string,
-        time: number
+        color: string;
+        name: string;
+        role: string;
+        time: number;
 
       }
     ];
   yearsWorkload: [
     {
-      month: string,
+      month: string;
       projectsWorkload: [
         {
-          color:	string,
-          name:	string,
-          workload:	number
+          color:	string;
+          name:	string;
+          workload:	number;
         }
         ]
     }
@@ -30,31 +30,23 @@ export interface Profile {
   timesheetsPendingApproval:
     [
       {
-        period: string,
-        dataForApproval: [
-          {
-            logs: {
-              color: string,
-              comment: string,
-              time: number[]
-            },
-            timesheetWorkload: {
-              name: string,
-              color: string,
-              planned: number,
-              actual: number
-
-            }
-          }
-          ]
+        period: string;
+        logs: [{
+          id: number;
+          projectName: string;
+          color: string;
+          comment: string;
+          time: number[];
+        }]
+        status: string;
       }
     ];
 
   notificationsSettings:
     [
       {
-        key:	string,
-        value: string
+        key:	string;
+        value: string;
       }
     ];
 }

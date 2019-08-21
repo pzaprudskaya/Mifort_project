@@ -10,8 +10,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class DatepickerComponent implements OnInit {
   @Output() change: EventEmitter<string> = new EventEmitter<string>();
   period: string;
-  constructor() {
-  }
+  constructor() {}
   ngOnInit(): void {
     this.period = 'Select period';
   }

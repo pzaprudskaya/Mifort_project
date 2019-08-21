@@ -7,6 +7,8 @@ import {AddEmployeePopUpComponent} from '../add-employee-pop-up/add-employee-pop
 import {Profile, TimeSheetForApproval} from '../../profile-page/profile/profile.model';
 import {EmployeesService} from './employee.service';
 import {EmployeesProfileService} from '../../profile-page/profile/employees-profile.service';
+import {TimelogsByWeekService} from '../../timesheets/by-week/timelogs-by-week.service';
+import {Donut} from '../../timesheets/by-week/timelog.model';
 
 @Component({
   selector: 'app-add-employee',
@@ -16,13 +18,17 @@ import {EmployeesProfileService} from '../../profile-page/profile/employees-prof
 export class AddEmployeeComponent implements OnInit {
   roles = ['Project Manager', 'Employee', 'HR Manager', 'Owner', 'Admin'];
   employee: Profile;
+
+
+
+  timelogs;
+  arrayPeriod = [];
+barChart;
+  dataDonut = [];
   logs: any[];
   timesheetWorkload: any[];
   employeeProjects: any[];
-  barChart: any[];
-  logsTwo: any[];
-  logsOne: any[];
-  timesheetsPendingApproval: any[];
+  timesheetsPendingApproval: any[] = [];
   period: string;
   employeeName: string;
   toggleFlag: boolean;
@@ -43,13 +49,8 @@ export class AddEmployeeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.logs = [];
     this.timesheetWorkload = [];
     this.employeeProjects = [];
-    this.logsOne = [];
-    this.barChart = [];
-    this.timesheetsPendingApproval = [];
-    this.period = '';
     this.employeeName = this.route.snapshot.params.employee_name;
 
     this.employeeService.getEmployee(this.employeeName).subscribe(
@@ -60,40 +61,37 @@ export class AddEmployeeComponent implements OnInit {
         this.employee.employeeProjects.forEach((project) => {
           this.employeeProjects.push(project);
         });
-        this.employee.timesheetsPendingApproval.forEach((item) => {
-
-          this.period = item.period;
-
-          item.dataForApproval.forEach((it) => {
-            this.logsOne.push(it.logs);
-            this.timesheetWorkload.push(it.timesheetWorkload);
-          });
-          this.logsOne.forEach((arr) => {
-            this.logs.push(arr);
-            this.logsOne = [];
-          });
-          const timesheetForApproval = new TimeSheetForApproval(this.period, this.logs, this.timesheetWorkload);
-          this.timesheetsPendingApproval.push(timesheetForApproval);
-          this.period = '';
-          this.logs = [];
-          this.timesheetWorkload = [];
+        this.employee.timesheetsPendingApproval.forEach((data) => {
+          debugger;
+          if (data.status === 'Submit to approval') {
+            data.logs.forEach((item) => {
+              const actual = item.time.reduce((itemOne, itemTwo) => itemOne + itemTwo);
+              const donut = new Donut(item.projectName, item.color, actual);
+              this.dataDonut.push(donut);
+            });
+            this.timesheetsPendingApproval.push({
+              timelog: data,
+              dataDonut: this.dataDonut
+            });
+            this.dataDonut = [];
+          }
         });
-
-      }
-    );
+      });
   }
 
-  open_information() {
+
+    open_information() {
     this.toggleFlag = !this.toggleFlag;
   }
-  deactivateEmployee(employee) {
+    deactivateEmployee(employee) {
     employee.status = 'deactivated';
     this.employeeService.updateTwo(employee)
       .subscribe(() => console.log('Update!'));
   }
-  save() {
+    save() {
     debugger;
     this.employeesProfileService.update(this.employee)
       .subscribe(() => console.log('Update!'));
   }
+
 }

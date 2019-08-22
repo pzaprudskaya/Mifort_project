@@ -16,6 +16,7 @@ export class ByWeekComponent implements OnInit {
   toggleFlag: boolean;
   date: string;
   router: string;
+  name: string;
   dataDonut: Donut[];
   constructor(private timelogsByWeekService: TimelogsByWeekService) { }
 
@@ -27,6 +28,7 @@ export class ByWeekComponent implements OnInit {
     this.timelogsByWeekService.getLogs().subscribe(
       timelogs => {
       this.timelogs = timelogs[0];
+      this.name = this.timelogs.name;
       this.timelogs.data.forEach((data) => {
           this.arrayPeriod.push(Object.keys(data).map((key) => {
             if (key === 'logs') {

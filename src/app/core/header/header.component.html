@@ -1,6 +1,6 @@
 <mat-toolbar>
   <div class="munu-icons-links">
-    <a href="#"><i class="material-icons">notifications</i></a>
+    <a href="#"><i class="material-icons" [ngClass]="{'red-flag':flag}">notifications</i></a>
     <a routerLink="/sign-in"><i class="material-icons" matTooltip="Log Out">input</i>
     </a>
   </div>

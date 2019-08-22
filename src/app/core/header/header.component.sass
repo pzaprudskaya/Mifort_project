@@ -67,6 +67,7 @@ mat-toolbar
       margin-right: 20px
       font-size: 20px
       color: #C2CFE0
+      position: relative
     i:active
       color: #109CF1
 .logo
@@ -79,3 +80,13 @@ mat-toolbar
     font-size: 18px
     line-height: normal
     color: #109CF1
+.red-flag
+  &::after
+    content: 'f'
+    background-color: red
+    width: 10px
+    height: 10px
+    border-radius: 5px
+    position: absolute
+    top: 0
+    right: 0

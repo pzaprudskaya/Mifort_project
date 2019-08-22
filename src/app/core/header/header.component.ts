@@ -10,6 +10,7 @@ import {Notification} from './timelog.model';
 export class HeaderComponent implements OnInit {
   notification: Notification;
   arrayNotifications: any[];
+  flag: boolean = false;
 
   constructor(private notificationService: NotificationService) { }
 
@@ -20,7 +21,10 @@ export class HeaderComponent implements OnInit {
       	notification.forEach((item) => {
       		this.arrayNotifications.push(item);
       	})
+      	if(this.arrayNotifications[0].notifications.length !== 0) {
+      		this.flag = true;
+      	}
+      	console.log(this.flag)
       })
-  	console.log(this.arrayNotifications);
   }
 }

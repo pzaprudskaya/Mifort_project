@@ -57,12 +57,11 @@ export class NotificationService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    return this.http.put<void>(`${this.API_URL}${this.name}`, JSON.stringify(notification), httpOptions).pipe(
+    return this.http.put<void>(`${this.API_URL}`, JSON.stringify(notification), httpOptions).pipe(
       tap(updateNotification => console.log('update notification: ' + JSON.stringify(updateTimelog))),
         catchError(this.handleError));
   }
   getName(name) {
-    this.name = name;
-  }
+    this.name = name;  }
 }
 

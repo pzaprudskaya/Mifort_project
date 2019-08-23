@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NotificationService} from './notifications.service';
-import {Notification} from './timelog.model';
+import {Notification} from './notifications.model';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +10,14 @@ import {Notification} from './timelog.model';
 export class HeaderComponent implements OnInit {
   notification: Notification;
   arrayNotifications: any[];
+  notificationsType: object;
   flag: boolean = false;
-
+  nameUser: string = "Polina Zaprudskaya";
+  roleUser: string;
+  newRoleUser: string;
+  ownerName: string;
+  nameCompany: string;
+  isOpen: boolean = false;
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
@@ -19,12 +25,33 @@ export class HeaderComponent implements OnInit {
   	this.notificationService.getNotifications().subscribe(
       notification => {
       	notification.forEach((item) => {
-      		this.arrayNotifications.push(item);
+      		if(item.name === this.nameUser && item.notificationsType.system === true) {
+      			this.arrayNotifications = item.notifications;
+      			this.notificationsType = item.notificationsType;
+      		}
       	})
-      	if(this.arrayNotifications[0].notifications.length !== 0) {
+      	if(this.arrayNotifications.length !== 0) {
       		this.flag = true;
       	}
-      	console.log(this.flag)
       })
+  }
+  updateNotifications(arr) {
+  	const myNotification = new Notification(this.nameUser,this.notificationsType,arr);
+  	console.log(myNotification)
+  	this.notificationService.update(myNotification)
+      .subscribe(() => console.log('Update!'));
+  }
+  openNotifications(e) {
+  	if(!this.flag) return;
+  	let div = e.parentElement.parentElement.nextElementSibling;
+	if(div.classList.contains("active")) {
+		this.isOpen = false;
+		this.arrayNotifications = [];
+		this.flag = false;
+		this.updateNotifications(this.arrayNotifications);
+	} else {
+		this.isOpen = true;
+	}
+	console.log(this.arrayNotifications);
   }
 }

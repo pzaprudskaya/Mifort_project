@@ -3,7 +3,7 @@
     </div>
     <div class="sign__form_container">
       <h1 class="sign__form_name">Sign Up</h1>
-      <button class="sign__button_google" (click)="socialSignUn()" >
+      <button class="sign__button_google" (click)="socialSignUp()" >
         <img src="assets/image/new-google-favicon-512.png" alt="">
         <p>Sign Up With Google</p>
       </button>
@@ -26,7 +26,7 @@
           <input [type]="type" id="password" placeholder="Password" formControlName='passwordControl' class="sign__form_input">
            <input type="button" [ngClass]="{'no-visibility':flag}" value="" class="button-show" (click) = "showPassword()" >
         </div>
-        <button class='sign__form_button' type="submit" (click)='checkRegistration()' >Sign up</button>
+        <button class='sign__form_button' type="button" (click)='checkRegistration()' >Sign up</button>
       </form>
       <p class="sign__form_sign-in">Already have an account?<a routerLink="/sign-in">Sign In</a></p>
     </div>

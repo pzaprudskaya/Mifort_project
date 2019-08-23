@@ -41,10 +41,17 @@ export class SignInComponent implements OnInit {
           this.users.find(
             element => element.email == this.userData.email && element.id == this.userData.id) ? this.router.navigate(['/profile']) : alert('You are not registred, please register before enter');
         }
-    );
-    
+    );   
+  }
+  ngAfterContentInit(){
 
-    
+    this.authorizationService.getUsers().subscribe(
+      users => {
+        console.log('subscribe WORK')
+      this.users = users; 
+    }
+  );
+  
   }
   showPassword(){
     if(this.type == "password") {
@@ -56,7 +63,12 @@ export class SignInComponent implements OnInit {
     }
   }
   authentification() {  
-    console.log(this.users)
+    this.authorizationService.getUsers().subscribe(
+      users => {
+        this.users = users; 
+      }
+    );
+    console.log('serv users:'+this.users);
     let formData = this.users.find(
       element => 
         element.email == this.signForm.value.emailControl && element.password == this.signForm.value.passwordControl && this.signForm.status === "VALID"

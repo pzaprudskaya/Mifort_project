@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, tap, map} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import { User } from './authorization.model';
 
 @Injectable({
@@ -32,16 +32,16 @@ export class AuthorizationService {
   }
 
   private handleError(err: HttpErrorResponse) {
-
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
-
       errorMessage = `An error occurred: ${err.error.message}`;
     } else {
-
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
     return throwError(errorMessage);
+  }
+  sendEmail(user) {
+    return this.http.post('http://localhost:3000/sendmail', user);
   }
 }

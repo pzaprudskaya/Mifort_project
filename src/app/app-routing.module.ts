@@ -14,8 +14,8 @@ import { ExportComponent } from './components/export/export.component';
 
 import {CompanyIntegrationComponent} from './company-setting/company-integration/company-integration.component';
 import {ApprovalsPageComponent} from './approvals/approvals-page/approvals-page.component';
-
-
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { StartProfilePageComponent } from './profile-page/start-profile-page/start-profile-page.component'; 
 const itemMenu: Routes = [
   { path: 'timelog-day', component: TimelogComponent},
   { path: 'timelog-week', component: TimesheetByWeekComponent},
@@ -28,10 +28,11 @@ const itemMenu: Routes = [
   { path: 'employees/:employee_name', component: AddEmployeeComponent},
   { path: 'export', component: ExportComponent},
   { path: 'approvals', component: ApprovalsPageComponent},
+  { path: 'start-profile', component: StartProfilePageComponent},
 ];
 const routes: Routes = [
   { path: '', component: PageComponent, children: itemMenu},
-
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

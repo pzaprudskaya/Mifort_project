@@ -1,0 +1,32 @@
+<app-block let="employee">
+    <app-container >
+    <div class="box">
+      <div mat-card-avatar class = "box__photo" [ngStyle]="{'background-image': 'url(' + employee.photoUrl + ')'}">
+      </div>
+      <div class="information">
+        <h1>{{employee.name}}</h1>
+        <p class="gray">{{employee.email}}</p>
+        <p class="gray">{{employee.phone}}</p>
+      </div>
+    </div>
+  </app-container>
+</app-block>
+<div class="box send-email-block__box">
+  <app-container>
+    <div class="send-email-block">
+      <p class="send-email-block__information">Leave email of your company owner and we<br>
+         will contact him if company with such email<br>
+         exists:</p>
+      <input type="text" placeholder="Email" class='send-email-block__input' [(ngModel)]='inputValue'>
+      <button (click)='sendEmail(inputValue)'>Send</button>
+    </div>
+  </app-container>
+</div>
+<div class="box create-company-block__box">
+  <app-container>
+    <div class="create-company-block">
+      <p class="send-email-block__information">Or create a new company</p>
+      <button>+ Create company</button>
+    </div>
+  </app-container>
+</div>

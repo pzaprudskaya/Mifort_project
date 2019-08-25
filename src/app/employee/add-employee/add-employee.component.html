@@ -1,4 +1,4 @@
-<app-block let="employee">
+<app-block>
   <app-container >
     <div class="box">
       <div mat-card-avatar class = "box__photo" [ngStyle]="{'background-image': 'url(' + employee.photoUrl + ')'}">
@@ -18,7 +18,7 @@
               <select [(ngModel)]="employee.role">
                 <option [value]="role"*ngFor="let role of roles">{{role}}</option>
               </select>
-              <i (click)="open_information()" class="material-icons">help_outline</i>
+              <i (click)="openInformation()" class="material-icons">help_outline</i>
               <ng-template [ngIf]="toggleFlag">
                 <div  class="information_about_role">
                   <h3>Owner</h3>

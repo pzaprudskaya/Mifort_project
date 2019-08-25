@@ -30,21 +30,21 @@
   <div class="inline">
 
     <div >
-      <div *ngIf="logs[0][2] === 'Rejected'" class="rejected_block">
+      <div *ngIf="logs.timelog.status === 'Rejected'" class="rejected_block">
         <div class="block">
           <p><strong>Rejected</strong></p>
-          <p>Comment: {{logs[0][3]}}</p>
+          <p>Comment: {{logs.timelog.comment}}</p>
         </div>
 
       </div>
       <app-table-for-week class="table"
         [editTable] = true
-        [data] = 'logs[0][1]' ></app-table-for-week>
+        [data] = 'logs.timelog.logs' ></app-table-for-week>
     </div>
     <app-container class="chart">
       <app-donut-chart
-        [status]="logs[0][2]"
-        [dataDonutChart]="dataDonut"></app-donut-chart>
+        [status]="logs.timelog.status"
+        [dataDonutChart]="logs.dataDonut" *ngIf="isShown"></app-donut-chart>
     </app-container>
   </div>
 

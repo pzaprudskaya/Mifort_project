@@ -12,6 +12,4 @@ export class CompanyPropertiesComponent implements OnInit {
   ngOnInit() {
     this.periods = ['week', '2 week', 'month'];
   }
-
-
 }

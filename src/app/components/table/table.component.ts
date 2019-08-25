@@ -105,7 +105,6 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     if (this.determineViewTable() === 'timelogs') {
       this.findTotalForProject();
       this.findTotalByDay();

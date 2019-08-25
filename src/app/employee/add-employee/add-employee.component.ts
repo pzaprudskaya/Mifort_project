@@ -1,13 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-
 import {ActivatedRoute} from '@angular/router';
-
 import {MatDialog} from '@angular/material';
 import {AddEmployeePopUpComponent} from '../add-employee-pop-up/add-employee-pop-up.component';
-import {Profile, TimeSheetForApproval} from '../../profile-page/profile/profile.model';
-import {EmployeesService} from './employee.service';
-import {EmployeesProfileService} from '../../profile-page/profile/employees-profile.service';
-import {TimelogsByWeekService} from '../../timesheets/by-week/timelogs-by-week.service';
+import {Profile} from '../employee.model';
+import {EmployeesService} from '../employee.service';
 import {Donut} from '../../timesheets/by-week/timelog.model';
 
 @Component({
@@ -15,15 +11,13 @@ import {Donut} from '../../timesheets/by-week/timelog.model';
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.sass']
 })
+
 export class AddEmployeeComponent implements OnInit {
   roles = ['Project Manager', 'Employee', 'HR Manager', 'Owner', 'Admin'];
   employee: Profile;
 
-
-
   timelogs;
-  arrayPeriod = [];
-barChart;
+  barChart;
   dataDonut = [];
   logs: any[];
   timesheetWorkload: any[];
@@ -33,8 +27,7 @@ barChart;
   employeeName: string;
   toggleFlag: boolean;
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog, private employeeService: EmployeesService,
-              private employeesProfileService: EmployeesProfileService) {
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, private employeeService: EmployeesService) {
   }
 
   changeDeactivatePopupCondition() {
@@ -48,21 +41,17 @@ barChart;
 
 
   ngOnInit() {
-
     this.timesheetWorkload = [];
     this.employeeProjects = [];
     this.employeeName = this.route.snapshot.params.employee_name;
-
     this.employeeService.getEmployee(this.employeeName).subscribe(
       employee => {
-
         this.employee = employee[0];
         this.barChart = this.employee.yearsWorkload;
         this.employee.employeeProjects.forEach((project) => {
           this.employeeProjects.push(project);
         });
         this.employee.timesheetsPendingApproval.forEach((data) => {
-          debugger;
           if (data.status === 'Submit to approval') {
             data.logs.forEach((item) => {
               const actual = item.time.reduce((itemOne, itemTwo) => itemOne + itemTwo);
@@ -80,17 +69,18 @@ barChart;
   }
 
 
-    open_information() {
+  openInformation() {
     this.toggleFlag = !this.toggleFlag;
   }
-    deactivateEmployee(employee) {
+
+  deactivateEmployee(employee) {
     employee.status = 'deactivated';
     this.employeeService.updateTwo(employee)
       .subscribe(() => console.log('Update!'));
   }
-    save() {
-    debugger;
-    this.employeesProfileService.update(this.employee)
+
+  save() {
+    this.employeeService.update(this.employee)
       .subscribe(() => console.log('Update!'));
   }
 

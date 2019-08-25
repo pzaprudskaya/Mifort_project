@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {TimelogsByWeekService} from './timelogs-by-week.service';
 import {Timelog, Donut} from './timelog.model';
-import {EmployeesService} from '../../employee/add-employee/employee.service';
-import {Profile} from '../../profile-page/profile/profile.model';
+import {EmployeesService} from '../../employee/employee.service';
+import {Profile} from '../../employee/employee.model';
+import {UserService} from '../../core/logo-user-company/user.service';
 
 @Component({
   selector: 'app-by-week',
@@ -10,103 +11,103 @@ import {Profile} from '../../profile-page/profile/profile.model';
   styleUrls: ['./by-week.component.sass']
 })
 export class ByWeekComponent implements OnInit {
+  MONTH = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   period: string;
-  arrayPeriod: any[];
   timelogs: Timelog;
   employee: Profile;
-  logs: any[];
+  logs: any;
   timeNow: string;
   toggleFlag: boolean;
   date: string;
   router: string;
-  dataDonut: Donut[];
   submit: string;
+  isShown = true;
+  timelogByPeriod: any[];
+  dataDonut = [];
   constructor(private timelogsByWeekService: TimelogsByWeekService,
-              private employeesService: EmployeesService) { }
+              private userService: UserService,
+              private employeesService: EmployeesService,
+              private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-
     this.toggleFlag = true;
     this.period = 'select';
     const today = new Date( );
-    this.arrayPeriod = [];
-    this.timelogsByWeekService.getLogs().subscribe(
-      timelogs => {
-      this.timelogs = timelogs[0];
-      this.timelogs.data.forEach((data) => {
-          this.arrayPeriod.push(Object.keys(data).map((key) => {
-            if (key === 'logs') {
-              const logs = [];
-              data.logs.forEach((log) => {
-                logs.push(log);
+    this.timelogByPeriod = [];
+    this.userService.userName$.subscribe((userName) => {
+      this.timelogsByWeekService.getLogs(userName).subscribe(
+        timelogs => {
+          [this.timelogs] = timelogs;
+          this.timelogs.data.forEach((data) => {
+              data.logs.forEach((item) => {
+                const actual = item.time.reduce((itemOne, itemTwo) => itemOne + itemTwo);
+                const donut = new Donut(item.projectName, item.color, actual);
+                this.dataDonut.push(donut);
               });
-              return logs;
-            } else {
-              return data[key];
-            }
-          }));
-
+              this.timelogByPeriod.push({
+                timelog: data,
+                dataDonut: this.dataDonut
+              });
+              this.dataDonut = [];
+          });
+          this.employeesService.getEmployee(userName).subscribe(employee => {
+            this.employee = employee[0];
+          });
+          this.inputEvent(today);
+          this.filterByPeriod(this.period);
         });
-      this.employeesService.getEmployee(this.timelogs.name).subscribe(employee => {
-          this.employee = employee[0];
-
-        });
-      this.inputEvent(today);
-      this.filterByPeriod(this.period);
-      });
-
+    });
   }
   updateTimelogs() {
     let arr: any = [];
-    arr = this.timelogs.data.map(obj => {
-      if (obj.period === this.logs[0][0]) {
-        return {period: obj.period, logs: this.logs[0][1], status: this.logs[0][2], comment: this.logs[0][3]};
-      } else {
-        return obj;
-      }
+    arr = this.timelogByPeriod.map(item => {
+      return item.timelog;
     });
     const myTimelog = new Timelog(this.timelogs.name, arr);
-    this.timelogsByWeekService.update(myTimelog)
-      .subscribe(() => console.log('Update!'));
-    debugger;
+    this.timelogsByWeekService.update(myTimelog).subscribe(() => console.log('Update'));
 
     this.employee.timesheetsPendingApproval = arr;
-    this.employeesService.update(this.employee).subscribe(() => console.log('Update!'));
+    this.employeesService.update(this.employee).subscribe(() => console.log('Update'));
   }
-  filterByPeriod(event) {
-    this.dataDonut = [];
-    this.logs = this.arrayPeriod.filter((arr) => arr[0] === event );
-    if (this.logs === []) {
-      this.logs = [event, [], '', '' ];
+
+  filterByPeriod(period: string) {
+    [this.logs] = this.timelogByPeriod.filter((item) => item.timelog.period === period );
+    if (this.logs === undefined) {
+      this.isShown = false;
+      this.changeDetector.detectChanges();
+      this.logs = {timelog: {period: this.period, logs: [], status: '', comment: ''}, dataDonut: []};
+      this.timelogByPeriod.push(this.logs);
+      this.isShown = true;
+      this.changeDetector.detectChanges();
     } else {
-      this.logs[0][1].forEach((item) => {
-        const actual = item.time.reduce((itemOne, itemTwo) => itemOne + itemTwo);
-        this.dataDonut.push(new Donut(item.projectName, item.color, actual));
-      });
+      this.isShown = false;
+      this.changeDetector.detectChanges();
+      this.logs = this.logs;
+      this.isShown = true;
+      this.changeDetector.detectChanges();
     }
-    if (this.logs[0][2] === '') {
+    if (this.logs.timelog.status === '') {
       this.submit = 'Submit to approval';
     } else {
       this.submit = 'Resubmit to approval';
     }
-
   }
-  inputEvent(event) {
-    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-    const start = new Date(event);
+  inputEvent(date): void {
+    const start = new Date(date);
     start.setDate(start.getDate() - start.getDay());
 
-    const end = new Date(event);
+    const end = new Date(start);
     end.setDate(start.getDate() + 6);
-    if (month[start.getMonth()] === month[end.getMonth()]) {
-      this.period = start.getDate() + ' - ' + end.getDate() + ' ' + month[end.getMonth()];
-    } else {
-      this.period = start.getDate() + ' ' + month[start.getMonth()] + ' - ' + end.getDate() + ' ' + month[end.getMonth()];
-    }
+
+    this.period = this.setDate(start, end);
     this.filterByPeriod(this.period);
   }
-
+  setDate(start, end) {
+    if (this.MONTH[start.getMonth()] === this.MONTH[end.getMonth()]) {
+      return `${start.getDate()} - ${end.getDate()} ${this.MONTH[end.getMonth()]}`;
+    }
+    return `${start.getDate()} ${this.MONTH[start.getMonth()]} - ${end.getDate()} ${this.MONTH[end.getMonth()]}`;
+  }
   time() {
     this.toggleFlag = false;
     const now = new Date();
@@ -115,7 +116,7 @@ export class ByWeekComponent implements OnInit {
   }
   submitToAproval() {
     this.submit = 'Resubmit to approval';
-    this.logs[0][2] = 'Submit to approval';
+    this.logs.timelog.status = 'Submit to approval';
     this.updateTimelogs();
   }
 }

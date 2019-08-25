@@ -15,8 +15,8 @@ export class CompanySettingsComponent implements OnInit {
   constructor(private companySettingsService: CompanySettingsService,
               private  userService: UserService ) {
   }
-  ngOnInit() {
-    this.userService.userSubject$.subscribe((name) => {
+  ngOnInit(): void {
+    this.userService.userCompany$.subscribe((name) => {
       this.companySettingsService.getCompany(name).
       subscribe( (company) => {
         this.companySettings = company[0];
@@ -24,14 +24,12 @@ export class CompanySettingsComponent implements OnInit {
     });
   }
   save() {
-    if (this.companySettingsService.companyName === 'createCompany') {
+    if (this.companySettingsService.companyName !== 'createCompany') {
+      this.companySettingsService.updateCompany(this.companySettings);
+    } else {
       this.user.companies.push(this.companySettings.name);
       this.userService.updateUser(this.user);
-      this.companySettingsService.addCompany(this.companySettings)
-        .subscribe(() => console.log('Add!'));
-    } else {
-      this.companySettingsService.update(this.companySettings)
-        .subscribe(() => console.log('Update!'));
+      this.companySettingsService.addCompany(this.companySettings);
     }
   }
 }

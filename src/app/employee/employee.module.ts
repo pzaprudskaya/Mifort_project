@@ -10,6 +10,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {TablesModule} from '../tables/tables.module';
+import {ProfileComponent} from "./profile/profile.component";
 
 
 
@@ -19,7 +20,7 @@ import {TablesModule} from '../tables/tables.module';
     AddEmployeePopUpComponent,
     EmployeesPageComponent,
     AddEmployeeComponent,
-
+    ProfileComponent
   ],
   imports: [
     TablesModule,
@@ -35,6 +36,7 @@ import {TablesModule} from '../tables/tables.module';
     AddEmployeePopUpComponent
   ],
   exports: [
+    ProfileComponent,
     AddEmployeePopUpComponent,
     EmployeesPageComponent,
     AddEmployeeComponent,

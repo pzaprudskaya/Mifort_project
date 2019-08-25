@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TimelogsByWeekService} from '../../timesheets/by-week/timelogs-by-week.service';
-import {EmployeesService} from '../../employee/add-employee/employee.service';
+import {EmployeesService} from '../../employee/employee.service';
 import {ApprovalsService} from '../../approvals/approvals-page/employees-table.service';
 import {ApprovalModel} from '../../approvals/approvals-page/items.model';
 
@@ -12,15 +12,15 @@ import {ApprovalModel} from '../../approvals/approvals-page/items.model';
 export class ApproveRejectForgetComponent implements OnInit {
   @Input() employee;
   @Input() period;
-  total: number = 0;
+  total = 0;
   ngOnInit() {
   }
-  constructor(private timelogsByWeekService: TimelogsByWeekService, private employeesService: EmployeesService,
+  constructor(private timelogsByWeekService: TimelogsByWeekService,
+              private employeesService: EmployeesService,
               private approvalsService: ApprovalsService) {
 
   }
   sendStatus(value) {
-    debugger;
     const comment = (document.getElementById('comment') as HTMLInputElement).value;
     this.employee.timesheetsPendingApproval.forEach((item) => {
       if (this.period === item.period) {

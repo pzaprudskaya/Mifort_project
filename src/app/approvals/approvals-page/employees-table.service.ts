@@ -47,16 +47,11 @@ export class ApprovalsService {
       .switchMap(term => this.searchEntries(term));
   }
   searchEntries(term) {
-    return this.http
-      .get(this.API_URL + this.queryUrl + term, this.httpOptions)
+    return this.http.get(this.API_URL + this.queryUrl + term, this.httpOptions)
       .map(res => res);
   }
 
-  filter(term) {
-    return this.http
-      .get(this.API_URL + '?status=' + term, this.httpOptions)
-      .map(res => res);
-  }
+
 
   update(employee: Approval) {
     return this.http.put<void>(`${this.API_URL}/${employee.id}`, JSON.stringify(employee), this.httpOptions).pipe(
@@ -68,9 +63,13 @@ export class ApprovalsService {
       tap(addApproval => console.log('add approval: ' + JSON.stringify(addApproval))),
       catchError(this.handleError));
   }
+  filterByStatus(term) {
+    return this.http.get(this.API_URL + '?status=' + term, this.httpOptions)
+      .map(res => res);
+  }
+
   filterByPeriod(term) {
-    return this.http
-      .get(this.API_URL + '?period=' + term, this.httpOptions)
+    return this.http.get(this.API_URL + '?period=' + term, this.httpOptions)
       .map(res => res);
   }
 }

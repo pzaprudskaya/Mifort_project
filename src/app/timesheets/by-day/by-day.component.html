@@ -23,7 +23,7 @@
         [data]="logs[0][1]"></app-table-for-day>
     </app-container>
     <app-container class="chart">
-      <app-donut-chart [dataDonutChart]="dataDonut"></app-donut-chart>
+      <app-donut-chart [dataDonutChart]="dataDonut" *ngIf="isShown"></app-donut-chart>
     </app-container>
   </div>
 

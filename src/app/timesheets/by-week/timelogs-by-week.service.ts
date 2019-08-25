@@ -19,16 +19,24 @@ import {TimelogModel} from './timelog.model';
 export class TimelogsByWeekService {
 
   private API_URL = 'http://localhost:3000/logsbyweek';
-  name: string;
-
+  httpOptions = {
+    mode: 'no-cors',
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
   constructor(private http: HttpClient) { }
 
-  getLogs(): Observable<TimelogModel[]> {
-    return this.http.get<TimelogModel[]>(`${this.API_URL}/${this.name}`).pipe(
+  getLogs(name: string): Observable<TimelogModel[]> {
+    return this.http.get<TimelogModel[]>(`${this.API_URL}/${name}`, this.httpOptions).pipe(
       tap((data: TimelogModel[]) => console.log('logs: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
+  update(timelog: TimelogModel) {
+    return this.http.put<void>(`${this.API_URL}/${timelog.name}`, JSON.stringify(timelog), this.httpOptions).pipe(
+      tap(updateTimelogs => console.log('update timelogs: ' + JSON.stringify(updateTimelogs))),
+      catchError(this.handleError));
+  }
+
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
@@ -38,16 +46,5 @@ export class TimelogsByWeekService {
     }
     console.error(errorMessage);
     return throwError(errorMessage);
-  }
-  update(timelog: TimelogModel) {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-    return this.http.put<void>(`${this.API_URL}/${this.name}`, JSON.stringify(timelog), httpOptions).pipe(
-      tap(updateTimelogs => console.log('update timelogs: ' + JSON.stringify(updateTimelogs))),
-      catchError(this.handleError));
-  }
-  getName(name) {
-    this.name = name;
   }
 }

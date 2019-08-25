@@ -29,7 +29,6 @@ export class  EmployeesPageComponent implements OnInit {
     this.employeesTableService.search(this.searchTerm$)
       .subscribe((employees: any) => {
          this.employees = employees;
-
       });
   }
 
@@ -70,29 +69,26 @@ export class  EmployeesPageComponent implements OnInit {
       });
   }
   inviteEmployee() {
-    this.userService.userSubject$.subscribe((name) => {
+    this.userService.userCompany$.subscribe((name) => {
       this.companyName = name;
     });
     const user = {
+      id: 0,
       company: this.companyName,
       email: (document.getElementById('email') as HTMLInputElement).value,
       role: this.roleOption,
       theme: `Invite to "${this.companyName}"`,
     };
-    debugger;
     const i = Math.floor(Math.random() * this.colors.length);
     const nameEmployee = 'Employee';
     const photo = this.colors[i];
     const status = 'pending';
     const arr: any = [];
-    this.employeesTableService.sendEmail(user)
-      .subscribe(() => console.log('Send!'));
+    this.employeesTableService.sendEmail(user).subscribe(() => console.log('Send'));
     const newUser = new User(0, photo, nameEmployee, user.role, user.email, 0, 0, status, arr);
-    this.employeesTableService.addUser(newUser)
-      .subscribe(() => console.log('Add!'));
+    this.employeesTableService.addUser(newUser).subscribe(() => console.log('Add'));
   }
   changeRole(element) {
-    this.employeesTableService.updateUser(element)
-      .subscribe(() => console.log('Update!'));
+    this.employeesTableService.updateUser(element);
   }
 }

@@ -9,15 +9,22 @@ import {MatTableDataSource} from '@angular/material';
 export class TableForDayComponent implements OnInit {
   headers = ['', 'Project', 'Time', 'Comment'];
   projects = ['Skype', 'Uber', 'Office'];
-  @Input() data: any;
+  @Input() set data(newData: any) {
+    this.dataSource = new MatTableDataSource<Log>(newData);
+    this._data = newData;
+  }
+
+  get data() {
+    return this._data;
+  }
   dataSource;
   @Input() editTable: boolean;
   option1;
   displayedColumns;
+  _data;
 
   constructor() {
   }
-
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Log>(this.data);
     this.option1 = 'chooseProject';

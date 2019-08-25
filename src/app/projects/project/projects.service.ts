@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-import {Project} from './items.model';
+import {Project} from './project-items.model';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
@@ -14,7 +14,7 @@ import 'rxjs/add/operator/switchMap';
 })
 
 
-export class ProjectsTableService {
+export class ProjectsService {
   private API_URL = 'http://localhost:3000/project-items';
   private queryUrl = '?name=';
   httpOptions = {

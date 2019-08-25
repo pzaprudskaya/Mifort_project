@@ -20,7 +20,9 @@ export class LogoUserCompanyComponent implements OnInit {
   constructor(private employeesProfileService: EmployeesService,
               private userService: UserService) { }
 
+
   ngOnInit() {
+
     this.photo = '';
     this.userService.getUser(this.userName).subscribe(
       user => {

@@ -5,6 +5,7 @@ import { User } from '../authorization.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthorizationService} from '../authorization.service';
 
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -15,8 +16,10 @@ export class SignUpComponent implements OnInit {
   type = 'password';
   flag = false;
   user: User;
-  authPrompt: boolean;
+  users: User[];
+  state: boolean;
   ngOnInit() {
+    this.state = false;
     this.signForm = new FormGroup({
       fullNameControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       emailControl: new FormControl('', [Validators.required, Validators.minLength(5),
@@ -25,22 +28,35 @@ export class SignUpComponent implements OnInit {
       passwordControl: new FormControl('', [Validators.required, Validators.minLength(6)
       ]),
     });
-  }
-  constructor( private socialAuthService: AuthService,  private router: ActivatedRoute, private authorizationService: AuthorizationService) {}
 
-  public socialSignUn(socialPlatform: string) {
-    const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    this.socialAuthService.signIn(socialPlatformProvider).then(
-      userData => {
-        // console.log(socialPlatform + " sign in data : " , userData);
-        // this.user.id = userData.id;
-        this.user.email = userData.email;
-        this.user.name = userData.name;
-        this.user.image = userData.image;
-        this.user.password = userData.email;
+    this.authorizationService.getUsers().subscribe(
+      users => {
+        this.users = users; 
       }
     );
-
+  }
+  constructor( private socialAuthService: AuthService,  private router: ActivatedRoute, private authorizationService: AuthorizationService ) {}
+  public socialSignUp(socialPlatform : string) {
+    let socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    this.socialAuthService.signIn(socialPlatformProvider).then(
+      userData => {
+        this.user.id = userData.id;
+        this.user.email = userData.email;
+        this.user.name = userData.name;
+        //this.user.image = userData.image;
+        this.user.password = userData.email;
+        this.users.find(
+          element => element.email == this.user.email) ? this.state = true : this.state = false;
+        if(this.state == true){
+          alert('This email is already registered')
+        } else { 
+          this.authorizationService.sendUser(this.user).subscribe(
+            () => console.log('send to server')
+          );
+          this.router.navigate(['/sign-in']);
+        }
+      }
+    );
   }
   showPassword() {
     if (this.type === 'password') {
@@ -56,17 +72,22 @@ export class SignUpComponent implements OnInit {
       id: 0,
       email: this.signForm.value.emailControl,
       name: this.signForm.value.fullNameControl,
-      image: 'https://www.deadline.com.ua/design/img/default-avatar.png',
       password: this.signForm.value.passwordControl
-    };
+    }
+    this.users.find(
+      element => element.email == this.user.email) ? this.state = true : this.state = false;
+    if(this.state === true){
+      alert('This email is already registered')
+    } else { 
     const token = this.router.snapshot.queryParams['default-company'];
-    console.log(token);
     if (this.signForm.status === 'VALID') {
       this.authorizationService.addNewUser(this.user, token)
         .subscribe(() => console.log('Add'));
-      // this.router.navigate(['/sign-in']);
+       this.router.navigate(['/sign-in']);
     } else {
-      this.authPrompt = true;
+      alert('Invalid data');
+
     }
   }
+  } 
 }

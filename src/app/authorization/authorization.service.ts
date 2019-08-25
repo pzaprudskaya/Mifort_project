@@ -19,6 +19,7 @@ export class AuthorizationService {
       catchError(this.handleError)
     );
   }
+
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
@@ -29,7 +30,8 @@ export class AuthorizationService {
     console.error(errorMessage);
     return throwError(errorMessage);
   }
-  addNewUser(user, token) {
+
+  addNewUser(user, token): Observable<User> {
     const httpOptions = {
       mode: 'no-cors',
       headers: new HttpHeaders({'Content-Type': 'application/json', Authorization: `Bearer ${token}`})
@@ -37,6 +39,5 @@ export class AuthorizationService {
     return this.http.post<User>(this.API_URL, JSON.stringify(user), httpOptions).pipe(
       tap(addUser => console.log('add user: ' + JSON.stringify(addUser))),
       catchError(this.handleError));
-
   }
 }

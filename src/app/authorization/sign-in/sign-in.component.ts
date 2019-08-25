@@ -15,11 +15,11 @@ export class SignInComponent implements OnInit {
   type = 'password';
   flag = false;
   users: User[];
-  authPrompt: boolean;
   userData;
 
+  constructor( private socialAuthService: AuthService, private authorizationService: AuthorizationService, private router: Router ) {}
+  
   ngOnInit() {
-    this.authPrompt = false;
     this.signForm = new FormGroup({
       emailControl: new FormControl('', [Validators.required, Validators.minLength(5),
         Validators.pattern('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$')
@@ -33,24 +33,27 @@ export class SignInComponent implements OnInit {
       }
     );
   }
-  constructor( private socialAuthService: AuthService, private authorizationService: AuthorizationService, private router: Router ) {}
+  
+  public socialSignIn(socialPlatform : string){
+    let socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+      this.socialAuthService.signIn(socialPlatformProvider).then(
+        userData => {
+          console.log(socialPlatform + " sign in data : " , userData);
+          this.userData = userData;
+          this.users.find(
+            element => element.email == this.userData.email) ? this.router.navigate(['/profile']) : alert('You are not registred, please register before enter');
+        }
+    );   
+  }
+  ngAfterContentInit(){
 
-  public socialSignIn(socialPlatform: string) {
-    const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    this.socialAuthService.signIn(socialPlatformProvider).then(
-      userData => {
-        console.log(socialPlatform + ' sign in data : ' , userData);
-        userData = this.userData;
-      }
-    );
-    // if(this.users.find(
-    //   element =>
-    //     element.email == this.userData.email && element.id == this.userData.id)){
-    //   this.router.navigate(['/profile']);
-    // }
-    // else {
-    //   console.log('yt pfhtufy!');
-    // }
+    this.authorizationService.getUsers().subscribe(
+      users => {
+        console.log('subscribe WORK');
+      this.users = users; 
+    }
+  );
+  
   }
   showPassword() {
     if (this.type === 'password') {
@@ -61,16 +64,18 @@ export class SignInComponent implements OnInit {
       this.flag = false;
     }
   }
-  authentification() {
-    const formData = this.users.find(
-      element =>
-        element.email === this.signForm.value.emailControl && element.password === this.signForm.value.passwordControl &&
-        this.signForm.status === 'VALID'
+  authentification() {  
+    this.authorizationService.getUsers().subscribe(
+      users => {
+        this.users = users; 
+      }
     );
-    if (formData) {
-      this.router.navigate(['/profile']);
-    } else {
-      this.authPrompt = true;
-    }
+    console.log('serv users:'+this.users);
+    let formData = this.users.find(
+      element => 
+        element.email == this.signForm.value.emailControl && element.password == this.signForm.value.passwordControl && this.signForm.status === "VALID"
+    );
+
+    formData ?  this.router.navigate(['/profile']) : alert('Invalid email or password');
   }
 }

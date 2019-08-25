@@ -1,8 +1,7 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {catchError, tap, map} from 'rxjs/operators';
-
+import {Observable, throwError} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
@@ -32,24 +31,10 @@ export class NotificationService {
       catchError(this.handleError)
     );
   }
-  private handleError(err: HttpErrorResponse) {
-
-    let errorMessage = '';
-    if (err.error instanceof ErrorEvent) {
-
-      errorMessage = `An error occurred: ${err.error.message}`;
-    } else {
-
-      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-    }
-    console.error(errorMessage);
-    return throwError(errorMessage);
-  }
-
 
   addNotification(log: NotificationModel): Observable<NotificationModel> {
     return this.http.post<NotificationModel>(this.API_URL, JSON.stringify(log), this.httpOptions).pipe(
-      tap(addLog => console.log('add notification: ' + JSON.stringify(addNotification))),
+      tap(addNotification => console.log('add notification: ' + JSON.stringify(addNotification))),
       catchError(this.handleError));
   }
 
@@ -58,10 +43,19 @@ export class NotificationService {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
     return this.http.put<void>(`${this.API_URL}`, JSON.stringify(notification), httpOptions).pipe(
-      tap(updateNotification => console.log('update notification: ' + JSON.stringify(updateTimelog))),
+      tap(updateNotification => console.log('update notification: ' + JSON.stringify(updateNotification))),
         catchError(this.handleError));
   }
-  getName(name) {
-    this.name = name;  }
+
+  private handleError(err: HttpErrorResponse) {
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
 }
 

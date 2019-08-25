@@ -5,7 +5,7 @@ export interface NotificationModel {
       push: boolean;
       email: boolean;
     };
-    notifications : [];
+    notifications: [];
 }
 
 export class Notification {
@@ -15,9 +15,9 @@ export class Notification {
     push: boolean;
     email: boolean;
   };
-  notifications : [];
+  notifications: [];
 
-  constructor(name: string, notificationsType:{system: boolean;push: boolean;email: boolean},notifications:[]) {
+  constructor(name: string, notificationsType: {system: boolean; push: boolean; email: boolean}, notifications: []) {
     this.name = name;
     this.notificationsType = notificationsType;
     this.notifications = notifications;

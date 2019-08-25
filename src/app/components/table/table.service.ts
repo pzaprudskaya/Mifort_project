@@ -18,32 +18,26 @@ import 'rxjs/add/operator/switchMap';
 export class TableService {
 
   private API_URL = 'http://localhost:3000/company-projects/';
-  nameCompany: string;
 
   constructor(private http: HttpClient) { }
 
-  getCompany(): Observable<CompanyModel> {
-    return this.http.get<CompanyModel>(this.API_URL + this.nameCompany).pipe(
+  getCompany(nameCompany: string): Observable<CompanyModel> {
+    return this.http.get<CompanyModel>(this.API_URL + nameCompany).pipe(
       tap((data: CompanyModel) => console.log('Company: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
   private handleError(err: HttpErrorResponse) {
-
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
-
       errorMessage = `An error occurred: ${err.error.message}`;
     } else {
-
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
     return throwError(errorMessage);
   }
-  public getNameCompany(name: string): void {
-    this.nameCompany = name;
-  }
+
 
 
 

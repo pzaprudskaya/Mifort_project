@@ -11,8 +11,7 @@ export class DialogChangeStatusComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogChangeStatusComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   onNoClick(): void {
     this.dialogRef.close();
   }

@@ -1,7 +1,70 @@
 <mat-toolbar>
   <div class="munu-icons-links">
-    <a href="#"><i class="material-icons">notifications</i></a>
+    <a><i class="material-icons" [ngClass]="{'red-flag':flag}" (click)="openNotifications($event.target)">notifications</i></a>
     <a routerLink="/sign-in"><i class="material-icons" matTooltip="Log Out">input</i>
     </a>
+  </div>
+  <div class="notifications" [ngClass]="{'active':isOpen}" >
+    <div class="notification" *ngFor='let item of arrayNotifications' [ngSwitch]="item">
+   		<p *ngSwitchCase="'welcome'">
+   			Hi {{nameUser}}.
+			<br>We are glad to welcome you in Timesheet!Here are the main tips for you:
+			<br>Mifort Timesheet helps companies to control logged time of all its <br>employees. <br>So if you are an Owner of the company, you can add employees, grant <br>them appropriate roles (Owner, Admin, HR Manager, Project Manager <br>and Employee), create projects and monitor the time your employees spend <br> on projects.<br>Track progress on projects on the page of each project.Each project has a <br> progress bar, where you can see total time spent on project by its team and<br> total time, expected to be spent by today. <br>Total time the team has to work on the project is set in the settings of each<br> project when you create it. <br>When creating a project you select its type (time & material or fixed <br>resources), according to the type you need to select start and end dates or<br> start date and hours accordingly.
+			<br>In organization settings you can configure approval period for all employees <br>in your organization.<br> It means, that timesheet for each period should be approved by a manager<br> and may be accepted or rejected. <br>That helps to control how and when employees fill timesheets.
+			<br>Integrate your account with messengers, IDEs and task trackers. <br>Get your issues, commits or messages to chatbots logged in Timesheet and <br> you don’t have to remember what and when you’ve done.
+			<br>Export your Timesheets in csv format. <br>Editable format allows you to check and correct data if needed.
+			<br>Regards,Mifort Timesheet Team.
+   		</p>
+   		<p *ngSwitchCase="'restore'">
+   			Hi {{nameUser}}.<br>
+			You have requested a password reset for your Timesheet account.<br> If you didn’t - ignore this email.<br>If you need to restore your password, follow this link to set a new password: <br><a href="http://localhost:4200/restore-password"> restore</a>
+			<br>Regards,Mifort Timesheet Team.
+   		</p>
+   		<p *ngSwitchCase="'new-invitation'">
+   			Hi {{nameUser}}.<br>
+			"{{nameCompany}}" has invited you to log your working time in their organization account. <br>Join them using the link: <a href="{{link}}">{{nameCompany}}</a>.
+			<br>If you don’t want to join this organization, just ignore this email.
+			<br>Regards,Mifort Timesheet Team.
+   		</p>
+   		<p *ngSwitchCase="'deactivated'">
+   			Hi {{nameUser}}.<br>
+			"{{nameCompany}}” has deactivated your account.
+			<br>Regards,Mifort Timesheet Team.
+   		</p>
+   		<p *ngSwitchCase="'rejected-timesheet'">
+   			Hi {{nameUser}}.<br>
+			Your Timesheet for {{rejectedTimesheetPeriod}} was rejected by {{managerName}}.
+			<br>Regards,Mifort Timesheet Team.
+   		</p>
+   		
+   		<p *ngSwitchCase="'not-fill-timesheet'">
+   			Hi {{nameUser}}.<br>
+			Your have not filled in your Timesheet for 24 hours, don’t forget to do that before the end of approval period.
+			<br>Regards,Mifort Timesheet Team.
+   		</p>
+   		<p *ngSwitchCase="'deadline'">
+   			Hi {{nameUser}}.<br>
+			1 week left to finish "{{nameProject}}". Get to work!
+			<br>Regards,Mifort Timesheet Team.
+   		</p>
+   		<p *ngSwitchCase="'change-status-project'">
+   			Hi {{nameUser}}.<br>
+			{{employeeChangedStatus}} has changed "{{nameProject}}" status from {{previousProjectStatus}} to {{projectStatus}}.
+			<br>Regards,Mifort Timesheet Team.
+   		</p>
+   		<p *ngSwitchCase="'change-role'">
+   			Hi {{nameUser}},<br>your role is changed from {{roleUser}} to {{newRoleUser}}.
+			<br>Regards,Mifort Timesheet Team
+   		</p>
+   		<p *ngSwitchCase="'asking-for-invite'">
+   			Hi {{ownerName}},<br>{{nameUser}} is asking you for an invite to "{{nameCompany}}".
+			<br>Regards,Mifort Timesheet Team.
+   		</p>
+   		<p *ngSwitchCase="'joined-company'">
+   			Hi {{nameUser}},<br>{{ownerName}} has just joined "{{nameCompany}}" be invitation from you.
+			<br>Regards,Mifort Timesheet Team.
+   		</p>
+   		<p *ngSwitchDefault></p>
+    </div>
   </div>
 </mat-toolbar>

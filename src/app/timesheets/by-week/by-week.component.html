@@ -1,0 +1,51 @@
+<app-block>
+  <div class="employees-header">
+    <div class="data">
+      <div class="inline">
+
+        <mat-form-field class="matDatepicker">
+          <input matInput [matDatepicker]="picker" (dateInput)="inputEvent($event.value)" (dateChange)="inputEvent($event.value)" placeholder="Select period" >
+          <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+          <mat-datepicker #picker ></mat-datepicker>
+        </mat-form-field>
+
+        <p><u>{{period}}</u></p>
+
+      </div>
+    </div>
+    <div class="buttons">
+      <button routerLinkActive="active" routerLink="/timelog-day">Day</button>
+      <button routerLinkActive="active" routerLink="/timelog-week">Week</button>
+    </div>
+    <div *ngIf="toggleFlag; else elseBlock">
+      <button (click) = 'submitToAproval()'>{{submit}}</button>
+      <button (click) = time() class="button__save">Save</button>
+    </div>
+    <ng-template #elseBlock>
+      <button (click) = 'submitToAproval()'>{{submit}}</button>
+      <button (click) = time() class="button_save_time">Save at {{timeNow}}</button>
+    </ng-template>
+  </div>
+
+  <div class="inline">
+
+    <div >
+      <div *ngIf="logs.timelog.status === 'Rejected'" class="rejected_block">
+        <div class="block">
+          <p><strong>Rejected</strong></p>
+          <p>Comment: {{logs.timelog.comment}}</p>
+        </div>
+
+      </div>
+      <app-table-for-week class="table"
+        [editTable] = true
+        [data] = 'logs.timelog.logs' ></app-table-for-week>
+    </div>
+    <app-container class="chart">
+      <app-donut-chart
+        [status]="logs.timelog.status"
+        [dataDonutChart]="logs.dataDonut" *ngIf="isShown"></app-donut-chart>
+    </app-container>
+  </div>
+
+</app-block>

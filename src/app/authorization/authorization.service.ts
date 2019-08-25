@@ -10,11 +10,6 @@ import { User } from './authorization.model';
 export class AuthorizationService {
 
   private API_URL = 'http://localhost:3000/users/';
-  nameProject: string;
-  httpOptions = {
-    mode: 'no-cors',
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
 
   constructor(private http: HttpClient) { }
 
@@ -23,12 +18,6 @@ export class AuthorizationService {
       tap((data: User[]) => console.log('User: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
-  }
-
-  sendUser(user): Observable<User>{
-    return this.http.post<User>(this.API_URL, JSON.stringify(user), this.httpOptions).pipe(
-      tap(addUser => console.log('add User: ' + JSON.stringify(addUser))),
-      catchError(this.handleError));
   }
 
   private handleError(err: HttpErrorResponse) {
@@ -41,7 +30,14 @@ export class AuthorizationService {
     console.error(errorMessage);
     return throwError(errorMessage);
   }
-  sendEmail(user) {
-    return this.http.post('http://localhost:3000/sendmail', user);
+
+  addNewUser(user, token): Observable<User> {
+    const httpOptions = {
+      mode: 'no-cors',
+      headers: new HttpHeaders({'Content-Type': 'application/json', Authorization: `Bearer ${token}`})
+    };
+    return this.http.post<User>(this.API_URL, JSON.stringify(user), httpOptions).pipe(
+      tap(addUser => console.log('add user: ' + JSON.stringify(addUser))),
+      catchError(this.handleError));
   }
 }

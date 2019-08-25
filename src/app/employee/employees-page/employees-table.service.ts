@@ -65,7 +65,18 @@ export class EmployeesTableService {
       .map(res => res);
   }
 
-
-
+   sendEmail(user) {
+      return this.http.post('http://localhost:3000/sendmail', user);
+   }
+   addUser(user) {
+     return this.http.post<Employees>(this.API_URL, JSON.stringify(user), this.httpOptions).pipe(
+       tap(addEmployee => console.log('add employee: ' + JSON.stringify(addEmployee))),
+       catchError(this.handleError));
+   }
+  updateUser(user) {
+    return this.http.put<void>(`${this.API_URL}/${user.id}`, JSON.stringify(user), this.httpOptions).pipe(
+      tap(updateUser => console.log('update user in employee-page: ' + JSON.stringify(updateUser))),
+      catchError(this.handleError));
+  }
 
 }

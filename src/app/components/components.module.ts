@@ -24,6 +24,7 @@ import { ProgressBarsComponent } from './progress-bars/progress-bars.component';
 import { TeamComponent } from './team/team.component';
 import {NotificationComponent} from './notification/notification.component';
 import {NotifierModule} from 'angular-notifier';
+import {ChartsModule} from "ng2-charts";
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import {NotifierModule} from 'angular-notifier';
     RouterModule,
     MaterialModule,
     FormsModule,
+    ChartsModule,
     CommonModule,
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({

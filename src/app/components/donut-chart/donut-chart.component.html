@@ -1,4 +1,11 @@
-<div class="doughnut-chart">
+<div class="inline">
   <h3>Workload</h3>
-  <canvas id='doughnutChart' ></canvas>
+  <div class="status" *ngIf="(statusFlag === true)" [ngStyle]="{'border': '1px solid ' + color, 'color': color}">{{text}}</div>
+</div>
+<div class="doughnut-chart">
+  <canvas baseChart
+  [options]="DoughnutChart.options"
+  [datasets]="DoughnutChart.data.datasets"
+  [labels] = "DoughnutChart.data.labels"
+  [chartType]="DoughnutChart.type"></canvas>
 </div>

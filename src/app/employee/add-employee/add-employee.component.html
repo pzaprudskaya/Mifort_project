@@ -1,4 +1,4 @@
-<app-block let="employee">
+<app-block>
   <app-container >
     <div class="box">
       <div mat-card-avatar class = "box__photo" [ngStyle]="{'background-image': 'url(' + employee.photoUrl + ')'}">
@@ -18,7 +18,7 @@
               <select [(ngModel)]="employee.role">
                 <option [value]="role"*ngFor="let role of roles">{{role}}</option>
               </select>
-              <i (click)="open_information()" class="material-icons">help_outline</i>
+              <i (click)="openInformation()" class="material-icons">help_outline</i>
               <ng-template [ngIf]="toggleFlag">
                 <div  class="information_about_role">
                   <h3>Owner</h3>
@@ -58,18 +58,19 @@
   <app-container class="for_approval" *ngFor="let timesheet of timesheetsPendingApproval">
     <div class="inline">
       <div>
-        <h3>Pending for Approval: {{timesheet.period}} </h3>
-        <app-table
-          [editTable] = false
-          [timelogs] = 'true'
-          [profileBD] = true
-          [data] = 'timesheet.logs'></app-table>
+        <h3>Pending for Approval: {{timesheet.timelog.period}} </h3>
+        <app-table-for-week [data]="timesheet.timelog.logs"
+                            [editTable]=false>
+        </app-table-for-week>
       </div>
       <div class="donut_chart_and_buttons">
         <app-donut-chart
-          [dataDonutChart] = 'timesheet.timesheetWorkload'
+          [dataDonutChart] = 'timesheet.dataDonut'
         ></app-donut-chart>
-        <app-approve-reject-forget></app-approve-reject-forget>
+        <app-approve-reject-forget
+          [employee]="employee"
+          [period]="timesheet.timelog.period"
+        ></app-approve-reject-forget>
       </div>
     </div>
   </app-container>

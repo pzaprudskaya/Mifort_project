@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ExportToCsv } from 'export-to-csv';
 import { ExportService } from './export.service';
 import { ProjectNameModel } from '../../projects/project-name/project-name.model';
-import { EmployeesService } from '../../employee/add-employee/employee.service';
+import { EmployeesService } from '../../employee/employee.service';
 @Component({
   selector: 'app-export',
   templateUrl: './export.component.html',

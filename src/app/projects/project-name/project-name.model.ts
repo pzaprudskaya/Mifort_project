@@ -14,7 +14,9 @@ export interface ProjectNameModel {
       };
       team: [
         {
+          id: number
           photo: string,
+          role: string;
           name: string,
           workload: number,
         }

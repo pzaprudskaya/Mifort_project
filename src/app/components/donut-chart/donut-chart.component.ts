@@ -11,13 +11,27 @@ import {Router} from '@angular/router';
 })
 export class DonutChartComponent implements OnInit {
   @Input() dataDonutChart: any[];
+  @Input() status: string;
+  statusFlag: boolean;
+  color: string;
   DoughnutChart;
-  realResult: number;
-  expectedResult: number;
+  text: string;
   h = '';
 
   constructor(public router: Router) {}
   ngOnInit() {
+    debugger;
+    if (this.status === 'Approved') {
+      this.color = 'green';
+      this.text = 'Approved';
+      this.statusFlag = true;
+    } else if (this.status === 'Forgot') {
+      this.statusFlag = true;
+      this.text = 'Submitted';
+      this.color = 'gray';
+    } else {
+      this.statusFlag = false;
+    }
     const data = {
       labels: [],
       datasets: [{
@@ -26,14 +40,14 @@ export class DonutChartComponent implements OnInit {
         borderWidth: 0,
       }]
     };
-
     this.dataDonutChart.forEach((item) => {
       data.labels.push(item.name);
       data.datasets[0].backgroundColor.push(item.color);
       data.datasets[0].data.push(item.actual);
     });
     Chart.defaults.global.legend.labels.usePointStyle = true;
-    this.DoughnutChart = new Chart('doughnutChart', {
+
+    this.DoughnutChart = {
       type: 'doughnut',
       data,
       options: {
@@ -49,7 +63,8 @@ export class DonutChartComponent implements OnInit {
         }
 
       }
-    });
+    };
+debugger;
   /*  const originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
     Chart.helpers.extend(Chart.controllers.doughnut.prototype, {
       draw() {

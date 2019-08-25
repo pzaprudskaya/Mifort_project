@@ -6,7 +6,5 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./company-integration.component.sass']
 })
 export class CompanyIntegrationComponent implements OnInit {
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

@@ -1,9 +1,9 @@
 <app-block>
   <div class="employees-header">
     <div class="buttons">
-      <button (click)="filter('Pending')">Pending</button>
-      <button (click)="filter('Approved')">Approved</button>
-      <button (click)="filter('Rejected')">Rejected</button>
+      <button (click)="filterByStatus('Forgot')">Pending</button>
+      <button (click)="filterByStatus('Approved')">Approved</button>
+      <button (click)="filterByStatus('Rejected')">Rejected</button>
     </div>
     <app-datepicker (change)="filterByPeriod($event)"></app-datepicker>
   </div>

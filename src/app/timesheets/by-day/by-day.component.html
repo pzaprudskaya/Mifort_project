@@ -1,0 +1,30 @@
+<app-block>
+  <div class="employees-header">
+    <div class="data">
+      <i class="material-icons" (click)="prevDate()">chevron_left</i>
+      <p>{{date}}</p>
+      <i class="material-icons" (click)="nextDate()">chevron_right</i>
+    </div>
+    <div class="buttons">
+      <button routerLinkActive="active" routerLink="/timelog-day">Day</button>
+      <button routerLinkActive="active" routerLink="/timelog-week">Week</button>
+    </div>
+    <div *ngIf="toggleFlag; else elseBlock">
+      <button (click) = saveLogs() class="button__save">Save</button>
+    </div>
+    <ng-template #elseBlock>
+      <button (click) = saveLogs() class="button_save_time">Save at {{timeNow}}</button>
+    </ng-template>
+  </div>
+  <div class="inline">
+    <app-container class="table">
+      <app-table-for-day
+        [editTable]=true
+        [data]="logs[0][1]"></app-table-for-day>
+    </app-container>
+    <app-container class="chart">
+      <app-donut-chart [dataDonutChart]="dataDonut" *ngIf="isShown"></app-donut-chart>
+    </app-container>
+  </div>
+
+</app-block>

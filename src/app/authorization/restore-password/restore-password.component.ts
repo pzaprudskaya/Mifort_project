@@ -15,7 +15,7 @@ export class RestorePasswordComponent implements OnInit {
   constructor(private authorizationService: AuthorizationService){}
   ngOnInit() {
     this.signForm = new FormGroup({
-      "emailControl": new FormControl('', [Validators.required, Validators.minLength(5),
+      emailControl: new FormControl('', [Validators.required, Validators.minLength(5),
         Validators.pattern('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$')
       ]),
     });

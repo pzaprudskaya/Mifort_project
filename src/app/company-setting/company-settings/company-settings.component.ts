@@ -3,7 +3,6 @@ import {CompanySettingsService} from './company-settings.service';
 import {CompanySettingsModel} from './company-settings.model';
 import {UserService} from '../../core/logo-user-company/user.service';
 import {User} from '../../core/logo-user-company/user.model';
-import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-company-settings',
@@ -16,14 +15,8 @@ export class CompanySettingsComponent implements OnInit {
   constructor(private companySettingsService: CompanySettingsService,
               private  userService: UserService ) {
   }
-  ngOnInit() {
-
-    this.userService.getUser(this.companySettingsService.nameUser)
-      .subscribe((user: User) => {
-        this.user = user[0];
-      });
-
-    this.userService.userSubject$.subscribe((name) => {
+  ngOnInit(): void {
+    this.userService.userCompany$.subscribe((name) => {
       this.companySettingsService.getCompany(name).
       subscribe( (company) => {
         this.companySettings = company[0];
@@ -31,15 +24,12 @@ export class CompanySettingsComponent implements OnInit {
     });
   }
   save() {
-    debugger;
-    if (this.companySettingsService.companyName === 'createCompany') {
+    if (this.companySettingsService.companyName !== 'createCompany') {
+      this.companySettingsService.updateCompany(this.companySettings);
+    } else {
       this.user.companies.push(this.companySettings.name);
       this.userService.updateUser(this.user);
-      this.companySettingsService.addCompany(this.companySettings)
-        .subscribe(() => console.log('Add!'));
-    } else {
-      this.companySettingsService.update(this.companySettings)
-        .subscribe(() => console.log('Update!'));
+      this.companySettingsService.addCompany(this.companySettings);
     }
   }
 }

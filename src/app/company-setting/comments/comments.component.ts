@@ -7,6 +7,5 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CommentsComponent implements OnInit {
   @Input() company;
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

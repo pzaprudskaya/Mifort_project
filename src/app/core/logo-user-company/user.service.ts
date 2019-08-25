@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
-
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
-
-import {catchError, tap, map} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {User} from './user.model';
 
 import 'rxjs/add/operator/map';
@@ -16,8 +14,13 @@ import 'rxjs/add/operator/switchMap';
 })
 
 export class UserService {
-  public userSubject = new BehaviorSubject(null);
-  userSubject$ = this.userSubject.asObservable();
+  public userCompany = new BehaviorSubject(null);
+  userCompany$ = this.userCompany.asObservable();
+
+  public userName = new BehaviorSubject(null);
+  userName$ = this.userName.asObservable();
+
+
   private API_URL = 'http://localhost:3000/activity/';
   httpOptions = {
     mode: 'no-cors',
@@ -31,21 +34,23 @@ export class UserService {
 
   getUser(nameUser): Observable<User> {
     return this.http.get<User>(this.API_URL + nameUser, this.httpOptions).pipe(
-
       tap((data: User) => console.log('User: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
 
   updateUser(user: User) {
-    debugger;
     return this.http.put<void>(`${this.API_URL}${user.name}`, JSON.stringify(user), this.httpOptions).pipe(
       tap(userUpdate => console.log('update user: ' + JSON.stringify(userUpdate))),
       catchError(this.handleError));
   }
 
   updateCompany(name: string) {
-    this.userSubject.next(name);
+    this.userCompany.next(name);
+  }
+
+  updateName(name: string) {
+    this.userName.next(name);
   }
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';

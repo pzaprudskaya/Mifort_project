@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService, GoogleLoginProvider } from 'angular5-social-login';
-import { User } from '../authorization.model';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {AuthService, GoogleLoginProvider} from 'angular5-social-login';
+import {User} from '../authorization.model';
+import {ActivatedRoute} from '@angular/router';
 import {AuthorizationService} from '../authorization.service';
 
 
@@ -18,6 +18,7 @@ export class SignUpComponent implements OnInit {
   user: User;
   users: User[];
   state: boolean;
+
   ngOnInit() {
     this.state = false;
     this.signForm = new FormGroup({
@@ -31,33 +32,38 @@ export class SignUpComponent implements OnInit {
 
     this.authorizationService.getUsers().subscribe(
       users => {
-        this.users = users; 
+        this.users = users;
       }
     );
   }
-  constructor( private socialAuthService: AuthService,  private router: ActivatedRoute, private authorizationService: AuthorizationService ) {}
-  public socialSignUp(socialPlatform : string) {
-    let socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+
+  constructor(private socialAuthService: AuthService, private router: ActivatedRoute,
+              private authorizationService: AuthorizationService) {
+  }
+
+  public socialSignUp(socialPlatform: string) {
+    const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     this.socialAuthService.signIn(socialPlatformProvider).then(
       userData => {
-        this.user.id = userData.id;
+        // this.user.id = userData.id;
         this.user.email = userData.email;
         this.user.name = userData.name;
-        //this.user.image = userData.image;
+        // this.user.image = userData.image;
         this.user.password = userData.email;
         this.users.find(
-          element => element.email == this.user.email) ? this.state = true : this.state = false;
-        if(this.state == true){
-          alert('This email is already registered')
-        } else { 
-          this.authorizationService.sendUser(this.user).subscribe(
+          element => element.email === this.user.email) ? this.state = true : this.state = false;
+        if (this.state === true) {
+          alert('This email is already registered');
+        } else {
+          /*this.authorizationService.sendUser(this.user).subscribe(
             () => console.log('send to server')
-          );
-          this.router.navigate(['/sign-in']);
+          );*/
+          // this.router.navigate(['/sign-in']);
         }
       }
     );
   }
+
   showPassword() {
     if (this.type === 'password') {
       this.type = 'text';
@@ -67,27 +73,28 @@ export class SignUpComponent implements OnInit {
       this.flag = false;
     }
   }
+
   checkRegistration() {
-    this.user = {
+    const user = {
       id: 0,
       email: this.signForm.value.emailControl,
       name: this.signForm.value.fullNameControl,
       password: this.signForm.value.passwordControl
-    }
+    };
     this.users.find(
-      element => element.email == this.user.email) ? this.state = true : this.state = false;
-    if(this.state === true){
-      alert('This email is already registered')
-    } else { 
-    const token = this.router.snapshot.queryParams['default-company'];
-    if (this.signForm.status === 'VALID') {
-      this.authorizationService.addNewUser(this.user, token)
-        .subscribe(() => console.log('Add'));
-       this.router.navigate(['/sign-in']);
+      element => element.email === this.user.email) ? this.state = true : this.state = false;
+    if (this.state === true) {
+      alert('This email is already registered');
     } else {
-      alert('Invalid data');
+      const token = this.router.snapshot.queryParams['default-company'];
+      if (this.signForm.status === 'VALID') {
+        this.authorizationService.addNewUser(this.user, token)
+          .subscribe(() => console.log('Add'));
+        // this.router.navigate(['/sign-in']);
+      } else {
+        alert('Invalid data');
 
+      }
     }
   }
-  } 
 }

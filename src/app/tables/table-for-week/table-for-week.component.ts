@@ -22,7 +22,11 @@ export class TableForWeekComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Log>(this.data);
     this.option1 = 'chooseProject';
-    this.displayedColumns = ['color', 'project', 'comment', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'week', 'delete' ];
+    if (this.editTable === true) {
+      this.displayedColumns = ['color', 'project', 'comment', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'week', 'delete' ];
+    } else {
+      this.displayedColumns = ['color', 'project', 'comment', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'week'];
+    }
   }
   ngOnChanges() {
     this.dataSource = new MatTableDataSource<Log>(this.data);

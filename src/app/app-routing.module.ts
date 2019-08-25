@@ -6,7 +6,7 @@ import { EmployeesPageComponent } from './employee/employees-page/employees-page
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 import {CompanySettingsComponent} from './company-setting/company-settings/company-settings.component';
 import {ProjectComponent} from './projects/project/project.component';
-import {ProfileComponent} from './profile-page/profile/profile.component';
+import {ProfileComponent} from './employee/profile/profile.component';
 import {ProjectNameComponent} from './projects/project-name/project-name.component';
 import { ExportComponent } from './components/export/export.component';
 
@@ -14,7 +14,6 @@ import {CompanyIntegrationComponent} from './company-setting/company-integration
 import {ApprovalsPageComponent} from './approvals/approvals-page/approvals-page.component';
 import {ByDayComponent} from './timesheets/by-day/by-day.component';
 import {ByWeekComponent} from './timesheets/by-week/by-week.component';
-
 
 const itemMenu: Routes = [
   { path: 'timelog-week', component: ByWeekComponent},

@@ -12,7 +12,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
-import {ProfilePageModule} from './profile-page/profile-page.module';
 import {HttpClientModule} from '@angular/common/http';
 import {NotifierModule} from 'angular-notifier';
 import {ApprovalsPageModule} from './approvals/approvals-page.module';
@@ -34,7 +33,6 @@ import {TimesheetsModule} from './timesheets/timesheets.module';
     MaterialModule,
     EmployeeModule,
     ProjectsModule,
-    ProfilePageModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,

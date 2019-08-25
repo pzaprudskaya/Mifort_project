@@ -1,9 +1,11 @@
 export interface Employees {
-  photo: string;
+  id: number;
+  photoUrl: string;
   name: string;
   role: string;
   planned: number;
   actual: number;
+  status: string;
   pendingApprovalTimesheets:
     [
       {
@@ -15,3 +17,37 @@ export interface Employees {
       ];
 
 }
+
+export class User {
+  id: number;
+  photoUrl: string;
+  name: string;
+  role: string;
+  email: string;
+  planned: number;
+  actual: number;
+  status: string;
+  pendingApprovalTimesheets:
+    [
+      {
+        from: string,
+        to: string,
+        planned: number,
+        actual: number
+      }
+      ];
+
+  constructor(id: number, photoUrl: string, name: string, role: string, email: string, planned: number, actual: number,
+              status: string, pendingApprovalTimesheets: [{ from: string; to: string; planned: number; actual: number }]) {
+    this.id = id;
+    this.photoUrl = photoUrl;
+    this.name = name;
+    this.role = role;
+    this.email = email;
+    this.planned = planned;
+    this.actual = actual;
+    this.status = status;
+    this.pendingApprovalTimesheets = pendingApprovalTimesheets;
+  }
+}
+

@@ -1,21 +1,20 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, tap, map} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
-import {Profile} from '../../profile-page/profile/profile.model';
-import {Employees} from '../employees-page/items.model';
+import {Profile} from './employee.model';
+import {Employees} from './employees-page/items.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
-
 
 export class EmployeesService {
 

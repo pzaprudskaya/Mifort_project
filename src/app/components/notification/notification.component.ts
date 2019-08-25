@@ -49,11 +49,9 @@ export class NotificationComponent implements OnInit {
     });
   }
 
-
   public showSpecificNotification(type: string, message: string, id: string): void {
     this.notifier.show({id, message, type});
   }
-
 
   public hideSpecificNotification(id: string): void {
     this.notifier.hide(id);

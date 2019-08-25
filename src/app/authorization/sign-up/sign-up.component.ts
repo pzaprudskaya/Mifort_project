@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService, GoogleLoginProvider } from 'angular5-social-login';
 import { User } from '../authorization.model';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthorizationService} from '../authorization.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -24,22 +25,15 @@ export class SignUpComponent implements OnInit {
       passwordControl: new FormControl('', [Validators.required, Validators.minLength(6)
       ]),
     });
-    this.user = {
-      id: 'frfre',
-      email: this.signForm.value.emailControl,
-      name: this.signForm.value.fullNameControl,
-      image: 'https://www.deadline.com.ua/design/img/default-avatar.png',
-      password: this.signForm.value.passwordControl
-    };
   }
-  constructor( private socialAuthService: AuthService,  private router: Router ) {}
+  constructor( private socialAuthService: AuthService,  private router: ActivatedRoute, private authorizationService: AuthorizationService) {}
 
   public socialSignUn(socialPlatform: string) {
     const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     this.socialAuthService.signIn(socialPlatformProvider).then(
       userData => {
         // console.log(socialPlatform + " sign in data : " , userData);
-        this.user.id = userData.id;
+        // this.user.id = userData.id;
         this.user.email = userData.email;
         this.user.name = userData.name;
         this.user.image = userData.image;
@@ -59,14 +53,18 @@ export class SignUpComponent implements OnInit {
   }
   checkRegistration() {
     this.user = {
-      id: 'frfre',
+      id: 0,
       email: this.signForm.value.emailControl,
       name: this.signForm.value.fullNameControl,
       image: 'https://www.deadline.com.ua/design/img/default-avatar.png',
       password: this.signForm.value.passwordControl
     };
+    const token = this.router.snapshot.queryParams['default-company'];
+    console.log(token);
     if (this.signForm.status === 'VALID') {
-      this.router.navigate(['/profile']);
+      this.authorizationService.addNewUser(this.user, token)
+        .subscribe(() => console.log('Add'));
+      // this.router.navigate(['/sign-in']);
     } else {
       this.authPrompt = true;
     }

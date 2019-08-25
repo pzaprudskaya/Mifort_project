@@ -28,22 +28,18 @@
   <app-container class="for_approval" *ngFor="let timesheet of timesheetsPendingApproval">
       <div class="inline">
         <div>
-          <h3>Pending for Approval: {{timesheet.period}} </h3>
-          <app-table
-            [editTable] = false
-            [profileBD] = true
-            [timelogs] = true
-            [data] = 'timesheet.logs'></app-table>
+          <h3>Pending for Approval: {{timesheet.timelog.period}} </h3>
+          <app-table-for-week [data]="timesheet.timelog.logs"
+                              [editTable]=false>
+          </app-table-for-week>
         </div>
         <div class="donut_chart">
           <app-donut-chart
-            [dataDonutChart] = 'timesheet.timesheetWorkload'
+            [dataDonutChart] = 'timesheet.dataDonut'
           ></app-donut-chart>
         </div>
       </div>
   </app-container>
-
-
 
   <div class="box">
     <app-container class="notification_preferences">

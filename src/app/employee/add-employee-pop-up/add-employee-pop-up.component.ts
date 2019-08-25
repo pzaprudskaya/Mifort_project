@@ -11,8 +11,7 @@ export class AddEmployeePopUpComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddEmployeePopUpComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
   onNoClick(): void {
     this.dialogRef.close();
   }

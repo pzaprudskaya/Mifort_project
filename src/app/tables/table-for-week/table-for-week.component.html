@@ -4,19 +4,26 @@
   <ng-container matColumnDef="color">
     <th mat-header-cell *matHeaderCellDef> </th>
     <td mat-cell *matCellDef="let element"> <div class="tbody__circle" [ngStyle]="{'background': element.color }"></div> </td>
-    <td mat-footer-cell *matFooterCellDef> <div class="tfoot__circle" ></div> </td>
+    <td  mat-footer-cell *matFooterCellDef> <div class="tfoot__circle" ></div> </td>
   </ng-container>
 
   <!-- Project Column -->
   <ng-container matColumnDef="project">
     <th mat-header-cell *matHeaderCellDef> Project </th>
     <td mat-cell *matCellDef="let element">
-      <select [(ngModel)]="element.projectName">
-        <option [value]="project" *ngFor="let project of projects">{{project}}</option>
-      </select>
+      <ng-template [ngIf]="editTable===true">
+        <select [(ngModel)]="element.projectName">
+          <option [value]="project" *ngFor="let project of projects">{{project}}</option>
+        </select>
+      </ng-template>
+      <ng-template  [ngIf]="editTable===false">
+        <p>{{element.projectName}}</p>
+      </ng-template>
+
+
     </td>
     <td mat-footer-cell *matFooterCellDef>
-      <select name="" class="table__select" [(ngModel)]='option1' (ngModelChange)='customFunction()'>
+      <select name="" class="table__select" [(ngModel)]='option1' (ngModelChange)='customFunction()' >
         <option [value]="'chooseProject'" [selected] = "selected">Choose project</option>
         <option [value]="project" *ngFor='let project of projects; let i = index'>{{project}}</option>
       </select></td>
@@ -28,7 +35,7 @@
     <td mat-cell *matCellDef="let element">
       <input type="text" [(ngModel)]="element.comment" [readonly]="!editTable">
     </td>
-    <td mat-footer-cell *matFooterCellDef>
+    <td  mat-footer-cell *matFooterCellDef>
       <input type="text" placeholder="...">
     </td>
   </ng-container>
@@ -39,7 +46,7 @@
     <td mat-cell *matCellDef="let element">
       <input type="number" [(ngModel)]="element.time[0]" [readonly]="!editTable">
     </td>
-    <td mat-footer-cell *matFooterCellDef>
+    <td  mat-footer-cell *matFooterCellDef>
       <input type="number" placeholder="0">
     </td>
   </ng-container>
@@ -50,7 +57,7 @@
     <td mat-cell *matCellDef="let element">
       <input type="number" [(ngModel)]="element.time[1]" [readonly]="!editTable">
     </td>
-    <td mat-footer-cell *matFooterCellDef>
+    <td  mat-footer-cell *matFooterCellDef>
       <input type="number" placeholder="0">
     </td>
   </ng-container>
@@ -72,7 +79,7 @@
     <td mat-cell *matCellDef="let element">
       <input type="number" [(ngModel)]="element.time[3]" [readonly]="!editTable">
     </td>
-    <td mat-footer-cell *matFooterCellDef>
+    <td  mat-footer-cell *matFooterCellDef>
       <input type="number" placeholder="0">
     </td>
   </ng-container>
@@ -94,7 +101,7 @@
     <td mat-cell *matCellDef="let element">
       <input type="number" [(ngModel)]="element.time[5]" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
     </td>
-    <td mat-footer-cell *matFooterCellDef>
+    <td  mat-footer-cell *matFooterCellDef>
       <input type="number" placeholder="0">
     </td>
   </ng-container>
@@ -105,7 +112,7 @@
     <td mat-cell *matCellDef="let element">
       <input type="number" [(ngModel)]="element.time[6]" [readonly]="!editTable" (change)="changeTotal($event.target,0)">
     </td>
-    <td mat-footer-cell *matFooterCellDef>
+    <td  mat-footer-cell *matFooterCellDef>
       <input type="number" placeholder="0">
     </td>
   </ng-container>
@@ -158,7 +165,10 @@
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  <ng-template [ngIf]="editTable===true">
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </ng-template>
+
   <tr mat-footer-row *matFooterRowDef="['total', 'total_mon', 'total_tue', 'total_wed', 'total_thu', 'total_fri', 'total_sat', 'total_sun', 'full_total']"></tr>
 </table>
 

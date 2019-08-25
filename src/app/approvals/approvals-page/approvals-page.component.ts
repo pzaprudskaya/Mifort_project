@@ -5,42 +5,35 @@ import {Subject} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {DialogChangeStatusComponent} from '../dialog-change-status/dialog-change-status.component';
 
-
 @Component({
   selector: 'app-approvals-page',
   templateUrl: './approvals-page.component.html',
   styleUrls: ['./approvals-page.component.sass']
 })
-export class  ApprovalsPageComponent implements OnInit {
+export class ApprovalsPageComponent implements OnInit {
   @Input() employeeName: string;
   statuses: string[] = ['Approved', 'Rejected', 'Forgot'];
   status: string;
   searchTerm$ = new Subject<string>();
   displayedColumns: string[];
   employees: Approval[];
-  flag: string;
+  isFlag: string;
   period: string;
-
-
+  rejectedStatus = 'Rejected';
   constructor(private approvalsService: ApprovalsService, public dialog: MatDialog) {
     this.approvalsService.search(this.searchTerm$)
-      .subscribe((employees: any ) => {
+      .subscribe((employees: Approval[]) => {
         this.employees = employees;
       });
   }
 
-  ngOnInit() {
-    if (this.flag === 'Rejected') {
-      this.displayedColumns = ['photo', 'name', 'planned_actual', 'hours', 'period', 'comment', 'status'];
-    } else {
-      this.displayedColumns = ['photo', 'name', 'planned_actual', 'hours', 'period', 'status'];
-    }
+  ngOnInit(): void {
+    this.displayedColumns = this.changeColumns();
     this.approvalsService.getAll().subscribe(
-      employees => {
+      (employees: Approval[]) => {
         this.employees = employees;
       }
     );
-    console.log('Employees: ' + this.employees);
   }
 
   checkValue(max: number, value: number): string {
@@ -52,45 +45,47 @@ export class  ApprovalsPageComponent implements OnInit {
       return 'green';
     }
   }
-  filter(value) {
-    this.flag = value;
-    if (this.flag === 'Rejected') {
-      this.displayedColumns = ['photo', 'name', 'planned_actual', 'hours', 'period', 'comment', 'status'];
-    } else {
-      this.displayedColumns = ['photo', 'name', 'planned_actual', 'hours', 'period', 'status'];
-    }
-    this.approvalsService.filter(value)
-      .subscribe(
-        (employees: any) => {
+
+  filterByStatus(status: string): void {
+    this.isFlag = status;
+    this.displayedColumns = this.changeColumns();
+    this.approvalsService.filterByStatus(status)
+      .subscribe((employees: Approval[]) => {
           this.employees = employees;
         }
       );
   }
-    filterByPeriod(event) {
-      this.approvalsService.filterByPeriod(event)
-          .subscribe(
-            (employees: any) => {
-              this.employees = employees;
-            }
-          );
+
+  filterByPeriod(period: string): void {
+    this.approvalsService.filterByPeriod(period)
+      .subscribe((employees: Approval[]) => {
+          this.employees = employees;
+        }
+      );
   }
 
-  changeStatus(approval: Approval) {
-    if (approval.status === 'Rejected') {
+  changeStatus(approval: Approval): void {
+    if (approval.status === this.rejectedStatus) {
       this.changeStatusDialog(approval);
     } else {
-      this.approvalsService.update(approval)
-        .subscribe(() => console.log('Update!'));
+      this.approvalsService.update(approval);
     }
   }
-  changeStatusDialog(approval: Approval) {
+
+  changeStatusDialog(approval: Approval): void {
     const dialogRef = this.dialog.open(DialogChangeStatusComponent, {data: {comment: ''}});
     dialogRef.afterClosed().subscribe(result => {
-      if (result.length !==  0) {
+      if (result.length) {
         approval.comment = result;
-        this.approvalsService.update(approval)
-          .subscribe(() => console.log('Update!'));
+        this.approvalsService.update(approval);
       }
     });
+  }
+
+  changeColumns() {
+    if (this.isFlag !== this.rejectedStatus) {
+      return ['photo', 'name', 'planned_actual', 'hours', 'period', 'status'];
+    }
+    return ['photo', 'name', 'planned_actual', 'hours', 'period', 'comment', 'status'];
   }
 }

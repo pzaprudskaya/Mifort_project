@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-progress',
@@ -10,7 +9,7 @@ export class ProgressComponent implements OnInit {
   @Input() project;
   condition = false;
   month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  typeProject = ['Fixed resources', 'Time & Material']
+  typeProject = ['Fixed resources', 'Time & Material'];
   colors: string[] = ['#FF0000', '#FF9900', '#FFD600', '#00C537', '#109CF1', '#0047FF', '#9E00FF',
   '#000000', '#FF007A', '#AD5300', '#FFF500', 'rgba(0, 224, 22, 0.6)', '#2CD9FF', '#5438FF',
   '#DB00FF', '#8F8F8F', '#FF8A8A', '#FFCE84', '#FFF09F', '#99FCC1', '#9FDBFF',

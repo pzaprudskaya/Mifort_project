@@ -1,9 +1,9 @@
 
-  <input type="text" placeholder="Leave your comment here">
+  <input id="comment" type="text" placeholder="Leave your comment here">
   <div class="inline">
-    <button class="forget">Forget</button>
-    <button class="approve">Approve</button>
-    <button class="reject">Reject</button>
+    <button class="forget" (click)="sendStatus('Forgot')">Forget</button>
+    <button class="approve" (click)="sendStatus('Approved')">Approve</button>
+    <button class="reject" (click)="sendStatus('Rejected')">Reject</button>
   </div>
 
 

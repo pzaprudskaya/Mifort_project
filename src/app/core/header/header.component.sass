@@ -18,6 +18,7 @@ mat-card-title
 mat-toolbar
   height: 60px
   background: #ffffff
+  position: relative
 mat-card
   border-radius: 0px
   width: 223px
@@ -67,6 +68,7 @@ mat-toolbar
       margin-right: 20px
       font-size: 20px
       color: #C2CFE0
+      position: relative
     i:active
       color: #109CF1
 .logo
@@ -79,3 +81,34 @@ mat-toolbar
     font-size: 18px
     line-height: normal
     color: #109CF1
+.red-flag
+  &::after
+    content: 'f'
+    background-color: red
+    width: 10px
+    height: 10px
+    border-radius: 5px
+    position: absolute
+    top: 0
+    right: 0
+.notifications
+  width: 500px
+  height: auto
+  background-color: #fff
+  position: absolute
+  right: 10px
+  top: 60px
+  z-index: 2
+  display: none
+  box-shadow: 0 0 10px rgba(0,0,0,0.2)
+  border-radius: 5px
+.notification
+  background-color: #c7d8f661
+  padding: 5px
+  margin: 5px
+  p 
+    font-size: 14px
+.active
+  display: block
+.active-notification 
+  background-color: #c7d8f661

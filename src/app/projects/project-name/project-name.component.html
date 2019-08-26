@@ -18,7 +18,7 @@
         <div class="inline">
           <h3>Team:</h3>
           <app-team class="team"
-                    [value] = 'project.team'>
+                    [project] = 'project'>
           </app-team>
           <p *ngIf="(state === false)">Expected per month: {{total}} h</p>
           <i *ngIf="(state === false)" (click)="changeStateArrow()" class="material-icons">keyboard_arrow_down</i>
@@ -27,7 +27,7 @@
 
         <app-table-for-team *ngIf="(state === true)"
           [editTable] = true
-          [data] = 'project.team' (change)="changeTotal($event)"></app-table-for-team>
+          [data] = 'project' (change)="changeTotal($event)"></app-table-for-team>
       </app-container>
       <app-container>
         <app-integrations [object]="project"></app-integrations>
@@ -51,7 +51,7 @@
       <div class="inline">
         <h3>Team:</h3>
         <app-team class="team"
-          [value] = 'project.team'>
+          [project] = 'project'>
         </app-team>
         <p *ngIf="(state === false)">Expected per month: {{total}} h</p>
         <i *ngIf="(state === false)" (click)="changeStateArrow()" class="material-icons">keyboard_arrow_down</i>
@@ -59,7 +59,7 @@
       </div>
       <app-table-for-team *ngIf="(state === true)"
                           [editTable] = true
-                          [data] = 'project.team' (change)="changeTotal($event)"
+                          [data] = 'project' (change)="changeTotal($event)"
 ></app-table-for-team>
     </app-container>
   <app-container class="bar-chart__width">

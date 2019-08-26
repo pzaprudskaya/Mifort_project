@@ -22,7 +22,7 @@ export class TableForTeamComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource<Team>(this.data);
+    this.dataSource = new MatTableDataSource<Team>(this.data.team);
     this.option1 = 'chooseName';
     this.option1 = 'chooseRole';
     this.displayedColumns = ['name', 'roles', 'time', 'hours', 'delete' ];
@@ -33,22 +33,22 @@ export class TableForTeamComponent implements OnInit {
         this.photo = user.photo;
       }
     });
-    this.data.push({id: this.data.length + 1, photo: this.photo, name: this.option1, role: this.option2, workload: 0});
+    this.data.team.push({id: this.data.team.length + 1, photo: this.photo, name: this.option1, role: this.option2, workload: 0});
     this.option1 = 'chooseProject';
-    this.dataSource = new MatTableDataSource<Team>(this.data);
+    this.dataSource = new MatTableDataSource<Team>(this.data.team);
   }
 
   delete(item) {
-    this.data.forEach((user, i) => {
+    this.data.team.forEach((user, i) => {
       if (user.id === item.id) {
-        this.data.splice(i, 1);
+        this.data.team.splice(i, 1);
       }
     });
-    this.dataSource = new MatTableDataSource<Team>(this.data);
+    this.dataSource = new MatTableDataSource<Team>(this.data.team);
   }
   getTotal() {
-    this.change.emit(this.data.map(t => t.workload).reduce((acc, value) => acc + value, 0));
-    return this.data.map(t => t.workload).reduce((acc, value) => acc + value, 0);
+    this.change.emit(this.data.team.map(t => t.workload).reduce((acc, value) => acc + value, 0));
+    return this.data.team.map(t => t.workload).reduce((acc, value) => acc + value, 0);
   }
 
 }

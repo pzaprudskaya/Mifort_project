@@ -44,6 +44,7 @@ export class ProjectNameComponent implements OnInit {
     this.projectNameService.update(this.project);
   }
   save() {
+    debugger;
     const myProject = new ProjectModel(this.project.color, this.project.name, this.project.team, this.project.startDate,
       this.project.endDateOrMen, this.project.progressBar.expected, this.project.progressBar.currentlySpent,
       this.project.status);

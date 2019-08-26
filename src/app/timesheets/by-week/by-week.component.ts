@@ -35,8 +35,10 @@ export class ByWeekComponent implements OnInit {
     const today = new Date( );
     this.timelogByPeriod = [];
     this.userService.userName$.subscribe((userName) => {
+      debugger;
       this.timelogsByWeekService.getLogs(userName).subscribe(
         timelogs => {
+          debugger;
           [this.timelogs] = timelogs;
           this.timelogs.data.forEach((data) => {
               data.logs.forEach((item) => {
@@ -71,20 +73,11 @@ export class ByWeekComponent implements OnInit {
   }
 
   filterByPeriod(period: string) {
+    debugger;
     [this.logs] = this.timelogByPeriod.filter((item) => item.timelog.period === period );
     if (this.logs === undefined) {
-      this.isShown = false;
-      this.changeDetector.detectChanges();
       this.logs = {timelog: {period: this.period, logs: [], status: '', comment: ''}, dataDonut: []};
       this.timelogByPeriod.push(this.logs);
-      this.isShown = true;
-      this.changeDetector.detectChanges();
-    } else {
-      this.isShown = false;
-      this.changeDetector.detectChanges();
-      this.logs = this.logs;
-      this.isShown = true;
-      this.changeDetector.detectChanges();
     }
     if (this.logs.timelog.status === '') {
       this.submit = 'Submit to approval';

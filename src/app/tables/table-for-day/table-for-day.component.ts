@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit,Output, EventEmitter} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 
 @Component({
@@ -9,6 +9,7 @@ import {MatTableDataSource} from '@angular/material';
 export class TableForDayComponent implements OnInit {
   headers = ['', 'Project', 'Time', 'Comment'];
   projects = ['Skype', 'Uber', 'Office'];
+  @Output() changeDonutChart: EventEmitter = new EventEmitter<any>();
   @Input() set data(newData: any) {
     this.dataSource = new MatTableDataSource<Log>(newData);
     this._data = newData;
@@ -49,7 +50,9 @@ export class TableForDayComponent implements OnInit {
   getTotalCost() {
     return this.data.map(t => t.time).reduce((acc, value) => acc + value, 0);
   }
-
+  changeInput(value,id) {
+    this.changeDonutChart.emit({value,id});
+  }
 }
 
 export interface Log {

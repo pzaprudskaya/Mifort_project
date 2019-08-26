@@ -1,12 +1,12 @@
 <div class="inline">
 
-  <div *ngFor="let item of value" >
+  <div *ngFor="let item of project.team" >
     <div (click)="changeCircleActivity(item)" class="circle circle_employees" [ngStyle]="{'background-image': 'url(' + item.photo + ')'}"></div>
 
       <div *ngIf="item.active" class="information_about_employee">
         <p>{{item.name}}</p>
         <p>Workload on project: {{item.workload}}</p>
-        <a (click)="delete(value, item)">Remove from project</a>
+        <a (click)="delete(item)">Remove from project</a>
       </div>
 
   </div>

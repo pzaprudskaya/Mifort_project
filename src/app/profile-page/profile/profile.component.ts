@@ -41,6 +41,9 @@ export class ProfileComponent implements OnInit {
         if(this.employee.employeeProjects.length < 1 || !this.employee.employeeProjects){
           this.employeeProjectsState = false;
         }
+        else{ 
+          this.employeeProjectsState = true;
+        }
         this.employee.timesheetsPendingApproval.forEach((item) => {
 
           this.period = item.period;

@@ -17,8 +17,14 @@ export class AuthorizationService {
   };
 
   constructor(private http: HttpClient) { }
-
+  
   getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.API_URL).pipe(
+      tap((data: User[]) => console.log('User: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+  getActivity(): Observable<User[]> {
     return this.http.get<User[]>(this.API_URL).pipe(
       tap((data: User[]) => console.log('User: ' + JSON.stringify(data))),
       catchError(this.handleError)

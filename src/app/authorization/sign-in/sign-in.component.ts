@@ -4,7 +4,7 @@ import { AuthService, GoogleLoginProvider } from 'angular5-social-login';
 import { AuthorizationService } from '../authorization.service';
 import { User } from '../authorization.model';
 import { Router } from '@angular/router';
-
+import { EmployeesService } from '../../employee/add-employee/employee.service';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -16,6 +16,7 @@ export class SignInComponent implements OnInit {
   flag: boolean = false;
   users: User[];
   userData;
+  employee;
   ngOnInit() {
     this.signForm = new FormGroup({
       "emailControl": new FormControl('', [Validators.required, Validators.minLength(5),
@@ -30,7 +31,7 @@ export class SignInComponent implements OnInit {
       }
     );
   }
-  constructor( private socialAuthService: AuthService, private authorizationService: AuthorizationService, private router: Router ) {}
+  constructor( private socialAuthService: AuthService, private authorizationService: AuthorizationService, private router: Router, private employeesService: EmployeesService ) {}
 
   public socialSignIn(socialPlatform : string){
     let socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
@@ -68,12 +69,11 @@ export class SignInComponent implements OnInit {
         this.users = users; 
       }
     );
-    console.log('serv users:'+this.users);
+    console.log('serv users:' + this.users);
     let formData = this.users.find(
       element => 
         element.email == this.signForm.value.emailControl && element.password == this.signForm.value.passwordControl && this.signForm.status === "VALID"
     );
-
     formData ?  this.router.navigate(['/profile']) : alert('Invalid email or password');
   }
 }

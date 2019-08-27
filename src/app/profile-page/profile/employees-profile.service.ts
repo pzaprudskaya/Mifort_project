@@ -25,6 +25,9 @@ export class EmployeesProfileService {
   };
   constructor(private http: HttpClient) { }
 
+  sendEmail(user) {
+    return this.http.post('http://localhost:3000/sendNotificationOwner', user);
+  }
   getEmployee(): Observable<Profile> {
     return this.http.get<Profile>(this.API_URL + this.nameEmployee, this.httpOptions).pipe(
       tap((data: Profile) => console.log('Employee: ' + JSON.stringify(data))),

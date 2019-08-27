@@ -5,12 +5,12 @@
       </div>
       <div class="information">
         <h1>{{employee.name}}</h1>
-        <p>Role: {{employee.role}}</p>
-        <p>Workload: {{employee.workload}} h/week</p>
+        <p *ngIf="employeeProjectsState">Role: {{employee.role}}</p>
+        <p *ngIf="employeeProjectsState">Workload: {{employee.workload}} h/week</p>
         <p class="gray">{{employee.email}}</p>
         <p class="gray">{{employee.phone}}</p>
       </div>
-      <div class="table_projects">
+      <div class="table_projects" *ngIf="employeeProjectsState">
         <h3>Projects: </h3>
           <app-table
             [editTable] = false
@@ -21,10 +21,10 @@
     </div>
   </app-container>
 
-    <app-container class="bar_chart">
+    <app-container class="bar_chart" *ngIf="employeeProjectsState">
       <app-bar-chart [bar] = 'employee.yearsWorkload'></app-bar-chart>
     </app-container>
-
+<ng-template *ngIf="employeeProjectsState">
   <app-container class="for_approval" *ngFor="let timesheet of timesheetsPendingApproval">
       <div class="inline">
         <div>
@@ -42,12 +42,29 @@
         </div>
       </div>
   </app-container>
-
-
-
-  <div class="box">
-    <app-container class="notification_preferences">
-      <app-notification-preferences></app-notification-preferences>
-    </app-container>
-  </div>
+</ng-template>
+<div class="box" *ngIf="employeeProjectsState">
+  <app-container class="notification_preferences">
+    <app-notification-preferences></app-notification-preferences>
+  </app-container>
+</div>
 </app-block>
+<div class="box send-email-block__box" *ngIf="!employeeProjectsState">
+  <app-container>
+    <div class="send-email-block">
+      <p class="send-email-block__information">Leave email of your company owner and we<br>
+         will contact him if company with such email<br>
+         exists:</p>
+      <input type="text" placeholder="Email" class='send-email-block__input' [(ngModel)]='inputValue'>
+      <button (click)='sendEmail(inputValue)'>Send</button>
+    </div>
+  </app-container>
+</div>
+<div class="box create-company-block__box" *ngIf="!employeeProjectsState">
+  <app-container>
+    <div class="create-company-block">
+      <p class="send-email-block__information">Or create a new company</p>
+      <button>+ Create company</button>
+    </div>
+  </app-container>
+</div>

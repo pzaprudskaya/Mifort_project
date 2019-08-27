@@ -23,7 +23,6 @@ export class ExportService {
     this.nameProject = name;
   }
   private handleError(err: HttpErrorResponse) {
-
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
 

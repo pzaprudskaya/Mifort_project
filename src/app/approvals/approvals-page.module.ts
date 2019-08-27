@@ -9,8 +9,6 @@ import {DatepickerComponent} from './datepicker/datepicker.component';
 import {FormsModule} from '@angular/forms';
 import {DialogChangeStatusComponent} from './dialog-change-status/dialog-change-status.component';
 
-
-
 @NgModule({
   declarations: [
     ApprovalsPageComponent,

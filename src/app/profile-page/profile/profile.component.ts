@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
           this.employeeProjectsState = false;
         }
         else{ 
-          this.employeeProjectsState = true;
+          this.employeeProjectsState = false;
         }
         this.employee.timesheetsPendingApproval.forEach((item) => {
 
@@ -84,6 +84,6 @@ export class ProfileComponent implements OnInit {
     alert('The letter was sent');
   }
   createCompany(){
-    this.router.navigate(['/projects/create'])
+    this.router.navigate(['/company-settings'])
   }
 }

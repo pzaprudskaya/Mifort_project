@@ -2,7 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {EmployeesProfileService} from './employees-profile.service';
 import {Profile} from './profile.model';
 import {TimeSheetForApproval} from './profile.model';
-import { stringify } from '@angular/core/src/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   period: string;
   employeeProjectsState: boolean = true;
   employeeName: string;
-  constructor(private employeesProfileService: EmployeesProfileService) { }
+  constructor(private employeesProfileService: EmployeesProfileService, private router: Router) { }
 
   ngOnInit() {
 
@@ -31,7 +31,6 @@ export class ProfileComponent implements OnInit {
     this.barChart = [];
     this.timesheetsPendingApproval = [];
     this.period = '';
-
     this.employeesProfileService.getEmployee().subscribe(
       employee => {
         this.employee = employee[0];
@@ -40,9 +39,6 @@ export class ProfileComponent implements OnInit {
           this.employeeProjects.push(project);
         });
         if(this.employee.employeeProjects.length < 1 || !this.employee.employeeProjects){
-          this.employeeProjectsState = false;
-        }
-        else {
           this.employeeProjectsState = false;
         }
         this.employee.timesheetsPendingApproval.forEach((item) => {
@@ -84,5 +80,7 @@ export class ProfileComponent implements OnInit {
     );
     alert('The letter was sent');
   }
-
+  createCompany(){
+    this.router.navigate(['/projects/create'])
+  }
 }

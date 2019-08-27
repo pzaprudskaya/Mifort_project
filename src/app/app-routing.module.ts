@@ -28,7 +28,6 @@ const itemMenu: Routes = [
   { path: 'employees/:employee_name', component: AddEmployeeComponent},
   { path: 'export', component: ExportComponent},
   { path: 'approvals', component: ApprovalsPageComponent},
-  { path: 'start-profile', component: StartProfilePageComponent},
 ];
 const routes: Routes = [
   { path: '', component: PageComponent, children: itemMenu},

@@ -95,7 +95,7 @@ export class  EmployeesPageComponent implements OnInit {
   changeRole(element) {
     this.employeesTableService.updateUser(element).subscribe(() => console.log('Update!'));
   }
-  loadMore(){
+  loadMore() {
     this.employees = this.employees.concat(this.employeesNext.splice(0, 5));
     this.employees.length === this.employeesQuantity ? this.loadMoreState = false : this.loadMoreState = true;
   }

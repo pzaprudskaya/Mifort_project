@@ -39,13 +39,11 @@ export class NotificationService {
   }
 
   update(notification: NotificationModel) {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-    return this.http.put<void>(`${this.API_URL}${notification.name}`, JSON.stringify(notification), httpOptions).pipe(
+    return this.http.put<void>(`${this.API_URL}${notification.name}`, notification, this.httpOptions).pipe(
       tap(updateNotification => console.log('update notification: ' + JSON.stringify(updateNotification))),
         catchError(this.handleError));
   }
+
 
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';

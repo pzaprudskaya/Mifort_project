@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { ProjectsService} from '../../projects/project/projects.service';
-import {UserService} from '../../core/logo-user-company/user.service';
+import {ProjectsService} from '../../projects/project/projects.service';
 import {ProjectNameService} from '../../projects/project-name/project-name.service';
 
 
@@ -12,7 +11,7 @@ import {ProjectNameService} from '../../projects/project-name/project-name.servi
 export class TeamComponent implements OnInit {
   @Input() project;
   projectName;
-  lastCircle: boolean = false;
+  lastCircle: boolean;
   lastCircleValue: number;
   teamList: string[];
   teamListNext: string[];
@@ -22,17 +21,17 @@ export class TeamComponent implements OnInit {
               private projectNameService: ProjectNameService) {
   }
 
-  ngOnInit() { 
+  ngOnInit() {
+    this.lastCircle = false;
     this.projectNameService.getProject(this.project.name).subscribe((projectName) => {
       this.projectName = projectName[0];
     });
-    if(this.project.team.length > 12){
+    if (this.project.team.length > 12) {
       this.lastCircle = true;
       this.teamList = this.project.team.slice(0, 12);
       this.teamListNext = this.project.team.slice(12, this.project.team.length);
       this.lastCircleValue = this.teamListNext.length;
-    }
-    else {
+    } else {
       this.teamList = this.project.team;
     }
   }
@@ -41,13 +40,15 @@ export class TeamComponent implements OnInit {
   changeCircleActivity(item) {
     item.active = !item.active;
   }
-  showAllTeam(){
+
+  showAllTeam() {
     if (this.lastCircleValue !== this.teamList.length) {
       this.teamList = this.teamList.concat(this.teamListNext);
       this.lastCircle = false;
     }
   }
-  delete(item){
+
+  delete(item) {
     this.project.team.forEach((employee, i) => {
       if (employee.id === item.id) {
         this.project.team.splice(i, 1);

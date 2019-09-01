@@ -23,8 +23,6 @@ export class LogoUserCompanyComponent implements OnInit {
 
 
   ngOnInit() {
-    debugger;
-
     this.authorizationService.getUser(localStorage.getItem('token')).subscribe((res) => {
       console.log(res);
       this.userName = res.subject;

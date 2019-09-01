@@ -5,8 +5,6 @@ import {ProjectNameService} from '../project-name/project-name.service';
 import {ProjectNameModel} from '../project-name/project-name.model';
 import {ProjectsService} from './projects.service';
 
-
-
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',

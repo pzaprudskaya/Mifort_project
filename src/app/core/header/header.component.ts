@@ -10,7 +10,7 @@ import {Notification} from './notifications.model';
 export class HeaderComponent implements OnInit {
   notification: Notification;
   arrayNotifications: any[];
-  notificationsType: object;
+  notificationsType;
   flag = false;
   nameUser = 'Polina Zaprudskaya';
   roleUser: string;

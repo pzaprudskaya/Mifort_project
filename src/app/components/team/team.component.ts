@@ -25,9 +25,7 @@ export class TeamComponent implements OnInit {
     item.active = !item.active;
   }
 
-
   delete(item) {
-    debugger;
     this.project.team.forEach((employee, i) => {
       if (employee.id === item.id) {
         this.project.team.splice(i, 1);
@@ -37,7 +35,5 @@ export class TeamComponent implements OnInit {
 
     this.projectName.team = this.project.team;
     this.projectNameService.update(this.projectName).subscribe(() => console.log('Update'));
-
   }
-
 }

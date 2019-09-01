@@ -47,6 +47,7 @@ export class ByDayComponent implements OnInit {
       this.employeesService.getEmployee(userName).subscribe(employee => {
         this.employee = employee[0];
       });
+      debugger;
       this.timelogsByDayService.getLogs(userName).subscribe(
         timelogs => {
           [this.timelogs] = timelogs;

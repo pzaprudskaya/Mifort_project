@@ -1,10 +1,7 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-
-
 import {ApproveRejectForgetComponent} from './approve-reject-forget/approve-reject-forget.component';
 import {DonutChartComponent} from './donut-chart/donut-chart.component';
 import {ExportComponent} from './export/export.component';

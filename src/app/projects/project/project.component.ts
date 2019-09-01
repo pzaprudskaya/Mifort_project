@@ -15,10 +15,11 @@ export class ProjectComponent implements OnInit {
   displayedColumns: string[] = ['color', 'name', 'team', 'startDate', 'progress', 'endDate', 'play_pause', 'stop' ];
   projects: Project[];
   projectPage: ProjectNameModel;
+  projectPages;
   totalState: boolean;
   searchTerm$ = new Subject<string>();
   projectsQuantity: number;
-  projectsNext: Project[] =[];
+  projectsNext: Project[] = [];
   loadMoreState: boolean = true;
 
   constructor( private projectsService: ProjectsService,
@@ -36,11 +37,15 @@ export class ProjectComponent implements OnInit {
         this.projectsQuantity = projects.length;
         this.projectsNext = projects.slice(20, projects.length);
         this.projects = projects.splice(0, 20);
-        if(this.projectsQuantity < 20){
+        if(this.projectsQuantity < 20) {
           this.loadMoreState = false;
         }
       }
     );
+    this.projectNameService.getProjects().subscribe(
+      (projectPages) => {
+        this.projectPages = projectPages;
+      });
   }
 
   checkValue(max: number, value: number): string {
@@ -63,15 +68,13 @@ export class ProjectComponent implements OnInit {
   changeStatus(project: Project, status: string): void {
     project.status = status;
     this.projectsService.update(project).subscribe(() => console.log('Update!'));
-    this.projectNameService.getProject(project.name).subscribe(
-      projectPage => {
-      this.projectPage = projectPage[0];
-    });
     debugger;
+    this.projectPage = this.projectPages.find((item) => item.name === project.name);
+
     this.projectPage.status = status;
     this.projectNameService.update(this.projectPage).subscribe(() => console.log('Update!'));
   }
-  loadMore(){
+  loadMore() {
     this.projects = this.projects.concat(this.projectsNext.splice(0, 5));
     this.projects.length === this.projectsQuantity ? this.loadMoreState = false : this.loadMoreState = true;
   }

@@ -49,8 +49,8 @@ export class ApproveRejectForgetComponent implements OnInit {
       .subscribe(() => console.log('Update!'));
     const approval = new ApprovalModel(0, this.employee.photoUrl, this.employee.name, this.employee.workload,
      this.total, value, this.period, comment);
-
-    this.approvalsService.update(approval).subscribe(() => console.log('Update!'));
+ debugger;
+    this.approvalsService.add(approval).subscribe(() => console.log('Update!'));
 
     debugger;
     this.user.pendingApprovalTimesheets.forEach((item, i) => {

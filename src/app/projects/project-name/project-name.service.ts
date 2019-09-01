@@ -30,6 +30,12 @@ export class ProjectNameService {
       catchError(this.handleError)
     );
   }
+  getProjects(): Observable<ProjectNameModel[]> {
+    return this.http.get<ProjectNameModel[]>(`${this.API_URL}`, this.httpOptions).pipe(
+      tap((data: ProjectNameModel[]) => console.log('Project: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

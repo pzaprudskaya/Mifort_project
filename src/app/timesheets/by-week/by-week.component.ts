@@ -84,6 +84,7 @@ export class ByWeekComponent implements OnInit {
 
     this.employee.timesheetsPendingApproval = arr;
     this.employeesService.update(this.employee).subscribe(() => console.log('Update'));
+
   }
 
   filterByPeriod(period: string) {
@@ -111,7 +112,7 @@ export class ByWeekComponent implements OnInit {
       if (this.logs.timelog.status === '') {
         this.submit = 'Submit to approval';
         this.isButtonSubmit = true;
-      } else if (this.logs.timelog.status === 'Submitted' || this.logs.timelog.status === 'Forgot') {
+      } else if (this.logs.timelog.status === 'Approved' || this.logs.timelog.status === 'Forgot') {
         this.isButtonSubmit = false;
       } else {
         this.submit = 'Resubmit to approval';
@@ -147,33 +148,33 @@ export class ByWeekComponent implements OnInit {
   }
 
   submitToAproval() {
-    if (this.logs.timelog.period === this.period) {
+    debugger;
+    if (this.logs.timelog.period === this.currentWeek) {
       this.logs.timelog.status = '';
     } else {
       this.submit = 'Resubmit to approval';
       this.logs.timelog.status = 'Submit to approval';
-    }
-
-    this.fullTotal = 0;
-    this.logs.timelog.logs.forEach((log) => {
-      this.fullTotal += log.time.reduce((acc, value) => acc + value, 0);
-    });
-    if (this.user.pendingApprovalTimesheets.length === 0) {
-      this.user.pendingApprovalTimesheets.push({period: this.period, actual: this.fullTotal, planned: 40});
-    } else {
-      this.user.pendingApprovalTimesheets = this.user.pendingApprovalTimesheets.map((item) => {
-        if (item.period === this.period) {
-          this.flag = true;
-          return {period: item.period, actual: this.fullTotal, planned: 40};
-        } else {
-          return item;
-        }
+      this.fullTotal = 0;
+      this.logs.timelog.logs.forEach((log) => {
+        this.fullTotal += log.time.reduce((acc, value) => acc + value, 0);
       });
-      if (this.flag === false) {
+      let arr;
+      [arr] = this.user.pendingApprovalTimesheets.filter((item) => item.period === this.period);
+      if (arr === undefined) {
         this.user.pendingApprovalTimesheets.push({period: this.period, actual: this.fullTotal, planned: 40});
+      } else {
+        this.user.pendingApprovalTimesheets = this.user.pendingApprovalTimesheets.map((item) => {
+          if (item.period === this.period) {
+            return {period: item.period, actual: this.fullTotal, planned: 40};
+          } else {
+            return item;
+          }
+        });
+
       }
+      debugger;
+      this.employeesTableService.updateUser(this.user).subscribe(() => console.log('Update'));
+      this.updateTimelogs();
     }
-    this.employeesTableService.updateUser(this.user).subscribe(() => console.log('Update'));
-    this.updateTimelogs();
   }
 }

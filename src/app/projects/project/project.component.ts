@@ -19,6 +19,9 @@ export class ProjectComponent implements OnInit {
   projectPage: ProjectNameModel;
   totalState: boolean;
   searchTerm$ = new Subject<string>();
+  projectsQuantity: number;
+  projectsNext: Project[] =[];
+  loadMoreState: boolean = true;
 
   constructor( private projectsService: ProjectsService,
                private projectNameService: ProjectNameService) {
@@ -32,7 +35,12 @@ export class ProjectComponent implements OnInit {
     this.totalState = false;
     this.projectsService.getAll().subscribe(
       projects => {
-        this.projects = projects;
+        this.projectsQuantity = projects.length;
+        this.projectsNext = projects.slice(20, projects.length);
+        this.projects = projects.splice(0, 20);
+        if(this.projectsQuantity < 20){
+          this.loadMoreState = false;
+        }
       }
     );
   }
@@ -65,5 +73,8 @@ export class ProjectComponent implements OnInit {
     this.projectPage.status = status;
     this.projectNameService.update(this.projectPage);
   }
-
+  loadMore(){
+    this.projects = this.projects.concat(this.projectsNext.splice(0, 5));
+    this.projects.length === this.projectsQuantity ? this.loadMoreState = false : this.loadMoreState = true;
+  }
 }

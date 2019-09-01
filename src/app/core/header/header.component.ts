@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit {
   ownerName: string;
   nameCompany: string;
   isOpen = false;
-
   constructor(private notificationService: NotificationService) {
   }
 

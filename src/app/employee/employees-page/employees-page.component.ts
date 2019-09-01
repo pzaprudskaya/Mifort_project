@@ -1,9 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit } from '@angular/core';
 import { EmployeesTableService } from './employees-table.service';
 import {Employees, User} from './items.model';
 import {Subject} from 'rxjs';
 import {UserService} from '../../core/logo-user-company/user.service';
-
 
 @Component({
   selector: 'app-employees-page',
@@ -17,6 +16,10 @@ export class  EmployeesPageComponent implements OnInit {
   @Input() employeeName: string;
   flag: string;
   employees: Employees[];
+  employeesQuantity: number;
+  loadMoreState: boolean = true;
+  employeesNext: Employees[] = [];
+  
   searchTerm$ = new Subject<string>();
   displayedColumns: string[];
   colors = ['#FF0000', '#FF9900', '#FFD600', '#00C537', '#109CF1', '#0047FF', '#9E00FF',
@@ -31,7 +34,6 @@ export class  EmployeesPageComponent implements OnInit {
          this.employees = employees;
       });
   }
-
   ngOnInit() {
     if (this.flag === 'pending') {
       this.displayedColumns = ['photo', 'name', 'email', 'role_select'];
@@ -40,12 +42,15 @@ export class  EmployeesPageComponent implements OnInit {
     }
     this.employeesTableService.getAll().subscribe(
       employees => {
-        this.employees = employees;
+        this.employeesQuantity = employees.length;
+        this.employeesNext = employees.slice(20, employees.length);
+        this.employees = employees.splice(0, 20);
+        if(this.employeesQuantity < 20){
+          this.loadMoreState = false;
+        }
       }
     );
-
   }
-
   checkValue(max: number, value: number): string {
     if (value / max * 100 < 60) {
       return 'red';
@@ -65,7 +70,6 @@ export class  EmployeesPageComponent implements OnInit {
     this.employeesTableService.filter(value)
       .subscribe((employees: any) => {
         this.employees = employees;
-
       });
   }
   inviteEmployee() {
@@ -90,5 +94,9 @@ export class  EmployeesPageComponent implements OnInit {
   }
   changeRole(element) {
     this.employeesTableService.updateUser(element);
+  }
+  loadMore(){
+    this.employees = this.employees.concat(this.employeesNext.splice(0, 5));
+    this.employees.length === this.employeesQuantity ? this.loadMoreState = false : this.loadMoreState = true;
   }
 }

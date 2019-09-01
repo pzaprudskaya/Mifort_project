@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { ProjectsService} from '../../projects/project//projects.service.ts';
-import {ProjectNameService} from '../../projects/project-name/project-name.service.ts';
-import {UserService} from '../../core/logo-user-company/user.service.ts';
+import { ProjectsService} from '../../projects/project/projects.service';
+import {ProjectNameService} from '../../projects/project-name/project-name.service';
+import {UserService} from '../../core/logo-user-company/user.service';
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html',

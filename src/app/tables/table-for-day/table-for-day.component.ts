@@ -9,7 +9,7 @@ import {MatTableDataSource} from '@angular/material';
 export class TableForDayComponent implements OnInit {
   headers = ['', 'Project', 'Time', 'Comment'];
   projects = ['Skype', 'Uber', 'Office'];
-  @Output() changeDonutChart: EventEmitter = new EventEmitter<any>();
+  @Output() changeDonutChart: EventEmitter<any> = new EventEmitter<any>();
   @Input() set data(newData: any) {
     this.dataSource = new MatTableDataSource<Log>(newData);
     this._data = newData;

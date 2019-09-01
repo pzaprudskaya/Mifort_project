@@ -14,6 +14,7 @@ import {CompanyIntegrationComponent} from './company-setting/company-integration
 import {ApprovalsPageComponent} from './approvals/approvals-page/approvals-page.component';
 import {ByDayComponent} from './timesheets/by-day/by-day.component';
 import {ByWeekComponent} from './timesheets/by-week/by-week.component';
+import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 
 const itemMenu: Routes = [
   { path: 'timelog-week', component: ByWeekComponent},
@@ -30,7 +31,7 @@ const itemMenu: Routes = [
 ];
 const routes: Routes = [
   { path: '', component: PageComponent, children: itemMenu},
-
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

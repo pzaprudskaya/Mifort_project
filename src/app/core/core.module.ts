@@ -13,6 +13,7 @@ import {LogoUserCompanyComponent} from './logo-user-company/logo-user-company.co
 import {MenuComponent} from './menu/menu.component';
 import {PageComponent} from './page/page.component';
 import {CommonModule} from '@angular/common';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
@@ -27,6 +28,7 @@ import {CommonModule} from '@angular/common';
     LogoUserCompanyComponent,
     MenuComponent,
     PageComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     RouterModule,

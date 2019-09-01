@@ -20,7 +20,6 @@ export class UserService {
   public userName = new BehaviorSubject(null);
   userName$ = this.userName.asObservable();
 
-
   private API_URL = 'http://localhost:3000/activity/';
   httpOptions = {
     mode: 'no-cors',

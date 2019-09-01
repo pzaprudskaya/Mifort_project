@@ -26,7 +26,6 @@ export class ExportComponent implements OnInit {
         this.employees = employees[0];
       });
   }
-
   exportInCsv() {
     console.log(this.project);
     const data: any = [];

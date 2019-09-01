@@ -70,6 +70,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
     </table>
   </app-container>
+  <button class="load-more__button" (click)="loadMore()" *ngIf="loadMoreState">Load more</button>  
 </app-block>
 
 

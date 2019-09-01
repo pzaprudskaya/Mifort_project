@@ -87,21 +87,22 @@ export class ByWeekComponent implements OnInit {
   }
 
   filterByPeriod(period: string) {
+    debugger;
     this.flag = false;
     [this.logs] = this.timelogByPeriod.filter((item) => item.timelog.period === period);
     if (this.logs === undefined) {
-      this.isShown = false;
-      this.changeDetector.detectChanges();
+      // this.isShown = false;
+      // this.changeDetector.detectChanges();
       this.logs = {timelog: {period: this.period, logs: [], status: '', comment: ''}, dataDonut: []};
       this.timelogByPeriod.push(this.logs);
-      this.isShown = true;
-      this.changeDetector.detectChanges();
+      // this.isShown = true;
+      // this.changeDetector.detectChanges();
     } else {
-      this.isShown = false;
-      this.changeDetector.detectChanges();
+      // this.isShown = false;
+      // this.changeDetector.detectChanges();
       this.logs = this.logs;
-      this.isShown = true;
-      this.changeDetector.detectChanges();
+      // this.isShown = true;
+      // this.changeDetector.detectChanges();
     }
     if (this.period === this.currentWeek) {
       this.isButtonSubmit = false;

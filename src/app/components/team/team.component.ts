@@ -1,7 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { ProjectsService} from '../../projects/project//projects.service';
-import {ProjectNameService} from '../../projects/project-name/project-name.service';
+import { ProjectsService} from '../../projects/project/projects.service';
 import {UserService} from '../../core/logo-user-company/user.service';
+import {ProjectNameService} from '../../projects/project-name/project-name.service';
+
+
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html',
@@ -14,11 +16,16 @@ export class TeamComponent implements OnInit {
   lastCircleValue: number;
   teamList: string[];
   teamListNext: string[];
+
+
   constructor(private projectsService: ProjectsService,
-    private projectNameService: ProjectNameService,
-    private userService: UserService) {
+              private projectNameService: ProjectNameService) {
   }
+
   ngOnInit() { 
+    this.projectNameService.getProject(this.project.name).subscribe((projectName) => {
+      this.projectName = projectName[0];
+    });
     if(this.project.team.length > 12){
       this.lastCircle = true;
       this.teamList = this.project.team.slice(0, 12);
@@ -29,6 +36,7 @@ export class TeamComponent implements OnInit {
       this.teamList = this.project.team;
     }
   }
+
 
   changeCircleActivity(item) {
     item.active = !item.active;
@@ -46,11 +54,8 @@ export class TeamComponent implements OnInit {
       }
     });
     this.projectsService.update(this.project).subscribe(() => console.log('Update'));
-    this.projectNameService.getProject(this.project.name).subscribe((projectName) => {
-      this.projectName = projectName;
-    });
+
     this.projectName.team = this.project.team;
     this.projectNameService.update(this.projectName).subscribe(() => console.log('Update'));
   }
-  
 }

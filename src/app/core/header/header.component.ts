@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {NotificationService} from './notifications.service';
-import {Notification} from './notifications.model';
+import {Notification, NotificationModel} from './notifications.model';
+import {UserService} from '../logo-user-company/user.service';
+import {EmployeesService} from '../../employee/employee.service';
+import {Profile} from '../../employee/employee.model';
+import {User} from '../logo-user-company/user.model';
 
 @Component({
   selector: 'app-header',
@@ -8,57 +12,65 @@ import {Notification} from './notifications.model';
   styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent implements OnInit {
-  notification: Notification;
   arrayNotifications: any[];
-  notificationsType;
   flag = false;
-  nameUser = 'Polina Zaprudskaya';
   roleUser: string;
   newRoleUser: string;
   ownerName: string;
   nameCompany: string;
   isOpen = false;
-  constructor(private notificationService: NotificationService) {
+  user: User;
+  employee: Profile;
+  workload: number;
+  notification: NotificationModel;
+  constructor(private notificationService: NotificationService,
+              private userService: UserService, private employeesService: EmployeesService) {
+
   }
 
   ngOnInit() {
-    this.arrayNotifications = [];
-    this.notificationService.getNotifications().subscribe(
-      notification => {
-        notification.forEach((item) => {
-          if (item.name === this.nameUser && item.notificationsType.system === true) {
-            this.arrayNotifications = item.notifications;
-            this.notificationsType = item.notificationsType;
+    this.userService.userName$.subscribe((userName) => {
+      this.employeesService.getEmployee(userName).subscribe(
+        employee => {
+          this.workload = employee[0].workload;
+        });
+      this.notificationService.getNotifications().subscribe(
+        notification => {
+          notification.forEach((item) => {
+            if (item.name === userName && item.notificationsType.system === true) {
+              this.notification = notification[0];
+            }
+          });
+          if (this.notification.notifications.length !== 0) {
+            this.flag = true;
           }
         });
-        if (this.arrayNotifications.length !== 0) {
-          this.flag = true;
-        }
-      });
+    });
   }
 
   updateNotifications(arr) {
-    const myNotification = new Notification(this.nameUser, this.notificationsType, arr);
-    console.log(myNotification);
-    this.notificationService.update(myNotification)
-      .subscribe(() => console.log('Update!'));
+    this.notification.notifications = arr;
+    this.notificationService.update(this.notification).subscribe(() => console.log('Update!'));
   }
 
+
   openNotifications(e) {
-    if (!this.flag) { return; }
+    if (!this.flag) {
+      return;
+    }
     const div = e.parentElement.parentElement.nextElementSibling;
     if (div.classList.contains('active')) {
       this.isOpen = false;
-      this.arrayNotifications = [];
+      this.notification.notifications = [];
       this.flag = false;
-      this.updateNotifications(this.arrayNotifications);
+      this.updateNotifications(this.notification.notifications);
     } else {
       this.isOpen = true;
     }
-    console.log(this.arrayNotifications);
+    console.log(this.notification);
   }
+
   logOut() {
     localStorage.removeItem('token');
   }
 }
-

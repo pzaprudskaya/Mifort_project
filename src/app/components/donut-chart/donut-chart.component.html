@@ -2,10 +2,22 @@
   <h3>Workload</h3>
   <div class="status" *ngIf="(statusFlag === true)" [ngStyle]="{'border': '1px solid ' + color, 'color': color}">{{text}}</div>
 </div>
-<div class="doughnut-chart">
-  <canvas baseChart
-  [options]="DoughnutChart.options"
-  [datasets]="DoughnutChart.data.datasets"
-  [labels] = "DoughnutChart.data.labels"
-  [chartType]="DoughnutChart.type"></canvas>
+
+<div [ngClass]="{legendBottom: !isTimelogs}" class="donut__legend">
+  <div class="doughnut-chart">
+    <canvas baseChart height="180" width="180"
+            [options]="DoughnutChart.options"
+            [datasets]="DoughnutChart.data.datasets"
+            [labels] = "DoughnutChart.data.labels"
+            [chartType]="DoughnutChart.type"></canvas>
+  </div>
+  <div class="legend">
+    <div *ngFor="let item of dataDonutChart" class="inline__legend">
+      <div class="circle" [ngStyle]="{ 'background': item.color}"></div>
+      <p>{{item.name}}</p>
+      <p>{{item.actual}} / {{item.planned}}</p>
+    </div>
+  </div>
 </div>
+
+

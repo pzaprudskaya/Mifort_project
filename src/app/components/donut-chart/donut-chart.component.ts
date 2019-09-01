@@ -12,6 +12,8 @@ import {Router} from '@angular/router';
 export class DonutChartComponent implements OnInit {
   @Input() dataDonutChart: any[];
   @Input() status: string;
+  @Input() isTimelogs: boolean;
+  position: string;
   statusFlag: boolean;
   color: string;
   DoughnutChart;
@@ -20,7 +22,11 @@ export class DonutChartComponent implements OnInit {
 
   constructor(public router: Router) {}
   ngOnInit() {
-    debugger;
+    if (this.isTimelogs === true) {
+      this.position = 'bottom';
+    } else {
+      this.position = 'right';
+    }
     if (this.status === 'Approved') {
       this.color = 'green';
       this.text = 'Approved';
@@ -55,7 +61,7 @@ export class DonutChartComponent implements OnInit {
         onClick: this.routingFunction.bind(this),
         cutoutPercentage: 90,
         legend: {
-          position: 'right',
+          position: false,
         },
         animation: {
           animateScale: true,
@@ -64,7 +70,6 @@ export class DonutChartComponent implements OnInit {
 
       }
     };
-debugger;
   /*  const originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
     Chart.helpers.extend(Chart.controllers.doughnut.prototype, {
       draw() {

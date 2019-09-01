@@ -25,11 +25,11 @@ export class CompanySettingsComponent implements OnInit {
   }
   save() {
     if (this.companySettingsService.companyName !== 'createCompany') {
-      this.companySettingsService.updateCompany(this.companySettings);
+      this.companySettingsService.updateCompany(this.companySettings).subscribe(() => console.log('Update!'));
     } else {
       this.user.companies.push(this.companySettings.name);
-      this.userService.updateUser(this.user);
-      this.companySettingsService.addCompany(this.companySettings);
+      this.userService.updateUser(this.user).subscribe(() => console.log('Update!'));
+      this.companySettingsService.addCompany(this.companySettings).subscribe(() => console.log('Add!'));
     }
   }
 }

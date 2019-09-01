@@ -65,6 +65,7 @@
       </div>
       <div class="donut_chart_and_buttons">
         <app-donut-chart
+          [isTimelogs]=false
           [dataDonutChart] = 'timesheet.dataDonut'
         ></app-donut-chart>
         <app-approve-reject-forget
@@ -74,7 +75,23 @@
       </div>
     </div>
   </app-container>
-
+  <app-container class="for_approval" *ngFor="let timesheet of timesheetsCurrentWeek">
+    <div class="inline">
+      <div>
+        <h3>Current Week Timesheet (Draft): </h3>
+        <app-table-for-week [data]="timesheet.timelog.logs"
+                            [editTable]=false>
+        </app-table-for-week>
+      </div>
+      <div class="donut_chart">
+        <app-donut-chart
+          [status]=""
+          [isTimelogs]=false
+          [dataDonutChart] = 'timesheet.dataDonut'
+        ></app-donut-chart>
+      </div>
+    </div>
+  </app-container>
   <div class="box">
     <app-container class="notification_preferences">
       <app-export [name]='employee.name'

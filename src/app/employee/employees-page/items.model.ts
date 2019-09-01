@@ -9,8 +9,7 @@ export interface Employees {
   pendingApprovalTimesheets:
     [
       {
-        from: string,
-        to: string,
+        period: string,
         planned: number,
         actual: number
       }
@@ -30,15 +29,14 @@ export class User {
   pendingApprovalTimesheets:
     [
       {
-        from: string,
-        to: string,
+        period: string,
         planned: number,
         actual: number
       }
       ];
 
   constructor(id: number, photoUrl: string, name: string, role: string, email: string, planned: number, actual: number,
-              status: string, pendingApprovalTimesheets: [{ from: string; to: string; planned: number; actual: number }]) {
+              status: string, pendingApprovalTimesheets: [{ period: string; planned: number; actual: number }]) {
     this.id = id;
     this.photoUrl = photoUrl;
     this.name = name;

@@ -49,10 +49,12 @@ export class Donut {
   name: string;
   color: string;
   actual: number;
+  planned: number;
 
-  constructor(name: string, color: string, actual: number) {
+  constructor(name: string, color: string, actual: number, planned: number) {
     this.name = name;
     this.color = color;
     this.actual = actual;
+    this.planned = planned;
   }
 }

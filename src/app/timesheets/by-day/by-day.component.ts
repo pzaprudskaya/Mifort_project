@@ -2,6 +2,8 @@ import {ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angul
 import {Donut, Timelog} from './timelog.model';
 import {TimelogsByDayService} from './timelogs-by-day.service';
 import {UserService} from '../../core/logo-user-company/user.service';
+import {Profile} from '../../employee/employee.model';
+import {EmployeesService} from '../../employee/employee.service';
 
 @Component({
   selector: 'app-by-day',
@@ -17,16 +19,18 @@ export class ByDayComponent implements OnInit {
   router: string;
   save: string;
   period: string;
-  logs: any[];
+  logs: any;
   timelogs: Timelog;
   dataDonut: Donut[];
-  arrayDay: any[];
   isShown = true;
   month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+  employee: Profile;
+  timelogByDay;
 
   constructor(private timelogsByDayService: TimelogsByDayService,
               private userService: UserService,
-              private changeDetector: ChangeDetectorRef) {
+              private changeDetector: ChangeDetectorRef,
+              private employeesService: EmployeesService) {
   }
 
   ngOnInit(): void {
@@ -37,25 +41,29 @@ export class ByDayComponent implements OnInit {
     this.date = today.getDate() + '/' + this.month[today.getMonth()] + '/' + today.getFullYear();
     this.chooseDate = today;
     this.period = 'select';
+    this.timelogByDay = [];
+    this.dataDonut = [];
     this.userService.userName$.subscribe((userName) => {
+      this.employeesService.getEmployee(userName).subscribe(employee => {
+        this.employee = employee[0];
+      });
       this.timelogsByDayService.getLogs(userName).subscribe(
         timelogs => {
-          this.arrayDay = [];
-          this.logs = [];
-          this.timelogs = timelogs[0];
+          [this.timelogs] = timelogs;
           this.timelogs.data.forEach((data) => {
-            this.arrayDay.push(Object.keys(data).map((key) => {
-              if (key === 'logs') {
-                const logs = [];
-                data.logs.forEach((log) => {
-                  logs.push(log);
-                });
-                return logs;
-              } else {
-                return data[key];
-              }
-            }));
-
+            data.logs.forEach((item) => {
+              debugger;
+              const actual = item.time;
+              const [employeeProject] = this.employee.employeeProjects.filter(project => project.name === item.projectName);
+              const donut = new Donut(item.projectName, item.color, actual, employeeProject.time );
+              this.dataDonut.push(donut);
+            });
+            debugger;
+            this.timelogByDay.push({
+              timelog: data,
+              dataDonut: this.dataDonut
+            });
+            this.dataDonut = [];
           });
           this.filterByDay(this.date);
         });
@@ -76,17 +84,22 @@ export class ByDayComponent implements OnInit {
   }
 
   filterByDay(day): void {
-    this.dataDonut = [];
-    this.logs = this.arrayDay.filter((arr) => arr[0] === day);
-    if (this.logs.length === 0) {
-      this.logs = [day, []];
-      this.dataDonut = [];
+    debugger;
+
+    [this.logs] = this.timelogByDay.filter((item) => item.timelog.day === day);
+    if (this.logs === undefined) {
+      // this.isShown = false;
+      // this.changeDetector.detectChanges();
+      this.logs = {timelog: {day: this.date, logs: []}, dataDonut: []};
+      // this.isShown = true;
+      // this.changeDetector.detectChanges();
+      this.timelogByDay.push(this.logs);
+      this.saveLogs();
+
     } else {
       this.isShown = false;
       this.changeDetector.detectChanges();
-      this.logs[0][1].forEach((item) => {
-        this.dataDonut.push(new Donut(item.projectName, item.color, item.time));
-      });
+      this.logs = this.logs;
       this.isShown = true;
       this.changeDetector.detectChanges();
     }
@@ -113,17 +126,17 @@ export class ByDayComponent implements OnInit {
     this.date = this.chooseDate.getDate() + '/' + this.month[this.chooseDate.getMonth()] + '/' + this.chooseDate.getFullYear();
     this.filterByDay(this.date);
   }
+
   changeDonutChart(event) {
     this.isShown = false;
     this.changeDetector.detectChanges();
-    for(let i = 0; i < this.dataDonut.length; i++) {
-        if(i === event.id - 1) {
-            let actual = Number(event.value);
-            this.dataDonut[i].actual = actual;
-        }
+    for (let i = 0; i < this.dataDonut.length; i++) {
+      if (i === event.id - 1) {
+        const actual = Number(event.value);
+        this.dataDonut[i].actual = actual;
+      }
     }
     this.isShown = true;
     this.changeDetector.detectChanges();
-    console.log(this.dataDonut);
-  } 
+  }
 }

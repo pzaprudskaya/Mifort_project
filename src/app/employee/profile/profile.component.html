@@ -1,8 +1,9 @@
 <app-block let="employee">
     <app-container >
     <div class="box">
-      <div mat-card-avatar class = "box__photo" [ngStyle]="{'background-image': 'url(' + employee.photoUrl + ')'}">
-      </div>
+        <div *ngIf="(employee.photoUrl.length > 7)" mat-card-avatar class = "box__photo" [ngStyle]="{'background-image': 'url(' + employee.photoUrl + ')'}"></div>
+        <div *ngIf="(employee.photoUrl.length <= 7)" mat-card-avatar class="box__photo" [ngStyle]="{'background': 'linear-gradient(to top left, white, ' + employee.photoUrl + ')'}">
+          <p>{{employee.name[0]}}</p></div>
       <div class="information">
         <h1>{{employee.name}}</h1>
         <p>Role: {{employee.role}}</p>
@@ -35,12 +36,30 @@
         </div>
         <div class="donut_chart">
           <app-donut-chart
+            [status]=""
+            [isTimelogs]=false
             [dataDonutChart] = 'timesheet.dataDonut'
           ></app-donut-chart>
         </div>
       </div>
   </app-container>
-
+  <app-container class="for_approval" *ngFor="let timesheet of timesheetsCurrentWeek">
+    <div class="inline">
+      <div>
+        <h3>Current Week Timesheet (Draft): </h3>
+        <app-table-for-week [data]="timesheet.timelog.logs"
+                            [editTable]=false>
+        </app-table-for-week>
+      </div>
+      <div class="donut_chart">
+        <app-donut-chart
+          [status]=""
+          [isTimelogs]=false
+          [dataDonutChart] = 'timesheet.dataDonut'
+        ></app-donut-chart>
+      </div>
+    </div>
+  </app-container>
   <div class="box">
     <app-container class="notification_preferences">
       <app-notification-preferences></app-notification-preferences>

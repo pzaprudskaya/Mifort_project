@@ -58,4 +58,8 @@ export class HeaderComponent implements OnInit {
     }
     console.log(this.arrayNotifications);
   }
+  logOut() {
+    localStorage.removeItem('token');
+  }
 }
+

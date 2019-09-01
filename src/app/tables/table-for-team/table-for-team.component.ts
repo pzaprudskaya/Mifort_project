@@ -24,7 +24,7 @@ export class TableForTeamComponent implements OnInit {
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Team>(this.data.team);
     this.option1 = 'chooseName';
-    this.option1 = 'chooseRole';
+    this.option2 = 'chooseRole';
     this.displayedColumns = ['name', 'roles', 'time', 'hours', 'delete' ];
   }
   customFunction() {
@@ -35,6 +35,7 @@ export class TableForTeamComponent implements OnInit {
     });
     this.data.team.push({id: this.data.team.length + 1, photo: this.photo, name: this.option1, role: this.option2, workload: 0});
     this.option1 = 'chooseProject';
+    this.option2 = 'chooseRole';
     this.dataSource = new MatTableDataSource<Team>(this.data.team);
   }
 

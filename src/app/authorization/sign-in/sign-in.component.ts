@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterContentInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {AuthService, GoogleLoginProvider} from 'angular5-social-login';
 import {AuthorizationService} from '../authorization.service';
@@ -10,13 +10,13 @@ import {Router} from '@angular/router';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.sass']
 })
-export class SignInComponent implements OnInit, AfterContentInit {
+export class SignInComponent implements OnInit{
   signForm: FormGroup;
   type = 'password';
   flag = false;
   users: User[];
   userData;
-
+  loginUserData = {};
   constructor(private socialAuthService: AuthService, private authorizationService: AuthorizationService, private router: Router) {
   }
 
@@ -35,27 +35,34 @@ export class SignInComponent implements OnInit, AfterContentInit {
     );
   }
 
-  public socialSignIn(socialPlatform: string) {
+  public socialSignIn() {
     const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     this.socialAuthService.signIn(socialPlatformProvider).then(
       userData => {
-        console.log(socialPlatform + ' sign in data : ', userData);
-        this.userData = userData;
-        this.users.find(
-          element => element.email === this.userData.email) ? this.router.navigate(['/profile']) :
-          alert('You are not registred, please register before enter');
+        const user = {
+          email: userData.email,
+          password: userData.id
+        };
+        this.authorizationService.loginUser(user)
+          .subscribe(
+            res => {
+              localStorage.setItem('token', res.token);
+              this.router.navigate(['/profile']);
+            },
+            err => console.log(err)
+          );
       }
     );
   }
 
-  ngAfterContentInit() {
+  /*ngAfterContentInit() {
     this.authorizationService.getUsers().subscribe(
       users => {
         console.log('subscribe WORK');
         this.users = users;
       }
     );
-  }
+  }*/
 
   showPassword() {
     if (this.type === 'password') {
@@ -68,18 +75,15 @@ export class SignInComponent implements OnInit, AfterContentInit {
   }
 
   authentification() {
-    this.authorizationService.getUsers().subscribe(
-      users => {
-        this.users = users;
-      }
-    );
-    console.log('serv users:' + this.users);
-    const formData = this.users.find(
-      element =>
-        element.email === this.signForm.value.emailControl && element.password === this.signForm.value.passwordControl
-        && this.signForm.status === 'VALID'
-    );
-
-    formData ? this.router.navigate(['/profile']) : alert('Invalid email or password');
+    this.loginUserData = {email: this.signForm.value.emailControl, password: this.signForm.value.passwordControl};
+    debugger;
+    this.authorizationService.loginUser(this.loginUserData)
+      .subscribe(
+        res => {
+          localStorage.setItem('token', res.token);
+          this.router.navigate(['/profile']);
+        },
+        err => console.log(err)
+      );
   }
 }

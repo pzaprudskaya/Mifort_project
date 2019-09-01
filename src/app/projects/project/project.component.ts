@@ -50,20 +50,20 @@ export class ProjectComponent implements OnInit {
   filterByStatus(status: string): void {
     this.projectsService.filter(status).subscribe(
       (projects: any) => {
-        console.log(projects);
         this.projects = projects;
       });
   }
 
   changeStatus(project: Project, status: string): void {
     project.status = status;
-    this.projectsService.update(project);
+    this.projectsService.update(project).subscribe(() => console.log('Update!'));
     this.projectNameService.getProject(project.name).subscribe(
       projectPage => {
       this.projectPage = projectPage[0];
     });
+    debugger;
     this.projectPage.status = status;
-    this.projectNameService.update(this.projectPage);
+    this.projectNameService.update(this.projectPage).subscribe(() => console.log('Update!'));
   }
 
 }

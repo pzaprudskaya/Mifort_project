@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { ProjectsService} from '../../projects/project//projects.service.ts';
-import {ProjectNameService} from '../../projects/project-name/project-name.service.ts';
-import {UserService} from '../../core/logo-user-company/user.service.ts';
+import {ProjectsService} from '../../projects/project//projects.service';
+import {ProjectNameService} from '../../projects/project-name/project-name.service';
+import {UserService} from '../../core/logo-user-company/user.service';
+
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html',
@@ -10,19 +11,20 @@ import {UserService} from '../../core/logo-user-company/user.service.ts';
 export class TeamComponent implements OnInit {
   @Input() project;
   projectName;
+
   constructor(private projectsService: ProjectsService,
-    private projectNameService: ProjectNameService,
-    private userService: UserService) {
+              private projectNameService: ProjectNameService,
+              private userService: UserService) {
   }
-  ngOnInit() { }
+
+  ngOnInit() {
+  }
 
   changeCircleActivity(item) {
     item.active = !item.active;
   }
 
-
-
-  delete(item){
+  delete(item) {
     debugger;
     this.project.team.forEach((employee, i) => {
       if (employee.id === item.id) {
@@ -36,5 +38,5 @@ export class TeamComponent implements OnInit {
     this.projectName.team = this.project.team;
     this.projectNameService.update(this.projectName).subscribe(() => console.log('Update'));
   }
-  
+
 }

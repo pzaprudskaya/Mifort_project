@@ -26,7 +26,8 @@
       <select name="" class="table__select" [(ngModel)]='option1' (ngModelChange)='customFunction()' >
         <option [value]="'chooseProject'" [selected] = "selected">Choose project</option>
         <option [value]="project" *ngFor='let project of projects; let i = index'>{{project}}</option>
-      </select></td>
+      </select>
+    </td>
   </ng-container>
 
   <!-- Comment Column -->
@@ -123,7 +124,7 @@
     <td mat-cell *matCellDef="let element">
       <i class="material-icons" (click)='delete(element)'>clear</i>
     </td>
-    <td mat-footer-cell *matFooterCellDef></td>
+    <td mat-footer-cell *matFooterCellDef> </td>
   </ng-container>
 
   <!-- Total week -->
@@ -135,7 +136,7 @@
 
   <!-- Total column -->
   <ng-container matColumnDef="total">
-    <td mat-footer-cell *matFooterCellDef colspan="3">Total:</td>
+    <td mat-footer-cell class="total" *matFooterCellDef colspan="3">Total:</td>
   </ng-container>
 
   <!-- Total number column -->
@@ -163,12 +164,15 @@
   <ng-container matColumnDef="full_total" >
     <td mat-footer-cell *matFooterCellDef>{{getFullTotal()}}</td>
   </ng-container>
+  <ng-container matColumnDef="empty_column">
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   <ng-template [ngIf]="editTable===true">
     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
   </ng-template>
 
-  <tr mat-footer-row *matFooterRowDef="['total', 'total_mon', 'total_tue', 'total_wed', 'total_thu', 'total_fri', 'total_sat', 'total_sun', 'full_total']"></tr>
+  <tr mat-footer-row *matFooterRowDef="footerColumns"></tr>
 </table>
 

@@ -58,7 +58,7 @@ export class  EmployeesPageComponent implements OnInit {
   filter(value) {
     this.flag = value;
     if (this.flag === 'pending') {
-      this.displayedColumns = ['photo', 'name', 'email', 'role_select'];
+      this.displayedColumns = ['photo', 'email', 'role_select'];
     } else {
       this.displayedColumns = ['photo', 'name', 'role', 'planned_actual', 'pending_approval'];
     }
@@ -80,7 +80,7 @@ export class  EmployeesPageComponent implements OnInit {
       theme: `Invite to "${this.companyName}"`,
     };
     const i = Math.floor(Math.random() * this.colors.length);
-    const nameEmployee = 'Employee';
+    const nameEmployee = 'Pending User';
     const photo = this.colors[i];
     const status = 'pending';
     const arr: any = [];
@@ -89,6 +89,6 @@ export class  EmployeesPageComponent implements OnInit {
     this.employeesTableService.addUser(newUser).subscribe(() => console.log('Add'));
   }
   changeRole(element) {
-    this.employeesTableService.updateUser(element);
+    this.employeesTableService.updateUser(element).subscribe(() => console.log('Update!'));
   }
 }

@@ -68,7 +68,7 @@ export class ApprovalsPageComponent implements OnInit {
     if (approval.status === this.rejectedStatus) {
       this.changeStatusDialog(approval);
     } else {
-      this.approvalsService.update(approval);
+      this.approvalsService.update(approval).subscribe(() => console.log('Update!'));
     }
   }
 
@@ -77,7 +77,7 @@ export class ApprovalsPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result.length) {
         approval.comment = result;
-        this.approvalsService.update(approval);
+        this.approvalsService.update(approval).subscribe(() => console.log('Update!'));
       }
     });
   }

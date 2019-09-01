@@ -4,7 +4,9 @@
 </div>
 <mat-card>
   <div class="profile-inf">
-    <div mat-card-avatar class="profile-photo" [ngStyle]="{'background-image': 'url(' + photo + ')'}"></div>
+    <div *ngIf="(photo.length > 7)" mat-card-avatar class="profile-photo" [ngStyle]="{'background-image': 'url(' + photo + ')'}"></div>
+    <div *ngIf="(photo.length <= 7)" mat-card-avatar class="profile-photo" [ngStyle]="{'background': 'linear-gradient(to top left, white, ' + photo + ')'}">
+      <p>{{userName[0]}}</p></div>
     <div>
       <mat-card-title>{{userName}}</mat-card-title>
       <select name="" class="profile-inf__select" [(ngModel)]='companyOption' (ngModelChange)='changeProject()'>

@@ -24,7 +24,8 @@ export class EmployeesTableService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getAll(): Observable<Employees[]> {
     return this.http.get<Employees[]>(this.API_URL, this.httpOptions).pipe(
@@ -32,14 +33,19 @@ export class EmployeesTableService {
       catchError(this.handleError)
     );
   }
-  private handleError(err: HttpErrorResponse) {
 
+  getUser(name: string): Observable<Employees> {
+    return this.http.get<Employees>(`${this.API_URL}/${name}`, this.httpOptions).pipe(
+      tap((data: Employees) => console.log('User: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
-
       errorMessage = `An error occurred: ${err.error.message}`;
     } else {
-
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
@@ -47,12 +53,12 @@ export class EmployeesTableService {
   }
 
 
-
   search(terms: Observable<string>) {
     return terms.debounceTime(400)
       .distinctUntilChanged()
       .switchMap(term => this.searchEntries(term));
   }
+
   searchEntries(term) {
     return this.http
       .get(this.API_URL + this.queryUrl + term, this.httpOptions)
@@ -65,18 +71,21 @@ export class EmployeesTableService {
       .map(res => res);
   }
 
-   sendEmail(user) {
-      return this.http.post('http://localhost:3000/sendmail', user);
-   }
-   addUser(user) {
-     return this.http.post<Employees>(this.API_URL, JSON.stringify(user), this.httpOptions).pipe(
-       tap(addEmployee => console.log('add employee: ' + JSON.stringify(addEmployee))),
-       catchError(this.handleError));
-   }
+  sendEmail(user) {
+    return this.http.post('http://localhost:3000/sendmail', user);
+  }
+
+  addUser(user) {
+    return this.http.post<Employees>(this.API_URL, JSON.stringify(user), this.httpOptions).pipe(
+      tap(addEmployee => console.log('add employee: ' + JSON.stringify(addEmployee))),
+      catchError(this.handleError));
+  }
+
   updateUser(user) {
     return this.http.put<void>(`${this.API_URL}/${user.id}`, JSON.stringify(user), this.httpOptions).pipe(
       tap(updateUser => console.log('update user in employee-page: ' + JSON.stringify(updateUser))),
       catchError(this.handleError));
   }
+
 
 }

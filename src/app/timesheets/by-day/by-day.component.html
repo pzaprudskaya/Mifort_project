@@ -20,10 +20,12 @@
     <app-container class="table">
       <app-table-for-day (changeDonutChart)="changeDonutChart($event)"
         [editTable]=true
-        [data]="logs[0][1]"></app-table-for-day>
+        [data]="logs.timelog.logs"></app-table-for-day>
     </app-container>
     <app-container class="chart">
-      <app-donut-chart [dataDonutChart]="dataDonut" *ngIf="isShown"></app-donut-chart>
+      <app-donut-chart
+        [isTimelogs] = true
+        [dataDonutChart]="logs.dataDonut" *ngIf="isShown"></app-donut-chart>
     </app-container>
   </div>
 

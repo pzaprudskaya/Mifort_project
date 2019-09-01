@@ -23,6 +23,7 @@ export class AddEmployeeComponent implements OnInit {
   timesheetWorkload: any[];
   employeeProjects: any[];
   timesheetsPendingApproval: any[] = [];
+  timesheetsCurrentWeek: any[] = [];
   period: string;
   employeeName: string;
   toggleFlag: boolean;
@@ -55,10 +56,24 @@ export class AddEmployeeComponent implements OnInit {
           if (data.status === 'Submit to approval') {
             data.logs.forEach((item) => {
               const actual = item.time.reduce((itemOne, itemTwo) => itemOne + itemTwo);
-              const donut = new Donut(item.projectName, item.color, actual);
+              const [employeeProject] = this.employeeProjects.filter(project => project.name === item.projectName);
+              const donut = new Donut(item.projectName, item.color, actual, employeeProject.time);
               this.dataDonut.push(donut);
             });
             this.timesheetsPendingApproval.push({
+              timelog: data,
+              dataDonut: this.dataDonut
+            });
+            this.dataDonut = [];
+          }
+          if (data.status === 'Current Week') {
+            data.logs.forEach((item) => {
+              const actual = item.time.reduce((itemOne, itemTwo) => itemOne + itemTwo);
+              const [employeeProject] = this.employeeProjects.filter(project => project.name === item.projectName);
+              const donut = new Donut(item.projectName, item.color, actual, employeeProject.time);
+              this.dataDonut.push(donut);
+            });
+            this.timesheetsCurrentWeek.push({
               timelog: data,
               dataDonut: this.dataDonut
             });
@@ -75,13 +90,11 @@ export class AddEmployeeComponent implements OnInit {
 
   deactivateEmployee(employee) {
     employee.status = 'deactivated';
-    this.employeeService.updateTwo(employee)
-      .subscribe(() => console.log('Update!'));
+    this.employeeService.updateTwo(employee).subscribe(() => console.log('Update!'));
   }
 
   save() {
-    this.employeeService.update(this.employee)
-      .subscribe(() => console.log('Update!'));
+    this.employeeService.update(this.employee).subscribe(() => console.log('Update!'));
   }
 
 }

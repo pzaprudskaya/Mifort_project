@@ -7,7 +7,7 @@ import {TableService} from './table.service';
   styleUrls: ['./table.component.sass']
 })
 export class TableComponent implements OnInit {
-  roles = ['Choose role', 'Project Manager', 'Employee', 'HR Manager', 'Owner', 'Admin'];
+  roles = ['Project Manager', 'Employee', 'HR Manager', 'Owner', 'Admin'];
   projects = ['Skype', 'Uber', 'Office'];
   chooseRole = 'Choose role';
   @Input() data: any[];

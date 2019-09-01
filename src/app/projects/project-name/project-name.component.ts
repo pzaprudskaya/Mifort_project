@@ -41,7 +41,7 @@ export class ProjectNameComponent implements OnInit {
   }
   changeStatus(status) {
     this.project.status = status;
-    this.projectNameService.update(this.project);
+    this.projectNameService.update(this.project).subscribe(() => console.log('Update!'));
   }
   save() {
     debugger;
@@ -49,11 +49,11 @@ export class ProjectNameComponent implements OnInit {
       this.project.endDateOrMen, this.project.progressBar.expected, this.project.progressBar.currentlySpent,
       this.project.status);
     if (this.projectName === 'create') {
-      this.projectNameService.addNewProject(this.project);
-      this.projectTableService.addNewProject(myProject);
+      this.projectNameService.addNewProject(this.project).subscribe(() => console.log('Add!'));
+      this.projectTableService.addNewProject(myProject).subscribe(() => console.log('Add!'));
     } else {
-      this.projectNameService.update(this.project);
-      this.projectTableService.update(myProject);
+      this.projectNameService.update(this.project).subscribe(() => console.log('Update!'));
+      this.projectTableService.update(myProject).subscribe(() => console.log('Update!'));
     }
   }
   changeStateArrow() {

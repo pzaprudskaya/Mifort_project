@@ -15,24 +15,37 @@ export class TableForWeekComponent implements OnInit, OnChanges {
   option1;
   projects = ['Office', 'Skype', 'Uber', 'Windows'];
   displayedColumns;
+  footerColumns;
   dataSource;
   fullTotal: number;
+
   constructor() {
   }
+
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Log>(this.data);
     this.option1 = 'chooseProject';
     if (this.editTable === true) {
-      this.displayedColumns = ['color', 'project', 'comment', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'week', 'delete' ];
+      this.displayedColumns = ['color', 'project', 'comment', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'week', 'delete'];
+      this.footerColumns = ['total', 'total_mon', 'total_tue', 'total_wed', 'total_thu', 'total_fri', 'total_sat', 'total_sun', 'full_total', 'empty_column'];
     } else {
       this.displayedColumns = ['color', 'project', 'comment', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'week'];
+      this.footerColumns = ['total', 'total_mon', 'total_tue', 'total_wed', 'total_thu', 'total_fri', 'total_sat', 'total_sun', 'full_total'];
     }
   }
+
   ngOnChanges() {
     this.dataSource = new MatTableDataSource<Log>(this.data);
   }
+
   customFunction() {
-    this.data.push({id: this.data.length + 1, color: 'gray', projectName: this.option1, comment: ' ', time: [0, 0, 0, 0, 0, 0, 0]});
+    this.data.push({
+      id: this.data.length + 1,
+      color: 'gray',
+      projectName: this.option1,
+      comment: ' ',
+      time: [0, 0, 0, 0, 0, 0, 0]
+    });
     this.option1 = 'chooseProject';
     this.dataSource = new MatTableDataSource<Log>(this.data);
   }
@@ -45,19 +58,22 @@ export class TableForWeekComponent implements OnInit, OnChanges {
     });
     this.dataSource = new MatTableDataSource<Log>(this.data);
   }
+
   getTotalByDay(i) {
     return this.data.map(t => t.time[i]).reduce((acc, value) => acc + value, 0);
   }
+
   totalByWeek(element) {
     return element.time.reduce((acc, value) => acc + value, 0);
   }
+
   getFullTotal() {
     this.fullTotal = 0;
     this.data.forEach((log) => {
       this.fullTotal += log.time.reduce((acc, value) => acc + value, 0);
     });
     return this.fullTotal;
- }
+  }
 }
 
 
